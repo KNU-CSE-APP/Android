@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:contentInsetStart="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/my_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:src="@mipmap/ic_launcher_round" />
+            <ImageView
+                android:id="@+id/new_chatting_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_launcher_round"/>
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/toolbar_division"
+        android:background="@color/colorDivision"
+        android:orientation="horizontal"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></LinearLayout>
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_below="@+id/toolbar_division"
+        android:layout_above="@+id/nav_division"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+    <LinearLayout
+        android:id="@+id/nav_division"
+        android:background="@color/colorDivision"
+        android:orientation="horizontal"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_item">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</RelativeLayout>

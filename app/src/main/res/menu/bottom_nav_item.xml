@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_notice"
+        android:enabled="true"
+        android:title="@string/Notice"/>
+    <item
+        android:id="@+id/action_reservation"
+        android:enabled="true"
+        android:title="@string/Reservation"/>
+    <item
+        android:id="@+id/action_board"
+        android:enabled="true"
+        android:title="@string/Board"/>
+    <item
+        android:id="@+id/action_mypage"
+        android:enabled="true"
+        android:title="@string/Mypage"/>
+
+</menu>
