@@ -4,4 +4,7 @@
     <string name="Reservation">예약</string>
     <string name="Board">게시판</string>
     <string name="Mypage">마이페이지</string>
+
+    <!-- login view-->
+    <string name="userid_suffix">@knu.ac.kr</string>
 </resources>
