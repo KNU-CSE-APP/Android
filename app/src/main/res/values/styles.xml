@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name = "signup_textstyle">
-        <item name = "android:textSize">18sp</item>
-        <item name = "android:textStyle">bold</item>
+    <style name = "signup_title_textstyle">
+        <item name = "android:textSize">13sp</item>
         <item name = "android:textColor">@color/black</item>
+    </style>
+
+    <style name = "signup_textview_textstyle">
+        <item name = "android:textSize">9sp</item>
+        <item name = "android:textColor">@color/black</item>
+    </style>
+
+    <style name = "signup_error_textstyle">
+        <item name = "android:textSize">8sp</item>
     </style>
 </resources>
