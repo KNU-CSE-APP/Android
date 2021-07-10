@@ -116,7 +116,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"
-                            android:hint="인증번호를 입력하세요" />
+                            android:hint="인증번호를 입력하세요"
+                            android:focusable ="false"
+                            android:clickable="false"
+                            android:cursorVisible="false"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
