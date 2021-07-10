@@ -46,7 +46,7 @@
 
                 <TextView
                     android:id="@+id/email_textview"
-                    style="@style/signup_textstyle"
+                    style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="이메일" />
@@ -57,31 +57,34 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailtextInputLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/btnEmailVerify"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:suffixText="@string/userid_suffix"
-                        app:errorEnabled="true">
+                        app:suffixTextAppearance="@style/signup_textview_textstyle"
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/signup_error_textstyle">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="40dp"
+                            style="@style/signup_textview_textstyle"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/btnEmailVerify"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginBottom="20dp"
-                        android:text="인증번호 전송"
+                        android:text="인증번호\n전송"
                         android:textColor="@color/button_text_color"
-                        android:textSize="13sp"
+                        android:textSize="8sp"
                         app:backgroundTint="@color/knu_red"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -96,18 +99,21 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailverifytextInputLayout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="70dp"
+
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/btnEmailConfirm"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:errorEnabled="true">
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/signup_error_textstyle">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
+                            style="@style/signup_textview_textstyle"
                             android:hint="인증번호를 입력하세요" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -115,13 +121,13 @@
                     <Button
                         android:id="@+id/btnEmailConfirm"
                         android:layout_width="100dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginBottom="20dp"
                         android:text="인증확인"
                         android:textColor="@color/button_text_color"
-                        android:textSize="13sp"
+                        android:textSize="8sp"
                         app:backgroundTint="@color/knu_red"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -136,24 +142,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/pw_textview"
-                    style="@style/signup_textstyle"
+                    style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="비밀번호" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="70dp"
+                    app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="40dp"
+                        android:inputType="textPassword"
+                        style="@style/signup_textview_textstyle"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -161,25 +169,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ckpw_textview"
-                    style="@style/signup_textstyle"
+                    style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="비밀번호 재확인" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:errorEnabled="true">
+                    android:layout_height="70dp"
+                    app:endIconMode="password_toggle"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="40dp"
+                        android:inputType="textPassword"
+                        style="@style/signup_textview_textstyle"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -188,25 +199,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/name_textview"
-                    style="@style/signup_textstyle"
+                    style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="이름" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:errorEnabled="true">
+                    android:layout_height="70dp"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="40dp"
+                        style="@style/signup_textview_textstyle"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -215,25 +227,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/std_id_textview"
-                    style="@style/signup_textstyle"
+                    style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="학번" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/signup_std_id_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:errorEnabled="true">
+                    android:layout_height="70dp"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/signup_std_id_textview"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
+                        style="@style/signup_textview_textstyle"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -244,7 +259,8 @@
                 android:id="@+id/btnSignup"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/custombutton1"
                 android:text="가입완료"
                 android:textColor="@color/button_text_color" />
