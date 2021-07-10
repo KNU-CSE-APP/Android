@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/emailtextInputLayout"
+                        android:id="@+id/email_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
@@ -70,6 +70,7 @@
                         app:errorTextAppearance="@style/signup_error_textstyle">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/email_text"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"/>
@@ -88,7 +89,7 @@
                         app:backgroundTint="@color/knu_red"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/emailtextInputLayout"
+                        app:layout_constraintStart_toEndOf="@id/email_layout"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,7 +99,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/emailverifytextInputLayout"
+                        android:id="@+id/emailverify_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
@@ -111,6 +112,7 @@
                         app:errorTextAppearance="@style/signup_error_textstyle">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/emailverify_text"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"
@@ -131,7 +133,7 @@
                         app:backgroundTint="@color/knu_red"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/emailverifytextInputLayout"
+                        app:layout_constraintStart_toEndOf="@id/emailverify_layout"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -152,12 +154,15 @@
                     android:text="비밀번호" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/pw_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    app:endIconMode="password_toggle">
+                    app:endIconMode="password_toggle"
+                    app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pw_text"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:inputType="textPassword"
@@ -180,6 +185,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/ckpw_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     app:endIconMode="password_toggle"
@@ -187,6 +193,7 @@
                     app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ckpw_text"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:inputType="textPassword"
@@ -210,12 +217,14 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name_text"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         style="@style/signup_textview_textstyle"/>
@@ -238,14 +247,14 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:id="@+id/signup_std_id_layout"
+                    android:id="@+id/std_id_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/signup_error_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/signup_std_id_textview"
+                        android:id="@+id/std_id_text"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         style="@style/signup_textview_textstyle"
