@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.board.BoardFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/boardRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="게시판" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>
