@@ -8,33 +8,29 @@
     tools:context=".ui.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:contentInsetStart="0dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/my_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:src="@mipmap/ic_launcher_round" />
-            <ImageView
-                android:id="@+id/new_chatting_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/ic_launcher_round"/>
-
-        </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/knu_red"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="MissingConstraints" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_toolbar_textview"
+            android:text="메뉴"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"/>
     </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/toolbar_division"
         android:background="@color/colorDivision"
         android:orientation="horizontal"
-        android:layout_below="@+id/my_toolbar"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="1dp"></LinearLayout>
     <FrameLayout

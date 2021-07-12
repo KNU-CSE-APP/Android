@@ -25,21 +25,25 @@ class MainActivity : AppCompatActivity() {
             setOnItemSelectedListener { // 메뉴 고를 때
                 when(it.itemId){
                     R.id.action_notice -> {
+                        binding.mainToolbarTextview.text = "공지사항"
                         noticeFragment = NoticeFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.main_content,noticeFragment).commit()
                         return@setOnItemSelectedListener true
                     }
                     R.id.action_board -> {
+                        binding.mainToolbarTextview.text = "자유게시판"
                         boardFragment = BoardFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.main_content,boardFragment).commit()
                         return@setOnItemSelectedListener true
                     }
                     R.id.action_reservation -> {
+                        binding.mainToolbarTextview.text = "강의실 예약"
                         reservationFragment = ReservationFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.main_content,reservationFragment).commit()
                         return@setOnItemSelectedListener true
                     }
                     R.id.action_mypage -> {
+                        binding.mainToolbarTextview.text = "마이 페이지"
                         mypageFragment = MypageFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.main_content,mypageFragment).commit()
                         return@setOnItemSelectedListener true

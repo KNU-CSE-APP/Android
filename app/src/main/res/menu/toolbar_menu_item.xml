@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/character"
+        android:title="호반우"
+        android:icon="@mipmap/ic_launcher_round"/>
+
+</menu>
