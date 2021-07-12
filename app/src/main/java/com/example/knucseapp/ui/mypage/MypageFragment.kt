@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.knucseapp.R
+import com.example.knucseapp.databinding.MypageFragmentBinding
 
 class MypageFragment : Fragment() {
 
@@ -15,10 +16,12 @@ class MypageFragment : Fragment() {
     }
 
     private lateinit var viewModel: MypageViewModel
+    lateinit var binding: MypageFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.mypage_fragment, container, false)
+        binding = MypageFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
