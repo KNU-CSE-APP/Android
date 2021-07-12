@@ -1,5 +1,6 @@
 package com.example.knucseapp.ui.reservation
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -27,7 +28,10 @@ class ReservationAdapter : RecyclerView.Adapter<Holder>() {
 class Holder(val binding: ReservationRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
     init {
         binding.root.setOnClickListener{
-            Toast.makeText(binding.root.context, "클릭된 아이템 = ${binding.roomNum.text}", Toast.LENGTH_LONG).show()
+            val intent = Intent(it.context, ReservationActivity::class.java)
+            intent.putExtra("roomname", binding.roomNum.text)
+            intent.putExtra("sit", binding.numOfStd.text)
+            it.context.startActivity(intent)
         }
     }
     fun setItem(item: ClassRoom){

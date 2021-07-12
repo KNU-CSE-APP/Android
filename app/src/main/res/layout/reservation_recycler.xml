@@ -10,7 +10,7 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="100 호" />
+        android:text="(호수)" />
 
     <TextView
         android:id="@+id/num_of_std"
@@ -18,6 +18,6 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Title" />
+        android:text="(인원 수)" />
 
 </LinearLayout>
