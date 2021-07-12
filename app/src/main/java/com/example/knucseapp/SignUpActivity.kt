@@ -18,10 +18,13 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setToolbar()
+        textWatcher()
+    }
+    private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        textWatcher()
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId

@@ -2,6 +2,8 @@ package com.example.knucseapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.ui.board.BoardFragment
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        setToolbar()
         binding.bottomNavigation.apply {
             setOnItemSelectedListener { // 메뉴 고를 때
                 when(it.itemId){
@@ -53,5 +55,15 @@ class MainActivity : AppCompatActivity() {
             }
             selectedItemId = R.id.action_reservation // 초기 화면
         }
+    }
+
+    private fun setToolbar(){
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu_item, menu)
+        return true
     }
 }
