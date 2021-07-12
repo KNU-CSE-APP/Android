@@ -28,6 +28,7 @@ class MypageFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
         // TODO: Use the ViewModel
+
     }
 
 }
