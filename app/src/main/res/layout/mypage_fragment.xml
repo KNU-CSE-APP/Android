@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.mypage.MypageFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mypage_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="마이페이지" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>
