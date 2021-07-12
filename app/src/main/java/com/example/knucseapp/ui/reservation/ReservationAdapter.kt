@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.MypageRecyclerBinding
 import com.example.knucseapp.databinding.ReservationRecyclerBinding
 
-class MyPageAdapter : RecyclerView.Adapter<Holder>() {
+class ReservationAdapter : RecyclerView.Adapter<Holder>() {
     var itemList = mutableListOf<ClassRoom>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ReservationRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
