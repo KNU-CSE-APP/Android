@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="6"
         android:text="Title"
-        android:textColor="@color/black"
-        android:textSize="14sp"/>
+        style="@style/menu_textstyle" />
 
 </LinearLayout>

@@ -13,4 +13,16 @@
     <style name = "signup_error_textstyle">
         <item name = "android:textSize">8sp</item>
     </style>
+
+    <style name = "menu_textstyle">
+        <item name = "android:textSize">12sp</item>
+        <item name = "android:textColor">@color/black</item>
+    </style>
+
+    <style name = "toolbar_textstyle">
+        <item name = "android:textSize">17sp</item>
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:layout_gravity">center</item>
+        <item name = "android:textColor">@color/white</item>
+    </style>
 </resources>
