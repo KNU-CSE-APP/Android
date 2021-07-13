@@ -1,10 +1,9 @@
-package com.example.knucseapp
+package com.example.knucseapp.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.knucseapp.databinding.ActivitySignInBinding
-import com.example.knucseapp.ui.MainActivity
 
 class SignInActivity : AppCompatActivity() {
 

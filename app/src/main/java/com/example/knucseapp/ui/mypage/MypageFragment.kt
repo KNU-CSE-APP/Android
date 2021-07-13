@@ -42,7 +42,6 @@ class MypageFragment : Fragment() {
         var adapter = MyPageAdapter()
         adapter.menulist = menulist
 
-//        val decoration = DividerItemDecoration(activity, VERTICAL)
         val decoration = com.example.knucseapp.ui.mypage.DividerItemDecoration(1f, 1f, Color.LTGRAY)
         binding.mypageRecycler.addItemDecoration(decoration)
 
