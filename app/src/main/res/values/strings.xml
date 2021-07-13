@@ -5,6 +5,24 @@
     <string name="Board">게시판</string>
     <string name="Mypage">마이페이지</string>
 
-    <!-- login view-->
-    <string name="userid_suffix">@knu.ac.kr</string>
+    <!-- SignIn , Signup view-->
+    <string name="userid_suffix">"@knu.ac.kr"</string>
+    <string name="id">아이디</string>
+    <string name="password">비밀번호</string>
+    <string name="login">로그인</string>
+    <string name="signup">회원가입</string>
+    <string name="email">이메일</string>
+    <string name="password_check">비밀번호 재확인</string>
+    <string name="name">이름</string>
+    <string name="student_id">학번</string>
+    <string name="send_verify_number">인증번호\n전송</string>
+    <string name="verify">인증확인</string>
+    <string name="verify_hint">인증번호를 입력하세요</string>
+    <string name="complete_signup">가입완료</string>
+    <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
+
+    <!-- notice view-->
+    <string name="before_page">이전 페이지</string>
+    <string name="next_page">다음 페이지</string>
+
 </resources>

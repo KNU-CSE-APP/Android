@@ -8,6 +8,8 @@
     <style name = "signup_textview_textstyle">
         <item name = "android:textSize">9sp</item>
         <item name = "android:textColor">@color/black</item>
+        <item name = "android:textCursorDrawable">@color/black</item>
+        <item name = "android:textColorHighlight">#81B82D28</item>
     </style>
 
     <style name = "signup_error_textstyle">
@@ -25,4 +27,13 @@
         <item name = "android:layout_gravity">center</item>
         <item name = "android:textColor">@color/white</item>
     </style>
+
+    <style name = "signup_buttonstyle">
+        <item name = "android:layout_width">100dp</item>
+        <item name = "android:layout_height">50dp</item>
+        <item name = "android:layout_marginStart">10dp</item>
+        <item name = "android:layout_marginLeft">10dp</item>
+        <item name = "android:layout_marginBottom">16dp</item>
+    </style>
+
 </resources>

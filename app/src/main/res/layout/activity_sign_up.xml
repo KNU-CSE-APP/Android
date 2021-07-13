@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/signup_toolbar_textview"
-            android:text="회원가입"
+            android:text="@string/signup"
             style="@style/toolbar_textstyle"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -46,7 +46,7 @@
                     style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이메일" />
+                    android:text="@string/email" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -63,6 +63,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:suffixText="@string/userid_suffix"
                         app:suffixTextAppearance="@style/signup_textview_textstyle"
+                        app:expandedHintEnabled="false"
                         app:errorEnabled="true"
                         app:errorTextAppearance="@style/signup_error_textstyle">
 
@@ -75,12 +76,8 @@
 
                     <Button
                         android:id="@+id/btnEmailVerify"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="인증번호\n전송"
+                        style="@style/signup_buttonstyle"
+                        android:text="@string/send_verify_number"
                         android:textColor="@color/button_text_color"
                         android:textSize="8sp"
                         app:backgroundTint="@color/knu_red"
@@ -113,7 +110,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"
-                            android:hint="인증번호를 입력하세요"
+                            android:hint="@string/verify_hint"
                             android:focusable ="false"
                             android:clickable="false"
                             android:cursorVisible="false"/>
@@ -122,12 +119,8 @@
 
                     <Button
                         android:id="@+id/btnEmailConfirm"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="인증확인"
+                        style="@style/signup_buttonstyle"
+                        android:text="@string/verify"
                         android:textColor="@color/button_text_color"
                         android:textSize="8sp"
                         app:backgroundTint="@color/knu_red"
@@ -151,7 +144,7 @@
                     style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호" />
+                    android:text="@string/password" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/pw_layout"
@@ -181,7 +174,7 @@
                     style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="비밀번호 재확인" />
+                    android:text="@string/password_check" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -213,7 +206,7 @@
                     style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이름" />
+                    android:text="@string/name" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -243,7 +236,7 @@
                     style="@style/signup_title_textstyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="학번" />
+                    android:text="@string/student_id" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -271,7 +264,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/custombutton1"
-                android:text="가입완료"
+                android:text="@string/complete_signup"
                 android:textColor="@color/button_text_color" />
         </LinearLayout>
     </ScrollView>
