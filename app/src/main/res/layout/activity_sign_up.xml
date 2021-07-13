@@ -54,7 +54,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/email_layout"
-                        style="@style/Widget.App.TextInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailverify_layout"
-                        style="@style/Widget.App.TextInputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
 
@@ -148,7 +148,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/pw_layout"
-                    style="@style/Widget.App.TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     app:endIconMode="password_toggle"
@@ -177,7 +177,7 @@
                     android:text="비밀번호 재확인" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.App.TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:id="@+id/ckpw_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -209,7 +209,7 @@
                     android:text="이름" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.App.TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -239,7 +239,7 @@
                     android:text="학번" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.App.TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:id="@+id/std_id_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
