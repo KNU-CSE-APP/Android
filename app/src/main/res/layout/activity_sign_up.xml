@@ -54,7 +54,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/email_layout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        style="@style/Widget.App.TextInputLayout"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,6 +63,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:suffixText="@string/userid_suffix"
                         app:suffixTextAppearance="@style/signup_textview_textstyle"
+                        app:expandedHintEnabled="false"
                         app:errorEnabled="true"
                         app:errorTextAppearance="@style/signup_error_textstyle">
 
@@ -75,11 +76,7 @@
 
                     <Button
                         android:id="@+id/btnEmailVerify"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="20dp"
+                        style="@style/signup_buttonstyle"
                         android:text="인증번호\n전송"
                         android:textColor="@color/button_text_color"
                         android:textSize="8sp"
@@ -97,7 +94,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailverify_layout"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        style="@style/Widget.App.TextInputLayout"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
 
@@ -122,11 +119,7 @@
 
                     <Button
                         android:id="@+id/btnEmailConfirm"
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="20dp"
+                        style="@style/signup_buttonstyle"
                         android:text="인증확인"
                         android:textColor="@color/button_text_color"
                         android:textSize="8sp"
@@ -155,7 +148,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/pw_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Widget.App.TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     app:endIconMode="password_toggle"
@@ -184,7 +177,7 @@
                     android:text="비밀번호 재확인" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Widget.App.TextInputLayout"
                     android:id="@+id/ckpw_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -216,7 +209,7 @@
                     android:text="이름" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Widget.App.TextInputLayout"
                     android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -246,7 +239,7 @@
                     android:text="학번" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    style="@style/Widget.App.TextInputLayout"
                     android:id="@+id/std_id_layout"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"

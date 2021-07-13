@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/knu_red</item>
         <item name="colorPrimaryVariant">@color/knu_red</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/knu_red</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>

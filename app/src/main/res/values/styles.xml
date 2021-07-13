@@ -8,6 +8,11 @@
     <style name = "signup_textview_textstyle">
         <item name = "android:textSize">9sp</item>
         <item name = "android:textColor">@color/black</item>
+        <item name = "android:textCursorDrawable">@color/black</item>
+        <item name = "android:textColorHighlight">#81B82D28</item>
+        <item name = "android:textSelectHandle">@drawable/select_handler</item>
+        <item name = "android:textSelectHandleRight">@drawable/select_handler</item>
+        <item name = "android:textSelectHandleLeft">@drawable/select_handler</item>
     </style>
 
     <style name = "signup_error_textstyle">
@@ -24,5 +29,17 @@
         <item name = "android:textStyle">bold</item>
         <item name = "android:layout_gravity">center</item>
         <item name = "android:textColor">@color/white</item>
+    </style>
+
+    <style name = "signup_buttonstyle">
+        <item name = "android:layout_width">100dp</item>
+        <item name = "android:layout_height">50dp</item>
+        <item name = "android:layout_marginStart">10dp</item>
+        <item name = "android:layout_marginLeft">10dp</item>
+        <item name = "android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/knu_red</item>
     </style>
 </resources>
