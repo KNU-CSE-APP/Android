@@ -3,10 +3,9 @@ package com.example.knucseapp.ui.reservation
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.knucseapp.databinding.MypageRecyclerBinding
 import com.example.knucseapp.databinding.ReservationRecyclerBinding
+import com.example.knucseapp.ui.reservation.seat.ReservationActivity
 
 class ReservationAdapter : RecyclerView.Adapter<Holder>() {
     var itemList = mutableListOf<ClassRoom>()
