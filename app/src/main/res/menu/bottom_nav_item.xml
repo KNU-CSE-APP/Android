@@ -16,5 +16,4 @@
         android:id="@+id/action_mypage"
         android:enabled="true"
         android:title="@string/Mypage"/>
-
 </menu>

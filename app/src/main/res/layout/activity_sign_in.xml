@@ -36,7 +36,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="아이디"
+                android:text="@string/id"
                 android:textSize="12sp"
                 android:textColor="@color/black" />
 
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="4dp"
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 app:boxStrokeColor="@null"
@@ -65,6 +65,7 @@
                     android:gravity="center_vertical"
                     android:inputType="text"
                     android:scrollHorizontally="true"
+                    android:textCursorDrawable="@color/black"
                     style="@style/signup_textview_textstyle"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -82,20 +83,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="비밀번호"
+                android:text="@string/password"
                 android:textSize="12sp"
                 android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="3dp"
+                android:layout_marginBottom="4dp"
                 android:background="@color/white"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 app:boxStrokeColor="@null"
                 app:boxStrokeWidth="0dp"
                 app:boxStrokeWidthFocused="0dp"
@@ -104,10 +106,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
                     android:inputType="textPassword"
                     android:scrollHorizontally="true"
+                    android:textCursorDrawable="@color/black"
                     style="@style/signup_textview_textstyle"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -124,7 +127,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:backgroundTint="@color/custombutton1"
-        android:text="로그인"
+        android:text="@string/login"
         android:textColor="@color/button_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +143,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:backgroundTint="@color/custombutton1"
-        android:text="회원가입"
+        android:text="@string/signup"
         android:textColor="@color/button_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -155,7 +158,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:buttonTint="#FFFFFF"
-        android:text="    자동로그인"
+        android:text="@string/auto_login"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
