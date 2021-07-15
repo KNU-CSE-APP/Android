@@ -42,7 +42,7 @@ class ReservationFragment : Fragment() {
         adapter.itemList = itemlist
 
 //        val decoration = DividerItemDecoration(activity, VERTICAL)
-        val decoration = com.example.knucseapp.ui.mypage.DividerItemDecoration(1f, 1f, Color.LTGRAY)
+        val decoration = com.example.knucseapp.ui.DividerItemDecoration(1f, 1f, Color.LTGRAY)
 
         reservationFragmentBinding.reservationRecycler.addItemDecoration(decoration)
         reservationFragmentBinding.reservationRecycler.adapter = adapter
