@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Project">
-        <activity android:name=".ui.reservation.ReservationActivity"/>
+        <activity android:name=".ui.reservation.seat.ReservationActivity"/>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity">
             <intent-filter>

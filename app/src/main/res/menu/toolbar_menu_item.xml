@@ -4,7 +4,7 @@
     <item
         android:id="@+id/character"
         android:title="호반우"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/hobanwoo"
         app:showAsAction="ifRoom"/>
 
 </menu>

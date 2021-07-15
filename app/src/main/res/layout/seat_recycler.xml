@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <View
+        android:id="@+id/seat_possible"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_rec"
+        android:backgroundTint="@color/seat_possible"
+        android:layout_centerHorizontal="true"
+        android:clickable="true">
+    </View>
+
+    <View
+        android:id="@+id/seat_selected"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_rec"
+        android:backgroundTint="@color/seat_selected"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:clickable="true">
+    </View>
+
+    <TextView
+        android:id="@+id/seat_textview"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="12"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+</RelativeLayout>
