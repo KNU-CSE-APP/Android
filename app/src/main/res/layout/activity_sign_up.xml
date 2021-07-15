@@ -231,6 +231,51 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/nickname_textview"
+                        style="@style/signup_title_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nickname" />
+
+                    <TextView
+                        android:id="@+id/nickname_explain_textview"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nickname_explain"
+                        android:layout_marginLeft="10dp"/>
+
+                </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:id="@+id/nickname_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/signup_error_textstyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nickname_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        style="@style/signup_textview_textstyle"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/std_id_textview"
                     style="@style/signup_title_textstyle"
@@ -254,6 +299,75 @@
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/major_textview"
+                        style="@style/signup_title_textstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/major" />
+                    <TextView
+                        android:id="@+id/gender_textview"
+                        style="@style/signup_title_textstyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/gender" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioGroup
+                        android:id="@+id/major_radioGroup"
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/radio_button_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_weight="1">
+                        <RadioButton
+                            android:id="@+id/major_radiobutton_simcom"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/major_simcom"/>
+                        <RadioButton
+                            android:id="@+id/major_radiobutton_glesob"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/major_glesob"/>
+                    </RadioGroup>
+
+                    <RadioGroup
+                        android:id="@+id/gender_radioGroup"
+                        android:orientation="horizontal"
+                        android:checkedButton="@+id/radio_button_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_weight="1">
+                        <RadioButton
+                            android:id="@+id/gender_radiobutton_m"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gender_m"/>
+                        <RadioButton
+                            android:id="@+id/gender_radiobutton_w"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gender_w"/>
+                    </RadioGroup>
+                </LinearLayout>
 
             </LinearLayout>
 
