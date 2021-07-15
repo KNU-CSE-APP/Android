@@ -1,4 +1,4 @@
-package com.example.knucseapp
+package com.example.knucseapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +7,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import com.example.knucseapp.databinding.ActivitySignUpBinding
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 class SignUpActivity : AppCompatActivity() {
 

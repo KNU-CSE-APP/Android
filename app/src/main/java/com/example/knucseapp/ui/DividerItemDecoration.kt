@@ -1,9 +1,7 @@
-package com.example.knucseapp.ui.mypage
+package com.example.knucseapp.ui
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
-import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.RecyclerView
 

@@ -27,6 +27,11 @@ class Holder(val binding: MypageRecyclerBinding) : RecyclerView.ViewHolder(bindi
     init {
         binding.root.setOnClickListener{
             Toast.makeText(binding.root.context, "클릭된 아이템 = ${binding.menutext.text}", Toast.LENGTH_LONG).show()
+            when(binding.menutext.text)
+            {
+                //TODO: 각 탭마다 새로운 액티비티 호출
+//                "로그아웃" -> //viewmodel에 있는 logout 함수 호출
+            }
         }
     }
     fun setMemo(menu: MyPageMenu){

@@ -8,9 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.knucseapp.R
 import com.example.knucseapp.databinding.BoardFragmentBinding
-import com.example.knucseapp.ui.mypage.DividerItemDecoration
+import com.example.knucseapp.ui.DividerItemDecoration
 
 class BoardFragment : Fragment() {
 
