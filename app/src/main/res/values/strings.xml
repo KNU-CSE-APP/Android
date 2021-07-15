@@ -16,7 +16,7 @@
     <string name="name">이름</string>
     <string name="student_id">학번</string>
     <string name="nickname">닉네임</string>
-    <string name="nickname_explain">기본값은 이름입니다. 마이페이지에서 변경 가능합니다.</string>
+    <string name="nickname_explain">자유게시판에서 사용합니다.</string>
     <string name="gender">성별</string>
     <string name="gender_w">여</string>
     <string name="gender_m">남</string>
