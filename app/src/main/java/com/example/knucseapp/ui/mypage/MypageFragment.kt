@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.LinearLayoutCompat.VERTICAL
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.MypageFragmentBinding
 
@@ -42,7 +39,7 @@ class MypageFragment : Fragment() {
         var adapter = MyPageAdapter()
         adapter.menulist = menulist
 
-        val decoration = com.example.knucseapp.ui.mypage.DividerItemDecoration(1f, 1f, Color.LTGRAY)
+        val decoration = com.example.knucseapp.ui.DividerItemDecoration(1f, 1f, Color.LTGRAY)
         binding.mypageRecycler.addItemDecoration(decoration)
 
 
