@@ -80,14 +80,23 @@
                         android:textSize="12sp"/>
                 </LinearLayout>
 
-
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_show_set_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:text="@string/show_seat_layout" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seat_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp" />
 
         </LinearLayout>
 
