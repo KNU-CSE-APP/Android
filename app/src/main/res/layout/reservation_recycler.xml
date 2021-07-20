@@ -1,23 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:gravity="center">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
 
-    <TextView
-        android:id="@+id/room_num"
-        style="@style/menu_textstyle"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="(호수)" />
+    </data>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/num_of_std"
-        style="@style/menu_textstyle"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="(인원 수)" />
+        <TextView
+            android:id="@+id/room_num"
+            style="@style/menu_textstyle"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="(호수)" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/num_of_std"
+            style="@style/menu_textstyle"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="(인원 수)" />
+
+    </LinearLayout>
+</layout>

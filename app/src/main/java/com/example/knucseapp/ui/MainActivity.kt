@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.ui.board.BoardFragment
@@ -13,7 +14,7 @@ import com.example.knucseapp.ui.reservation.ReservationFragment
 
 class MainActivity : AppCompatActivity() {
 
-    val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+    private lateinit var binding:ActivityMainBinding
     private lateinit var noticeFragment: NoticeFragment
     private lateinit var boardFragment: BoardFragment
     private lateinit var reservationFragment: ReservationFragment
@@ -21,7 +22,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+
+        //TODO:변경~~~
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        //TODO:변경~~~
+
         setToolbar()
         binding.bottomNavigation.apply {
             setOnItemSelectedListener { // 메뉴 고를 때
