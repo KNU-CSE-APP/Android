@@ -11,8 +11,7 @@
         <WebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/btm_layout"/>
+            android:layout_height="match_parent" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -21,32 +20,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:id="@+id/btm_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/previous_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/knu_red"
-                android:text="@string/before_page" />
-
-            <Button
-                android:id="@+id/next_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="2dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/knu_red"
-                android:text="@string/next_page" />
-        </LinearLayout>
     </RelativeLayout>
 </layout>
