@@ -26,14 +26,20 @@ class ReservationFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        //TODO:변경~~~
         reservationFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.reservation_fragment, container, false)
+        //TODO:변경~~~
+
         return reservationFragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
+
+        //TODO:xml 파일에서 viewModel 선언 후 아래처럼 하면 됩니다.
         reservationFragmentBinding.viewModel = viewModel
+        //TODO:변경~~~
 
         loadItem()
         var adapter = ReservationAdapter()

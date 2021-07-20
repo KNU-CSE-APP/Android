@@ -22,8 +22,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //TODO:변경~~~
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+        //TODO:변경~~~
+
         setToolbar()
         binding.bottomNavigation.apply {
             setOnItemSelectedListener { // 메뉴 고를 때
