@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.databinding.BoardFragmentBinding
 import com.example.knucseapp.ui.DividerItemDecoration
@@ -28,6 +29,10 @@ class BoardFragment : Fragment() {
         boardFragmentBinding = BoardFragmentBinding.inflate(inflater,container,false)
         return boardFragmentBinding.root
     }
+    private val backPressedDispatcher = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -37,7 +42,7 @@ class BoardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
         val boardAdapter = BoardAdapter()
         loadData()
         boardAdapter.boardItemList = boardItemList
