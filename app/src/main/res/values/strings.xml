@@ -33,4 +33,7 @@
     <string name="before_page">이전 페이지</string>
     <string name="next_page">다음 페이지</string>
 
+    <!-- reservation view-->
+    <string name="show_seat_layout">배치도 보기</string>
+
 </resources>

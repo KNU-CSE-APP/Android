@@ -1,25 +1,42 @@
 package com.example.knucseapp.ui.reservation.seat
 
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityReservationBinding
 
+
 class ReservationActivity : AppCompatActivity() {
-    val binding by lazy { ActivityReservationBinding.inflate(layoutInflater)}
+
+    private lateinit var binding: ActivityReservationBinding
     lateinit var roomnum: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation)
+        binding.lifecycleOwner = this
+
         roomnum = intent.getStringExtra("roomname").toString()
         setToolbar()
         setRecyclerView()
+        setButton()
     }
 
+    private fun setButton() {
+        binding.btnShowSetLayout.setOnClickListener {
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.seat_image_dialog, null)
+            val mBuilder = AlertDialog.Builder(this)
+                .setView(mDialogView)
+
+            mBuilder.show()
+        }
+    }
     private fun setRecyclerView() {
         val adapter = SeatAdapter()
         adapter.itemList = setData()
