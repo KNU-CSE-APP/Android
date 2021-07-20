@@ -37,7 +37,7 @@ class ReservationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
 
-        //TODO:xml 파일에서 viewModel 선언 후 아래처럼 하면 됩니다.
+        //TODO:xml 파일에서 viewModel 선언 후 아래처럼 하면 xml 파일에서 viewmodel 데이터, 함수 사용 가능합니다.
         reservationFragmentBinding.viewModel = viewModel
         //TODO:변경~~~
 
