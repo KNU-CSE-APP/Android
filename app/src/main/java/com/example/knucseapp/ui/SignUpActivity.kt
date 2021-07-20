@@ -6,15 +6,19 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
+import androidx.databinding.DataBindingUtil
+import com.example.knucseapp.R
+import com.example.knucseapp.databinding.ActivitySignInBinding
 import com.example.knucseapp.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
 
-    val binding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
+
+    private lateinit var binding: ActivitySignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
         setToolbar()
         textWatcher()
