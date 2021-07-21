@@ -55,16 +55,13 @@ class ReservationFragment : Fragment() {
     }
 
     fun loadItem(){
-        val roomnum = listOf("IT4-101호", "IT4-102호", "IT4-103호", "IT5-104호", "IT5-105호")
-        val num1 = listOf(1, 2, 3, 4, 5)
+        val building = listOf("IT4", "IT4", "IT4", "IT5", "IT5")
+        val roomnum = listOf("101호", "102호", "103호", "104호", "105호")
+        val num1 = listOf(5, 18, 20, 9, 20)
         val num2 = listOf(10, 20, 30, 10, 20)
 
         for(i in 0..4){
-            itemlist.add(ClassRoom(roomnum[i], num1[i], num2[i]))
+            itemlist.add(ClassRoom(num1[i], roomnum[i], building[i], num1[i], num2[i]))
         }
-
     }
-
-
-
 }
