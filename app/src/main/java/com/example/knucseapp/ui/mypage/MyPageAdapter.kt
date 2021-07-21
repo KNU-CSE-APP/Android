@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.MypageRecyclerBinding
 import com.example.knucseapp.ui.mypage.menu.ReservationHistoryActivity
+import com.example.knucseapp.ui.mypage.menu.SettingActivity
 
 class MyPageAdapter : RecyclerView.Adapter<Holder>() {
     var menulist = mutableListOf<MyPageMenu>()
@@ -34,6 +35,11 @@ class Holder(val binding: MypageRecyclerBinding) : RecyclerView.ViewHolder(bindi
                 Menuname.grouplist[0] -> {
                     val intent = Intent(it.context, ReservationHistoryActivity::class.java)
                     intent.putExtra("menu_name", Menuname.grouplist[0])
+                    it.context.startActivity(intent)
+                }
+                Menuname.grouplist[4] -> {
+                    val intent = Intent(it.context, SettingActivity::class.java)
+                    intent.putExtra("menu_name", Menuname.grouplist[4])
                     it.context.startActivity(intent)
                 }
             }

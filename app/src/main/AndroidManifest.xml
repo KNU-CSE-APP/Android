@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.mypage.menu.SettingActivity"></activity>
         <activity android:name=".ui.mypage.menu.ReservationHistoryActivity"></activity>
+        <activity android:name=".ui.mypage.menu.SettingActivity"></activity>
         <activity android:name=".ui.reservation.seat.ReservationConfirmActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.reservation.seat.ReservationActivity"

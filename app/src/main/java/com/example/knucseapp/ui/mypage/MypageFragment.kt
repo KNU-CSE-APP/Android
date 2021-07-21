@@ -27,12 +27,6 @@ class MypageFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
-        // TODO: Use the ViewModel
-
-    }
 
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -43,6 +37,7 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
+        viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
         loadMenu()
         var adapter = MyPageAdapter()
         adapter.menulist = menulist
