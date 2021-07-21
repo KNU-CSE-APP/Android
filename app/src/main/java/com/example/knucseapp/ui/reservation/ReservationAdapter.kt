@@ -35,7 +35,7 @@ class Holder(val binding: ReservationRecyclerBinding) : RecyclerView.ViewHolder(
         }
     }
     fun setItem(item: ClassRoom){
-        binding.roomNum.text = "${item.Building} - ${item.Room_number}"
+        binding.roomNum.text = "${item.Building}-${item.Room_number}"
         binding.numOfStd.text = "(${item.reserved_num}/${item.total_num})"
     }
 }

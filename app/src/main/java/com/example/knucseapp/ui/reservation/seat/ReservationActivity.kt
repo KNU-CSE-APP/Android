@@ -86,17 +86,16 @@ class ReservationActivity : AppCompatActivity() {
 
     inner class changeActivity{
         fun callReservationConfirmActivity(seat: Seat) {
-            System.out.println("${seat.Room_number}, ${seat.Seat_number}")
             seat.apply {
                 if(!status){
                     Toast.makeText(this@ReservationActivity, "이미 예약된 좌석입니다.", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    Toast.makeText(
-                        this@ReservationActivity,
-                        "${seat.Seat_number} 번 좌석을 선택하셨습니다.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@ReservationActivity,
+//                        "${seat.Seat_number} 번 좌석을 선택하셨습니다.",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     AlertDialog.Builder(binding.root.context)
                         .setTitle("좌석 예약")
                         .setMessage("${seat.Seat_number}번 좌석을 예약하시겠습니까?")
