@@ -63,9 +63,5 @@ class ReservationFragment : Fragment() {
         for(i in 0..4){
             itemlist.add(ClassRoom(num1[i], roomnum[i], building[i], num1[i], num2[i]))
         }
-
     }
-
-
-
 }
