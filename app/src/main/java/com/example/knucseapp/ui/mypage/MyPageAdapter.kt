@@ -39,7 +39,7 @@ class Holder(val binding: MypageRecyclerBinding) : RecyclerView.ViewHolder(bindi
                 }
                 Menuname.grouplist[4] -> {
                     val intent = Intent(it.context, SettingActivity::class.java)
-                    intent.putExtra("menu_name", Menuname.grouplist[0])
+                    intent.putExtra("menu_name", Menuname.grouplist[4])
                     it.context.startActivity(intent)
                 }
             }

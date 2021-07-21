@@ -26,15 +26,10 @@ class MypageFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
-        // TODO: Use the ViewModel
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
         loadMenu()
         var adapter = MyPageAdapter()
         adapter.menulist = menulist
