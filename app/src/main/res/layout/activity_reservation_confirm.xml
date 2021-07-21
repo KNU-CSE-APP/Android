@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.reservation.seat.ReservationConfirmActivity">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/knu_red"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            tools:ignore="MissingConstraints" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reservation_confirm_toolbar_textview"
+                android:text="@string/reservation_confirm_toolbar"
+                style="@style/toolbar_textstyle"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/confirm_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/reservation_confirm_edge"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="@string/reservation_confirm_message"
+                android:textColor="#FF0000"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                >
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/reservation_confirm_top_edge"
+                    >
+
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/seat_info"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/reservation_confirm_seat_info"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/seat_info"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/reservation_confirm_middle_edge">
+
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/seat_status"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/reservation_confirm_seat_status"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/seat_info"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/reservation_confirm_middle_edge">>
+
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/enter_time"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/reservation_confirm_enter_time"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/seat_info"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/reservation_confirm_bottom_edge">>
+
+                    <TextView
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="23dp"
+                        android:textSize="12sp"
+                        android:text="@string/exit_time"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/reservation_confirm_exit_time"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_marginBottom="23dp"
+                        android:text="@string/seat_info"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                </TableRow>
+
+
+            </TableLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_text_color2"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/cancel_reservation"
+                    android:background="@drawable/reservation_cancel_button"
+                    android:stateListAnimator="@null"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/button_text_color"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/complete_reservation"
+                    android:background="@drawable/reservation_confirm_button"
+                    android:stateListAnimator="@null"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

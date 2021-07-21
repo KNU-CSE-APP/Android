@@ -33,7 +33,15 @@
     <string name="before_page">이전 페이지</string>
     <string name="next_page">다음 페이지</string>
 
-    <!-- reservation view-->
+    <!-- reservation, confirm view-->
     <string name="show_seat_layout">배치도 보기</string>
+    <string name="reservation_confirm_toolbar">좌석배정확정</string>
+    <string name="reservation_confirm_message">반드시 착석 후 좌석을 예약해주시길 바랍니다.</string>
+    <string name="seat_info">좌석정보</string>
+    <string name="seat_status">이용상태</string>
+    <string name="enter_time">입실시간</string>
+    <string name="exit_time">퇴실시간</string>
+    <string name="cancel_reservation">예약 취소</string>
+    <string name="complete_reservation">예약 확정</string>
 
 </resources>
