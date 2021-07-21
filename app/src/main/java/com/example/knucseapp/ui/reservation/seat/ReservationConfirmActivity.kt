@@ -2,6 +2,7 @@ package com.example.knucseapp.ui.reservation.seat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
@@ -21,6 +22,24 @@ class ReservationConfirmActivity : AppCompatActivity() {
 
         seat = intent.getSerializableExtra("seat") as Seat
         setData()
+        setToolbar()
+    }
+
+    private fun setToolbar(){
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setData() {
