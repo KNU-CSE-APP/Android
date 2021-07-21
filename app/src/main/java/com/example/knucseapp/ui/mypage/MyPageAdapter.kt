@@ -1,10 +1,12 @@
 package com.example.knucseapp.ui.mypage
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.MypageRecyclerBinding
+import com.example.knucseapp.ui.mypage.menu.ReservationHistoryActivity
 
 class MyPageAdapter : RecyclerView.Adapter<Holder>() {
     var menulist = mutableListOf<MyPageMenu>()
@@ -29,8 +31,11 @@ class Holder(val binding: MypageRecyclerBinding) : RecyclerView.ViewHolder(bindi
             Toast.makeText(binding.root.context, "클릭된 아이템 = ${binding.menutext.text}", Toast.LENGTH_LONG).show()
             when(binding.menutext.text)
             {
-                //TODO: 각 탭마다 새로운 액티비티 호출
-//                "로그아웃" -> //viewmodel에 있는 logout 함수 호출
+                Menuname.grouplist[0] -> {
+                    val intent = Intent(it.context, ReservationHistoryActivity::class.java)
+                    intent.putExtra("menu_name", Menuname.grouplist[0])
+                    it.context.startActivity(intent)
+                }
             }
         }
     }

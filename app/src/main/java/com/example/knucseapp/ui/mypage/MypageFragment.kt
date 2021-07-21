@@ -41,8 +41,6 @@ class MypageFragment : Fragment() {
 
         val decoration = com.example.knucseapp.ui.DividerItemDecoration(1f, 1f, Color.LTGRAY)
         binding.mypageRecycler.addItemDecoration(decoration)
-
-
         binding.mypageRecycler.adapter = adapter
         binding.mypageRecycler.layoutManager = LinearLayoutManager(activity)
 
@@ -50,9 +48,8 @@ class MypageFragment : Fragment() {
 
     fun loadMenu(){
         val res_list = listOf(R.drawable.settings)
-        val menuname = listOf("예약 내역", "제재 내역", "내가 쓴 글", "내가 쓴 댓글", "로그아웃")
 
-        menuname.forEach { name ->
+        Menuname.grouplist.forEach { name ->
             menulist.add(MyPageMenu(res_list.get(0), name))
         }
     }

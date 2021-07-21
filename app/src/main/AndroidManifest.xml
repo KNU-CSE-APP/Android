@@ -12,6 +12,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Project">
         <activity android:name=".ui.reservation.seat.ReservationActivity"/>
+        <activity android:name=".ui.mypage.menu.ReservationHistoryActivity"></activity>
         <activity android:name=".ui.SignUpActivity">
         </activity>
         <activity android:name=".ui.SignInActivity">
