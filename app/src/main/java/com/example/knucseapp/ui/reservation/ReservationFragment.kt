@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
@@ -33,8 +34,16 @@ class ReservationFragment : Fragment() {
         return reservationFragmentBinding.root
     }
 
+    private val backPressedDispatcher = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
+
         viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
 
         //TODO:xml 파일에서 viewModel 선언 후 아래처럼 하면 xml 파일에서 viewmodel 데이터, 함수 사용 가능합니다.

@@ -1,69 +1,63 @@
 package com.example.knucseapp.ui.notice
 
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.http.SslError
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.Message
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.view.ViewGroup
+import android.view.*
+import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.View.OnTouchListener
 import android.webkit.*
 import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.NoticeFragmentBinding
-import com.example.knucseapp.ui.MainActivity
 
-class NoticeFragment : Fragment() {
+
+class NoticeFragment : Fragment(){
 
     companion object {
         fun newInstance() = NoticeFragment()
     }
 
     private lateinit var viewModel: NoticeViewModel
-    private lateinit var fragmentBinding : NoticeFragmentBinding
+    private lateinit var noticeFragmentBinding : NoticeFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-        fragmentBinding = NoticeFragmentBinding.inflate(inflater, container, false)
-        return fragmentBinding.root
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        noticeFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.notice_fragment, container, false)
+        return noticeFragmentBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(NoticeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    private val backPressedDispatcher = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val canGoBack: Boolean = noticeFragmentBinding.webview.canGoBack()
+            if (canGoBack) {
+                noticeFragmentBinding.webview.goBack()
+            }
 
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(NoticeViewModel::class.java)
+
         setWebView()
-
-        fragmentBinding.previousBtn.setOnClickListener {
-            val canGoBack: Boolean = fragmentBinding.webview.canGoBack()
-            if (canGoBack) {
-                fragmentBinding.webview.goBack()
-            }
-        }
-
-
-        fragmentBinding.nextBtn.setOnClickListener {
-            val canGoForward: Boolean = fragmentBinding.webview.canGoForward()
-            if (canGoForward) {
-                fragmentBinding.webview.goForward()
-            }
-        }
-
+        activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
     }
 
     private fun setWebView(){
-        fragmentBinding.webview.apply {
-            webViewClient = WebViewClientClass() // new WebViewClient()); //클릭시 새창 안뜨게
+        noticeFragmentBinding.webview.apply {
+            webViewClient = WebViewClientClass()//클릭시 새창 안뜨게
 
             //팝업이나 파일 업로드 등 설정해주기 위해 webView.webChromeClient를 설정
             //웹뷰에서 크롬이 실행가능&& 새창띄우기는 안됨
@@ -95,7 +89,6 @@ class NoticeFragment : Fragment() {
                     return true
                 }
             }
-
 
             settings.javaScriptEnabled = true
             settings.setSupportMultipleWindows(true) // 새창띄우기 허용여부
@@ -132,8 +125,9 @@ class NoticeFragment : Fragment() {
         }
 
 
+
         val url = "http://cse.knu.ac.kr/06_sub/02_sub.html"
-        fragmentBinding.webview.loadUrl(url)
+        noticeFragmentBinding.webview.loadUrl(url)
     }
 
     inner class WebViewClientClass : WebViewClient() {
@@ -145,14 +139,14 @@ class NoticeFragment : Fragment() {
 
         override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            fragmentBinding.progressbar.visibility = ProgressBar.VISIBLE
-            fragmentBinding.webview.visibility = View.INVISIBLE
+            noticeFragmentBinding.progressbar.visibility = ProgressBar.VISIBLE
+            noticeFragmentBinding.webview.visibility = View.INVISIBLE
         }
 
         override fun onPageCommitVisible(view: WebView, url: String) {
             super.onPageCommitVisible(view, url)
-            fragmentBinding.progressbar.visibility = ProgressBar.GONE
-            fragmentBinding.webview.visibility = View.VISIBLE
+            noticeFragmentBinding.progressbar.visibility = ProgressBar.GONE
+            noticeFragmentBinding.webview.visibility = View.VISIBLE
         }
 
 
@@ -170,12 +164,16 @@ class NoticeFragment : Fragment() {
             builder.setTitle("SSL Certificate Error")
             builder.setMessage(message)
             builder.setPositiveButton("continue",
-                DialogInterface.OnClickListener { _, _ -> handler.proceed() })
+                    DialogInterface.OnClickListener { _, _ -> handler.proceed() })
             builder.setNegativeButton("cancel",
-                DialogInterface.OnClickListener { dialog, which -> handler.cancel() })
+                    DialogInterface.OnClickListener { dialog, which -> handler.cancel() })
             val dialog: android.app.AlertDialog? = builder.create()
             dialog?.show()
         }
     }
 
+
+
+
 }
+
