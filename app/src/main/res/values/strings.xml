@@ -10,6 +10,10 @@
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
     <string name="find_password">비밀번호 찾기</string>
+    <string name="find_password_notice">※ 가입된 이메일로 인증을 완료해주세요.</string>
+    <string name="change_password">비밀번호 변경</string>
+    <string name="new_password">새 비밀번호</string>
+    <string name="check_new_password">새 비밀번호 확인</string>
     <string name="login">로그인</string>
     <string name="signup">회원가입</string>
     <string name="email">이메일</string>
