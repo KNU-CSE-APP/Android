@@ -5,12 +5,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.knucseapp.ui.board.BoardViewModel" />
+            type="com.example.knucseapp.ui.board.freeboard.BoardViewModel" />
     </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.board.BoardFragment">
+        tools:context=".ui.board.freeboard.BoardFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/boardRecycler"

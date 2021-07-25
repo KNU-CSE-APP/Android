@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.BoardDetailRecyclerBinding
 import com.example.knucseapp.databinding.CommentRecyclerBinding
-import com.example.knucseapp.ui.board.BoardDTO
-import com.example.knucseapp.ui.board.BoardItem
-import org.w3c.dom.Comment
+import com.example.knucseapp.ui.board.freeboard.BoardDTO
+import com.example.knucseapp.ui.board.freeboard.BoardItem
 
 class CommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -55,7 +54,7 @@ class BoardDetailHolder(val binding: BoardDetailRecyclerBinding) : RecyclerView.
 }
 
 class CommentHolder(val binding : CommentRecyclerBinding) : RecyclerView.ViewHolder(binding.root){
-    fun setComment(comment : com.example.knucseapp.ui.board.Comment){
+    fun setComment(comment : com.example.knucseapp.ui.board.freeboard.Comment){
         binding.tvAuthor.text = comment.author
         binding.tvComment.text = comment.comment
         binding.tvDate.text = comment.date

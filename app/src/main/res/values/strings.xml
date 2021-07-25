@@ -36,6 +36,8 @@
     <string name="content">Content</string>
     <string name="comment">Comment</string>
     <string name="reply">답글</string>
+    <string name="tab_free">자유게시판</string>
+    <string name="tab_student">학생회공지</string>
 
 
     <!-- notice view-->
