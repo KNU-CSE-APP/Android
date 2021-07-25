@@ -137,23 +137,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-        <Button
-            android:id="@+id/btnSignUp"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginRight="30dp"
-            android:backgroundTint="@color/custombutton1"
-            android:text="@string/signup"
-            android:textColor="@color/button_text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
-
         <CheckBox
             android:id="@+id/autoLogin"
             android:layout_width="wrap_content"
@@ -165,7 +148,38 @@
             android:text="@string/auto_login"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+            app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+
+        <Button
+            android:id="@+id/btnFindPW"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:backgroundTint="#00ff0000"
+            android:stateListAnimator="@null"
+            android:text="@string/find_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autoLogin"
+            android:textColor="@color/button_text_color"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:backgroundTint="#00ff0000"
+            android:stateListAnimator="@null"
+            android:text="@string/signup"
+            android:textColor="@color/button_text_color"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnFindPW" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

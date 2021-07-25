@@ -9,6 +9,7 @@
     <string name="userid_suffix">"@knu.ac.kr"</string>
     <string name="id">아이디</string>
     <string name="password">비밀번호</string>
+    <string name="find_password">비밀번호 찾기</string>
     <string name="login">로그인</string>
     <string name="signup">회원가입</string>
     <string name="email">이메일</string>
