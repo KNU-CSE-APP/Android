@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
@@ -60,6 +61,7 @@ class PasswordActivity : AppCompatActivity() {
         }
 
         binding.btnChangePw.setOnClickListener {
+            Toast.makeText(this, "변경된 아이디로 로그인해주세요", Toast.LENGTH_LONG).show()
             finish()
         }
     }
