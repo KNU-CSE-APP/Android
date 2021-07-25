@@ -29,6 +29,15 @@
     <string name="complete_signup">가입완료</string>
     <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
 
+    <!-- board, detail board view   -->
+    <string name="date">Date</string>
+    <string name="author">Author</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="comment">Comment</string>
+    <string name="reply">답글</string>
+
+
     <!-- notice view-->
     <string name="before_page">이전 페이지</string>
     <string name="next_page">다음 페이지</string>
