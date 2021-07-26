@@ -1,4 +1,4 @@
-package com.example.knucseapp.ui.board
+package com.example.knucseapp.ui.board.freeboard
 
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider

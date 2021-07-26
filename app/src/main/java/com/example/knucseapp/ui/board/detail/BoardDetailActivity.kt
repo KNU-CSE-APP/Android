@@ -10,6 +10,9 @@ import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.DividerItemDecoration
 import com.example.knucseapp.ui.board.*
+import com.example.knucseapp.ui.board.freeboard.BoardDTO
+import com.example.knucseapp.ui.board.freeboard.BoardItem
+import com.example.knucseapp.ui.board.freeboard.Comment
 
 class BoardDetailActivity : AppCompatActivity() {
 
