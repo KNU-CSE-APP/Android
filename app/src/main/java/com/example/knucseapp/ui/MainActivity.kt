@@ -3,11 +3,15 @@ package com.example.knucseapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
-import com.example.knucseapp.ui.board.BoardFragment
+import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.mypage.MypageFragment
 import com.example.knucseapp.ui.notice.NoticeFragment
 import com.example.knucseapp.ui.reservation.ReservationFragment
@@ -16,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
     private lateinit var noticeFragment: NoticeFragment
-    private lateinit var boardFragment: BoardFragment
+    private lateinit var boardHomeFragment: BoardHomeFragment
     private lateinit var reservationFragment: ReservationFragment
     private lateinit var mypageFragment: MypageFragment
 
@@ -39,9 +43,9 @@ class MainActivity : AppCompatActivity() {
                         return@setOnItemSelectedListener true
                     }
                     R.id.action_board -> {
-                        binding.mainToolbarTextview.text = "자유게시판"
-                        boardFragment = BoardFragment.newInstance()
-                        supportFragmentManager.beginTransaction().replace(R.id.main_content,boardFragment).commit()
+//                        binding.mainToolbarTextview.text = "자유게시판"
+                        boardHomeFragment = BoardHomeFragment.newInstance()
+                        supportFragmentManager.beginTransaction().replace(R.id.main_content,boardHomeFragment).commit()
                         return@setOnItemSelectedListener true
                     }
                     R.id.action_reservation -> {
@@ -63,13 +67,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun getToolbarTextView() : TextView {
+        return binding.mainToolbarTextview
+    }
+
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu_item, menu)
-        return true
-    }
 }

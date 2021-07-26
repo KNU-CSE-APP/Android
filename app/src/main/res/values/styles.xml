@@ -28,6 +28,13 @@
         <item name = "android:textColor">@color/white</item>
     </style>
 
+    <style name = "boarddetail_toolbar_textstyle">
+        <item name = "android:textSize">17sp</item>
+        <item name = "android:textStyle">bold</item>
+        <item name = "android:layout_gravity">left</item>
+        <item name = "android:textColor">@color/white</item>
+    </style>
+
     <style name = "signup_buttonstyle">
         <item name = "android:layout_width">100dp</item>
         <item name = "android:layout_height">50dp</item>
@@ -35,5 +42,13 @@
         <item name = "android:layout_marginLeft">10dp</item>
         <item name = "android:layout_marginBottom">16dp</item>
     </style>
+
+    <style name="AppTheme.StatusBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--Status Bar 배경색-->
+        <item name="android:statusBarColor">#ffffff</item>
+        <!--Status Bar 글자색깔-->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
 
 </resources>

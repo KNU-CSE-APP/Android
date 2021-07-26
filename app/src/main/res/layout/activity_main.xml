@@ -21,9 +21,9 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             tools:ignore="MissingConstraints" >
             <TextView
+                android:id="@+id/main_toolbar_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_toolbar_textview"
                 android:text="메뉴"
                 style="@style/toolbar_textstyle"/>
         </androidx.appcompat.widget.Toolbar>
