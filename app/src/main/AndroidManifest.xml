@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.board.detail.BoardDetailActivity"></activity>
+        <activity android:name=".ui.board.search.SearchActivity" />
+        <activity android:name=".ui.board.detail.BoardDetailActivity" />
         <activity android:name=".ui.mypage.menu.SettingActivity" />
         <activity android:name=".ui.mypage.menu.ReservationHistoryActivity" />
-        <activity android:name=".ui.mypage.menu.SettingActivity" />
         <activity
             android:name=".ui.reservation.seat.ReservationConfirmActivity"
             android:screenOrientation="portrait" />

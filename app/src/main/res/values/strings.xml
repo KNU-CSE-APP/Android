@@ -29,14 +29,17 @@
     <string name="complete_signup">가입완료</string>
     <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
 
-    <!-- board, detail board view   -->
+    <!-- board, detail board, search view   -->
     <string name="date">Date</string>
     <string name="author">Author</string>
     <string name="title">Title</string>
     <string name="content">Content</string>
     <string name="comment">Comment</string>
     <string name="reply">답글</string>
-
+    <string name="cancel">취소</string>
+    <string name="search_hint">검색어를 입력해주세요</string>
+    <string name="search_blank">검색중...</string>
+    <string name="search_result">검색결과</string>
 
     <!-- notice view-->
     <string name="before_page">이전 페이지</string>
@@ -52,5 +55,7 @@
     <string name="exit_time">퇴실시간</string>
     <string name="cancel_reservation">예약 취소</string>
     <string name="complete_reservation">예약 확정</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
 
 </resources>
