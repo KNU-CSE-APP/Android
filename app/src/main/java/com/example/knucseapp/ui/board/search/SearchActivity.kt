@@ -13,11 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
-import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.databinding.ActivitySearchBinding
-import com.example.knucseapp.ui.board.BoardDTO
-import com.example.knucseapp.ui.board.BoardItem
-import com.example.knucseapp.ui.board.Comment
 
 class SearchActivity : AppCompatActivity() {
 

@@ -15,15 +15,11 @@ import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ReservationFragmentBinding
 import com.example.knucseapp.databinding.SearchResultFragmentBinding
 import com.example.knucseapp.ui.DividerItemDecoration
-import com.example.knucseapp.ui.board.BoardAdapter
-import com.example.knucseapp.ui.board.BoardDTO
-import com.example.knucseapp.ui.board.BoardItem
-import com.example.knucseapp.ui.board.Comment
-import com.example.knucseapp.ui.reservation.ClassRoom
-import com.example.knucseapp.ui.reservation.ReservationViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.knucseapp.ui.board.freeboard.BoardAdapter
+import com.example.knucseapp.ui.board.freeboard.BoardDTO
+import com.example.knucseapp.ui.board.freeboard.BoardItem
+import com.example.knucseapp.ui.board.freeboard.Comment
+
 
 class SearchResultFragment : Fragment() {
 
