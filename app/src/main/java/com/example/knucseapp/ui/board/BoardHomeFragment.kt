@@ -16,6 +16,7 @@ import com.example.knucseapp.ui.board.detail.BoardDetailActivity
 import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.board.noticeboard.NoticeBoardFragment
 import com.example.knucseapp.ui.board.search.SearchActivity
+import com.example.knucseapp.ui.board.writeboard.WriteActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 class BoardHomeFragment : Fragment() {
@@ -52,7 +53,7 @@ class BoardHomeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu_item, menu)
+        inflater.inflate(R.menu.main_toolbar_menu_item, menu)
         menuItem = menu
     }
 
@@ -64,7 +65,8 @@ class BoardHomeFragment : Fragment() {
                 return super.onOptionsItemSelected(item)
             }
             R.id.action_write -> {
-
+                val intent = Intent(context,WriteActivity::class.java)
+                startActivity(intent)
                 return super.onOptionsItemSelected(item)
             }
             else -> return super.onOptionsItemSelected(item)

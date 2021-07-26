@@ -44,7 +44,7 @@ class WriteActivity : AppCompatActivity() {
     private fun setSpinner() {
         var list_of_items = arrayOf("잡담", "정보", "팀원")
         val adapter = ArrayAdapter(this, R.layout.spinner_item, list_of_items)
-        (binding.spinnerTextview as? AutoCompleteTextView)?.setAdapter(adapter)
+        (binding.categoryTextview as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 
 }
