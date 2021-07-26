@@ -12,16 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.mypage.menu.SettingActivity"></activity>
-        <activity android:name=".ui.mypage.menu.ReservationHistoryActivity"></activity>
-        <activity android:name=".ui.mypage.menu.SettingActivity"></activity>
-        <activity android:name=".ui.reservation.seat.ReservationConfirmActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.reservation.seat.ReservationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SignUpActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SignInActivity"
+        <activity android:name=".ui.ChangePwActivity"></activity>
+        <activity android:name=".ui.PasswordActivity" />
+        <activity android:name=".ui.mypage.menu.SettingActivity" />
+        <activity android:name=".ui.mypage.menu.ReservationHistoryActivity" />
+        <activity android:name=".ui.mypage.menu.SettingActivity" />
+        <activity
+            android:name=".ui.reservation.seat.ReservationConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.reservation.seat.ReservationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SignInActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
