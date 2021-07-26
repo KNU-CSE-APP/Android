@@ -3,6 +3,11 @@ package com.example.knucseapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                         return@setOnItemSelectedListener true
                     }
                     R.id.action_board -> {
-                        binding.mainToolbarTextview.text = "자유게시판"
+//                        binding.mainToolbarTextview.text = "자유게시판"
                         boardHomeFragment = BoardHomeFragment.newInstance()
                         supportFragmentManager.beginTransaction().replace(R.id.main_content,boardHomeFragment).commit()
                         return@setOnItemSelectedListener true
@@ -63,13 +68,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun getToolbarTextView() : TextView {
+        return binding.mainToolbarTextview
+    }
+
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu_item, menu)
-        return true
     }
 }

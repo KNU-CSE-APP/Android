@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/board_detail_toolbar_textview"
-                style="@style/toolbar_textstyle"/>
+                style="@style/boarddetail_toolbar_textstyle"/>
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout

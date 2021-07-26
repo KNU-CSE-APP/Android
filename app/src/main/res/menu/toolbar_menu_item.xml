@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/character"-->
+<!--        android:title="호반우"-->
+<!--        android:icon="@drawable/hobanwoo"-->
+<!--        app:showAsAction="ifRoom"/>-->
+
     <item
-        android:id="@+id/character"
-        android:title="호반우"
-        android:icon="@drawable/hobanwoo"
+        android:id="@+id/action_search"
+        android:title="검색"
+        android:icon="@drawable/menu_search_icon"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_write"
+        android:title="글쓰기"
+        android:icon="@drawable/menu_write_icon"
         app:showAsAction="ifRoom"/>
 
 </menu>
