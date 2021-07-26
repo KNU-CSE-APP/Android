@@ -27,5 +27,10 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnFindPW.setOnClickListener {
+            val intent = Intent(this, PasswordActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
