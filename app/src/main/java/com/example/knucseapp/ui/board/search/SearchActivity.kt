@@ -15,10 +15,15 @@ import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.databinding.ActivitySearchBinding
+import com.example.knucseapp.ui.board.BoardDTO
+import com.example.knucseapp.ui.board.BoardItem
+import com.example.knucseapp.ui.board.Comment
 
 class SearchActivity : AppCompatActivity() {
+
     private lateinit var binding : ActivitySearchBinding
     lateinit var blankFragment: SearchBlankFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
@@ -82,5 +87,4 @@ class SearchActivity : AppCompatActivity() {
                 window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
     }
-
 }
