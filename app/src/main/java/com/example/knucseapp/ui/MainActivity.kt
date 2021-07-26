@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.ui.board.BoardHomeFragment
-import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.mypage.MypageFragment
 import com.example.knucseapp.ui.notice.NoticeFragment
 import com.example.knucseapp.ui.reservation.ReservationFragment
@@ -69,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu_item, menu)
+        menuInflater.inflate(R.menu.main_toolbar_menu_item, menu)
         return true
     }
 }

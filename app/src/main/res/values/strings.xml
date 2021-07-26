@@ -42,7 +42,10 @@
     <string name="search_hint">검색어를 입력해주세요</string>
     <string name="search_blank">검색중...</string>
     <string name="search_result">검색결과</string>
-
+    <string name="writing">글 쓰기</string>
+    <string name="complete">완료</string>
+    <string name="writing_title">제목</string>
+    <string name="writing_notice">본문을 입력하세요.</string>
 
     <!-- notice view-->
     <string name="before_page">이전 페이지</string>
