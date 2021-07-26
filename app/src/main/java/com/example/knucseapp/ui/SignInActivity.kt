@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.databinding.ActivitySignInBinding
+import com.example.knucseapp.ui.board.search.SearchActivity
 
 class SignInActivity : AppCompatActivity() {
 
