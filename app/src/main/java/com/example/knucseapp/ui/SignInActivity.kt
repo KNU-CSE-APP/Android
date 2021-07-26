@@ -19,7 +19,7 @@ class SignInActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
         binding.btnSignIn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, WriteActivity::class.java)
             startActivity(intent)
         }
 

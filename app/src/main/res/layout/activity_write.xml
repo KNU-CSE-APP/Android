@@ -42,12 +42,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/writing_title"
-                android:textSize="20sp"
-                android:layout_margin="20dp"/>
+                android:textSize="18sp"
+                android:layout_margin="20dp"
+                android:inputType="text"
+                android:background="@null"/>
 
             <View
                 android:id="@+id/lineview"
@@ -58,11 +60,44 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"/>
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@null"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintEnabled="false"
+                android:background="@android:color/transparent"
+                android:layout_gravity="right"
+                android:layout_marginEnd="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/category_textview"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:inputType="none"
+                    android:text="카테고리"
+                    android:textSize="11sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                android:hint="@string/writing_notice"/>
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="@string/writing_notice"
+                android:textSize="14sp"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:background="@null"
+                android:gravity="top"/>
+
+
         </LinearLayout>
 
 

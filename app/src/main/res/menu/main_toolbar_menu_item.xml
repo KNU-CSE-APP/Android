@@ -5,6 +5,6 @@
         android:id="@+id/character"
         android:title="호반우"
         android:icon="@drawable/hobanwoo"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>
