@@ -1,6 +1,5 @@
 package com.example.knucseapp.ui.board.search
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Build

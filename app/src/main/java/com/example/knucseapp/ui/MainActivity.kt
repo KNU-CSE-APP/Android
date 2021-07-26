@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.ui.board.BoardHomeFragment
-import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.mypage.MypageFragment
 import com.example.knucseapp.ui.notice.NoticeFragment
 import com.example.knucseapp.ui.reservation.ReservationFragment
@@ -76,4 +75,5 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
+
 }
