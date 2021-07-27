@@ -2,15 +2,17 @@ package com.example.knucseapp.ui.board.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.BoardDetailRecyclerBinding
 import com.example.knucseapp.databinding.CommentRecyclerBinding
-import com.example.knucseapp.ui.board.freeboard.BoardDTO
 import com.example.knucseapp.ui.board.freeboard.BoardItem
+import com.example.knucseapp.ui.board.freeboard.Comment
 
 class CommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var boardDTOs = mutableListOf<BoardDTO>()
+    lateinit var boardDetailList : MutableList<Any>
+
     private val VIEW_TYPE_BOARD = 0
     private val VIEW_TYPE_COMMENT = 1
 
@@ -28,17 +30,18 @@ class CommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return boardDTOs.size
+        var size = boardDetailList.size
+        return size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(holder is BoardDetailHolder) holder.setBoard(boardDTOs.get(position).boardItem)
-        else if(holder is CommentHolder) holder.setComment(boardDTOs.get(position).comment)
+        if(holder is BoardDetailHolder) holder.setBoard(boardDetailList.get(position) as BoardItem)
+        else if(holder is CommentHolder) holder.setComment(boardDetailList.get(position) as Comment)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(boardDTOs.get(position).comment.id){
-            0 -> VIEW_TYPE_BOARD
+        return when(boardDetailList.get(position)){
+            is BoardItem -> VIEW_TYPE_BOARD
             else -> VIEW_TYPE_COMMENT
         }
     }
@@ -54,10 +57,16 @@ class BoardDetailHolder(val binding: BoardDetailRecyclerBinding) : RecyclerView.
 }
 
 class CommentHolder(val binding : CommentRecyclerBinding) : RecyclerView.ViewHolder(binding.root){
-    fun setComment(comment : com.example.knucseapp.ui.board.freeboard.Comment){
+    fun setComment(comment : Comment){
         binding.tvAuthor.text = comment.author
         binding.tvComment.text = comment.comment
         binding.tvDate.text = comment.date
+
+        val replyAdapter = ReplyAdapter()
+        replyAdapter.replys = comment.replys!!
+        binding.replyRecycler.adapter = replyAdapter
+        binding.replyRecycler.layoutManager = LinearLayoutManager(binding.root.context)
+        //binding.replyRecycler.setHasFixedSize(true)
     }
 }
 

@@ -22,14 +22,15 @@ class BoardAdapter: RecyclerView.Adapter<Holder>() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val boarditem = boardDTOs.get(position).boardItem
-        val comment = boardDTOs.get(position).comment
-        holder.setBoard(boarditem)
+        val board = boardDTOs.get(position).board
+        val boardItem = board?.boardItem
+        //val comment = boardDTOs.get(position).comments
+        holder.setBoard(board!!)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, BoardDetailActivity::class.java)
-            intent.putExtra("boarditem",boarditem)
-            intent.putExtra("comment",comment)
+            intent.putExtra("board",board)
+            //intent.putExtra("comment",comment)
             it.context.startActivity(intent)
         }
     }
@@ -42,11 +43,11 @@ class Holder(val binding: BoardRecyclerBinding): RecyclerView.ViewHolder(binding
         }
     }*/
 
-    fun setBoard(item : BoardItem){
-        binding.tvTitle.text = item.title
-        binding.tvAuthor.text = item.author
-        binding.tvContent.text = item.content
-        binding.tvDate.text = item.date
-        binding.tvCommentCnt.text = item.CommentCnt.toString()
+    fun setBoard(item : Board){
+        binding.tvTitle.text = item.boardItem?.title
+        binding.tvAuthor.text = item.boardItem?.author
+        binding.tvContent.text = item.boardItem?.content
+        binding.tvDate.text = item.boardItem?.date
+        binding.tvCommentCnt.text = item.comments?.size.toString()
     }
 }
