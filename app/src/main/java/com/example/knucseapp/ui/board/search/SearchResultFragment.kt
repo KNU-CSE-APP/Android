@@ -15,10 +15,7 @@ import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ReservationFragmentBinding
 import com.example.knucseapp.databinding.SearchResultFragmentBinding
 import com.example.knucseapp.ui.DividerItemDecoration
-import com.example.knucseapp.ui.board.freeboard.BoardAdapter
-import com.example.knucseapp.ui.board.freeboard.BoardDTO
-import com.example.knucseapp.ui.board.freeboard.BoardItem
-import com.example.knucseapp.ui.board.freeboard.Comment
+import com.example.knucseapp.ui.board.freeboard.*
 
 
 class SearchResultFragment : Fragment() {
@@ -45,7 +42,7 @@ class SearchResultFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SearchResultViewModel::class.java)
         binding.progressBar.visibility = VISIBLE
         setText()
-        loadData()
+        //loadData()
         val boardAdapter = BoardAdapter()
         boardAdapter.boardDTOs = boardDTOs
 
@@ -62,12 +59,14 @@ class SearchResultFragment : Fragment() {
 
     }
 
-    fun loadData(){
-        val emptyCommentDTO = Comment(0,"","","")
-        boardDTOs.add(BoardDTO(BoardItem(1,"잡담","지완","배고파요","저녁 메뉴 추천좀요","2021-07-12 18:21",0),emptyCommentDTO))
-        boardDTOs.add(BoardDTO(BoardItem(2,"잡담","지혜","키아누","커피 요즘 너무 맛있어진듯","2021-07-12 13:21",1),emptyCommentDTO))
-        boardDTOs.add(BoardDTO(BoardItem(3,"잡담","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21",3),emptyCommentDTO))
-        boardDTOs.add(BoardDTO(BoardItem(4,"잡담","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21",99),emptyCommentDTO))
-    }
+    /*fun loadData(){
+        val emptyreplys = mutableListOf<Reply>(Reply(0,"","",""))
+        val emptyComments = mutableListOf<Comment>(Comment(0,"","","",emptyreplys))
+
+        boardDTOs.add(BoardDTO(Board(BoardItem(1,"잡담","지완","배고파요","저녁 메뉴 추천좀요","2021-07-12 18:21"),emptyComments)))
+        boardDTOs.add(BoardDTO(Board(BoardItem(2,"잡담","지혜","키아누","커피 요즘 너무 맛있어진듯","2021-07-12 13:21"),emptyComments)))
+        boardDTOs.add(BoardDTO(Board(BoardItem(3,"잡담","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21",3),emptyComments)))
+        boardDTOs.add(BoardDTO(Board(BoardItem(4,"잡담","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21"),emptyComments)))
+    }*/
 
 }

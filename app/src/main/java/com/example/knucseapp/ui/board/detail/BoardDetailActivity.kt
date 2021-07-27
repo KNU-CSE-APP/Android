@@ -10,20 +10,18 @@ import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.DividerItemDecoration
 import com.example.knucseapp.ui.board.*
-import com.example.knucseapp.ui.board.freeboard.BoardDTO
-import com.example.knucseapp.ui.board.freeboard.BoardItem
-import com.example.knucseapp.ui.board.freeboard.Comment
+import com.example.knucseapp.ui.board.freeboard.*
 
 class BoardDetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBoardDetailBinding
-    private lateinit var getBoardItem : BoardItem
-    private lateinit var getComment : Comment
+    private lateinit var getBoard : Board
+    var boardDetailList = mutableListOf<Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getBoardItem = intent.getSerializableExtra("boarditem") as BoardItem
-        getComment = intent.getSerializableExtra("comment") as Comment
+        getBoard = intent.getSerializableExtra("board") as Board
+        //getComment = intent.getSerializableExtra("comment") as Comment
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_detail)
         binding.lifecycleOwner = this
 
@@ -33,23 +31,24 @@ class BoardDetailActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         val adapter = CommentAdapter()
-        adapter.boardDTOs = setData()
+        setComment()
+        binding.commentRecycler.scrollToPosition(0)
         binding.commentRecycler.adapter = adapter
+        adapter.boardDetailList = boardDetailList
+
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
 
         val decoration = DividerItemDecoration(1f,1f, Color.LTGRAY)
         binding.commentRecycler.addItemDecoration(decoration)
     }
 
-    private fun setData(): MutableList<BoardDTO> {
-        var boardDTOs = mutableListOf<BoardDTO>()
-        boardDTOs.add(BoardDTO(getBoardItem,getComment))
-
-        val comment = Comment(1,"지완","지코바!","07/24 17:53")
+    private fun setComment() {
+        var replys = mutableListOf<Reply>(Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"))
+        boardDetailList.add(getBoard.boardItem!!)
+        val comment = Comment(1,"지완","지코바!","07/24 17:53",replys)
         for (i in 1..7) {
-            boardDTOs.add(BoardDTO(getBoardItem,comment))
+            boardDetailList.add(comment)
         }
-        return boardDTOs
     }
 
     private fun setToolbar(){
