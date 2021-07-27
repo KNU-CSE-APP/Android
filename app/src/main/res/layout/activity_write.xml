@@ -18,12 +18,30 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             tools:ignore="MissingConstraints" >
-            <TextView
-                android:layout_width="wrap_content"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="245dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/signup_toolbar_textview"
-                android:text="@string/writing"
-                style="@style/toolbar_textstyle"/>
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintTextColor="@color/white"
+                app:endIconTint="@color/white"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/categoryTextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="@string/choose_category"
+                    android:enabled="false"
+                    android:outlineSpotShadowColor="@android:color/transparent"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -60,44 +78,17 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/menu"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:boxStrokeColor="@null"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:hintEnabled="false"
-                android:background="@android:color/transparent"
-                android:layout_gravity="right"
-                android:layout_marginEnd="10dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/category_textview"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:inputType="none"
-                    android:text="카테고리"
-                    android:textSize="11sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_margin="20dp"
                 android:hint="@string/writing_notice"
                 android:textSize="14sp"
                 android:inputType="textMultiLine"
                 android:singleLine="false"
                 android:background="@null"
                 android:gravity="top"/>
-
-
         </LinearLayout>
 
 
