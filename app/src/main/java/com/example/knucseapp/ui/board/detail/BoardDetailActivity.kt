@@ -32,7 +32,6 @@ class BoardDetailActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         val adapter = CommentAdapter()
         setComment()
-        binding.commentRecycler.scrollToPosition(0)
         binding.commentRecycler.adapter = adapter
         adapter.boardDetailList = boardDetailList
 

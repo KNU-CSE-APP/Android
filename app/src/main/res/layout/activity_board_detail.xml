@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/edt_comment"
-            android:layout_below="@id/toolbar_division">
+            android:layout_below="@id/toolbar_division"
+            android:descendantFocusability="blocksDescendants">
 
         </androidx.recyclerview.widget.RecyclerView>
 
