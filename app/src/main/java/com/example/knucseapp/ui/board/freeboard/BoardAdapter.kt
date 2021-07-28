@@ -49,5 +49,6 @@ class Holder(val binding: BoardRecyclerBinding): RecyclerView.ViewHolder(binding
         binding.tvContent.text = item.boardItem?.content
         binding.tvDate.text = item.boardItem?.date
         binding.tvCommentCnt.text = item.comments?.size.toString()
+        binding.tvTag.text = item.boardItem?.category
     }
 }
