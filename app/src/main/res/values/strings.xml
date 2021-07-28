@@ -34,7 +34,7 @@
     <string name="complete_signup">가입완료</string>
     <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
 
-    <!-- board, detail board, search view   -->
+    <!-- board, detail board, search, writing view   -->
     <string name="date">Date</string>
     <string name="author">Author</string>
     <string name="title">Title</string>
@@ -51,6 +51,7 @@
     <string name="complete">완료</string>
     <string name="writing_title">제목</string>
     <string name="writing_notice">본문을 입력하세요.</string>
+    <string name="choose_category">카테고리를 설정해주세요</string>
 
     <!-- notice view-->
     <string name="before_page">이전 페이지</string>
