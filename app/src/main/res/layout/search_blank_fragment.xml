@@ -9,17 +9,44 @@
         android:layout_width="match_parent"
         android:background="#FFFFFF"
         android:clickable="true"
-        tools:context=".ui.board.search.SearchBlankFragment">
+        tools:context=".ui.board.search.SearchBlankFragment"
+        android:layout_margin="15dp">
 
         <TextView
+            android:id="@+id/blank_category_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="추천 카테고리"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/blank_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/blank_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/blank_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/blank_category_textView" />
+
+        <TextView
+            android:id="@+id/blank_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:text="@string/search_blank"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/blank_recycler" />
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

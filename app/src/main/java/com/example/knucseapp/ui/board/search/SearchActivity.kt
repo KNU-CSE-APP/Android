@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -17,7 +18,8 @@ import com.example.knucseapp.databinding.ActivitySearchBinding
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySearchBinding
-    lateinit var blankFragment: SearchBlankFragment
+    private val blankFragment by lazy { SearchBlankFragment() }
+    private var resultFragment : SearchResultFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun setFragment(){
-        goSearchBlank()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frameLayout, blankFragment)
+        transaction.commit()
     }
 
     fun setButton() {
@@ -54,22 +58,24 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun goSearchBlank() {
-        blankFragment = SearchBlankFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, blankFragment)
-        transaction.commit()
+        if(resultFragment!=null){
+            Log.d("SearchActivity", "result Fragment exists")
+            supportFragmentManager.beginTransaction().remove(resultFragment!!).commit()
+        }
+        supportFragmentManager.beginTransaction().show(blankFragment).commit()
     }
     fun goSearchResult(keyword: String) {
-        val searchFragment = SearchResultFragment()
 
         var bundle = Bundle()
         bundle.putString("keyword", keyword)
 
-        searchFragment.arguments = bundle
-
+        resultFragment = SearchResultFragment()
+        resultFragment!!.arguments = bundle
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout, searchFragment)
+        transaction.add(R.id.frameLayout, resultFragment!!)
         transaction.commit()
+
+
     }
 
     fun setStatusBarColor() {
