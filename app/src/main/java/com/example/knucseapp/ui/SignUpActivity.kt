@@ -55,7 +55,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("SignupActivity", "call textwatcher")
                 if(binding.emailText.text!!.isEmpty()){
                     binding.emailLayout.error = sentence1
                 }
@@ -77,7 +76,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("SignupActivity", "call textwatcher")
                 if(binding.pwText.text!!.isEmpty()){
                     binding.pwLayout.error = sentence1
                 }
@@ -99,7 +97,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("SignupActivity", "call textwatcher")
                 if(binding.ckpwText.text!!.isEmpty()){
                     binding.ckpwLayout.error = sentence1
                 }
@@ -122,7 +119,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("SignupActivity", "call textwatcher")
                 if(binding.stdIdText.text!!.isEmpty()){
                     binding.stdIdLayout.error = sentence1
                 }
@@ -144,7 +140,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("SignupActivity", "call textwatcher")
                 if(binding.nameText.text!!.isEmpty()){
                     binding.nameLayout.error = sentence1
                 }
@@ -163,7 +158,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("SignupActivity", "call textwatcher")
                 if(binding.nicknameText.text!!.isEmpty()){
                     binding.nicknameLayout.error = sentence1
                 }

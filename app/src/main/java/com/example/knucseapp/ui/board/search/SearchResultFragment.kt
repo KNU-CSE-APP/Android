@@ -51,14 +51,13 @@ class SearchResultFragment : Fragment() {
         binding.searchRecycler.addItemDecoration(decoration)
         binding.searchRecycler.adapter = boardAdapter
         binding.searchRecycler.layoutManager = LinearLayoutManager(activity)
-
         binding.progressBar.visibility = GONE
     }
 
     fun setText(){
+        //TODO: 검색시 사용
         val keyword = arguments?.getString("keyword") //검색한 단어 !!
-        Log.d("SearchResultFragment", keyword!!)
-
+        val category = arguments?.getStringArrayList("category") //선택한 카테고리 목록!!
     }
 
     fun loadData(){
@@ -70,5 +69,7 @@ class SearchResultFragment : Fragment() {
         boardDTOs.add(BoardDTO(Board(BoardItem(3,"잡담","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21"),emptyComments)))
         boardDTOs.add(BoardDTO(Board(BoardItem(4,"잡담","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21"),emptyComments)))
     }
+
+
 
 }
