@@ -46,7 +46,6 @@ class SearchCategoryAdapter : RecyclerView.Adapter<SearchCategoryAdapter.Holder>
                     listener?.onItemClick(itemView, item, pos, binding.btnCategory?.isSelected)
                 }
             }
-
         }
     }
 }
