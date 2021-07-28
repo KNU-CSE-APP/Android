@@ -36,6 +36,7 @@
 
     <!-- board, detail board, search, writing view   -->
     <string name="date">Date</string>
+    <string name="tag">Tag</string>
     <string name="author">Author</string>
     <string name="title">Title</string>
     <string name="content">Content</string>
