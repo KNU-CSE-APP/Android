@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.knucseapp.databinding.MypageRecyclerBinding
 import com.example.knucseapp.databinding.SettingRecyclerBinding
-import com.example.knucseapp.ui.mypage.Menuname
 import com.example.knucseapp.ui.mypage.MyPageMenu
 
 class SettingAdapter : RecyclerView.Adapter<Holder>() {

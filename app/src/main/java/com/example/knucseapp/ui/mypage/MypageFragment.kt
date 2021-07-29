@@ -45,24 +45,8 @@ class MypageFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
         viewModel = ViewModelProvider(this).get(MypageViewModel::class.java)
         setButton()
-//        loadMenu()
-//        var adapter = MyPageAdapter()
-//        adapter.menulist = menulist
-
-//        val decoration = com.example.knucseapp.ui.DividerItemDecoration(1f, 1f, Color.LTGRAY)
-//        binding.mypageRecycler.addItemDecoration(decoration)
-//        binding.mypageRecycler.adapter = adapter
-//        binding.mypageRecycler.layoutManager = LinearLayoutManager(activity)
-
     }
 
-    fun loadMenu(){
-        val res_list = listOf(R.drawable.settings)
-
-        Menuname.grouplist.forEach { name ->
-            menulist.add(MyPageMenu(res_list.get(0), name))
-        }
-    }
 
     fun setButton() {
         binding.btnMypageMypage.setOnClickListener {

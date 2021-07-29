@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityReservationHistoryBinding
 import com.example.knucseapp.databinding.ActivitySettingBinding
-import com.example.knucseapp.ui.mypage.Menuname
-import com.example.knucseapp.ui.mypage.MyPageAdapter
 import com.example.knucseapp.ui.mypage.MyPageMenu
 
 class SettingActivity : AppCompatActivity() {
@@ -51,8 +49,7 @@ class SettingActivity : AppCompatActivity() {
     }
 
     fun loadMenu(){
-        Menuname.setting.forEach { name ->
-            setting_list.add(name)
-        }
+        setting_list.add("푸시 알림")
+        setting_list.add("소리")
     }
 }
