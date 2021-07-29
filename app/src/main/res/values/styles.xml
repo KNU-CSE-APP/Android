@@ -43,5 +43,10 @@
         <item name = "android:layout_marginBottom">16dp</item>
     </style>
 
+    <style name = "mypage_textviewstyle">
+        <item name = "android:textSize">14dp</item>
+        <item name = "android:textColor">@color/black</item>
+    </style>
+
 
 </resources>

@@ -72,5 +72,15 @@
     <string name="complete_reservation">예약 확정</string>
     <!-- TODO: Remove or change this placeholder text -->
 
-
+    <!-- mypage -->
+    <string name="mypage_menu_account_management">계정 관리</string>
+    <string name="mypage_menu_classroom">강의실</string>
+    <string name="mypage_menu_board">게시판</string>
+    <string name="mypage_menu_app_management">앱 관리</string>
+    <string name="mypage_mypage">마이페이지</string>
+    <string name="mypage_change_password">비밀번호 변경</string>
+    <string name="mypage_reservation_history">예약내역</string>
+    <string name="mypage_my_write">내가 쓴 글</string>
+    <string name="mypage_setting">환경설정</string>
+    <string name="mypage_logout">로그아웃</string>
 </resources>
