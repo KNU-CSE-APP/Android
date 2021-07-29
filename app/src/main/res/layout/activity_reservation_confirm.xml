@@ -167,24 +167,15 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="center">
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color2"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/cancel_reservation"
-                    android:background="@drawable/reservation_cancel_button"
-                    android:stateListAnimator="@null"
-                    />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCompleteReservation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/complete_reservation"
                     android:background="@drawable/reservation_confirm_button"
-                    android:stateListAnimator="@null"/>
+                    android:stateListAnimator="@null"
+                    android:text="@string/complete_reservation"
+                    android:textColor="@color/button_text_color" />
             </LinearLayout>
         </LinearLayout>
 
