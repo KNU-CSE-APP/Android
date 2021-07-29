@@ -1,5 +1,6 @@
 package com.example.knucseapp.ui.mypage
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +13,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.MypageFragmentBinding
+import com.example.knucseapp.ui.SignInActivity
+import com.example.knucseapp.ui.mypage.menu.ReservationHistoryActivity
+import com.example.knucseapp.ui.mypage.menu.SettingActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MypageFragment : Fragment() {
 
@@ -68,7 +73,8 @@ class MypageFragment : Fragment() {
         }
 
         binding.btnMypageReservationHistory.setOnClickListener {
-            Toast.makeText(context, "reservation clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(it.context, ReservationHistoryActivity::class.java)
+            it.context.startActivity(intent)
         }
 
         binding.btnMypageWriteHistory.setOnClickListener {
@@ -76,13 +82,31 @@ class MypageFragment : Fragment() {
         }
 
         binding.btnMypageSetting.setOnClickListener {
-            Toast.makeText(context, "setting clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(it.context, SettingActivity::class.java)
+            it.context.startActivity(intent)
         }
 
         binding.btnMypageLogout.setOnClickListener {
             Toast.makeText(context, "logout clicked", Toast.LENGTH_SHORT).show()
+            logout()
         }
 
+    }
+
+
+    //TODO : viewmodel로 옮기기
+    fun logout(){
+        MaterialAlertDialogBuilder(binding.root.context)
+                .setTitle("로그아웃")
+                .setMessage("로그아웃하시겠습니까?")
+                .setPositiveButton("확인") { _, _ ->
+                    val intent = Intent(context, SignInActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    context?.startActivity(intent)
+                }
+                .setNegativeButton("취소") { _, _ -> // 취소시 처리 로직
+                }
+                .show()
     }
 
 }

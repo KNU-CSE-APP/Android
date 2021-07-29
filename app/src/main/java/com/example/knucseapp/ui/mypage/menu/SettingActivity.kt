@@ -15,7 +15,6 @@ import com.example.knucseapp.ui.mypage.MyPageMenu
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
-    lateinit var menu_name: String
     var setting_list = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,6 @@ class SettingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setting)
         binding.lifecycleOwner = this
 
-        menu_name = intent.getStringExtra("menu_name").toString()
         setToolbar()
         loadMenu()
         var adapter = SettingAdapter()
@@ -39,7 +37,6 @@ class SettingActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.reservationHistoryToolbarTextview.text = menu_name
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
