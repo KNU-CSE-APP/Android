@@ -62,14 +62,14 @@
 
     <!-- reservation, confirm view-->
     <string name="show_seat_layout">배치도 보기</string>
-    <string name="reservation_confirm_toolbar">좌석배정확정</string>
-    <string name="reservation_confirm_message">반드시 착석 후 좌석을 예약해주시길 바랍니다.</string>
+    <string name="reservation_confirm_toolbar">좌석예약정보</string>
+    <string name="reservation_confirm_message">"예약 좌석 관리는 '설정 > 예약 내역'에서 가능합니다."</string>
     <string name="seat_info">좌석정보</string>
     <string name="seat_status">이용상태</string>
     <string name="enter_time">입실시간</string>
     <string name="exit_time">퇴실시간</string>
     <string name="cancel_reservation">예약 취소</string>
-    <string name="complete_reservation">예약 확정</string>
+    <string name="complete_reservation">확인</string>
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- mypage -->
@@ -83,4 +83,10 @@
     <string name="mypage_my_write">내가 쓴 글</string>
     <string name="mypage_setting">환경설정</string>
     <string name="mypage_logout">로그아웃</string>
+    <string name="reservation_history_toolbar">예약 내역</string>
+    <string name="reservation_histroy_message">예약된 좌석 정보가 없습니다.</string>
+    <string name="reservation_return">좌석 반납</string>
+    <string name="reservation_extension">예약 연장</string>
+    <string name="reservation_extension_num">연장 횟수</string>
+
 </resources>

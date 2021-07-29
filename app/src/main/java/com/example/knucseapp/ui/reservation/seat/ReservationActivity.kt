@@ -3,6 +3,7 @@ package com.example.knucseapp.ui.reservation.seat
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.system.Os.accept
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityReservationBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class ReservationActivity : AppCompatActivity() {
@@ -96,25 +98,21 @@ class ReservationActivity : AppCompatActivity() {
 //                        "${seat.Seat_number} 번 좌석을 선택하셨습니다.",
 //                        Toast.LENGTH_SHORT
 //                    ).show()
-                    AlertDialog.Builder(binding.root.context)
-                        .setTitle("좌석 예약")
-                        .setMessage("${seat.Seat_number}번 좌석을 예약하시겠습니까?")
-                        .setPositiveButton(
-                            android.R.string.yes,
-                            DialogInterface.OnClickListener { dialog, whichButton ->
-                                val intent = Intent(
-                                    this@ReservationActivity,
-                                    ReservationConfirmActivity::class.java
-                                )
-                                intent.putExtra("seat", seat)
-                                //TODO: ViewModel을 쓴다면, position만 받아와서 viewmodel 에 해당 위치의 데이터를 사용하는 것도 좋을것 같다.
+                    MaterialAlertDialogBuilder(binding.root.context)
+                        .setTitle("좌석 확인")
+                        .setMessage("다음 좌석을 예약하시겠습니까? \n${seat.Room_number} / ${seat.Seat_number}번 좌석\n\n※반드시 착석후 좌석을 예약해주세요.")
+                        .setPositiveButton("예약") { dialog, whichButton ->
+                            val intent = Intent(
+                                this@ReservationActivity,
+                                ReservationConfirmActivity::class.java
+                            )
+                            intent.putExtra("seat", seat)
+                            //TODO: ViewModel을 쓴다면, position만 받아와서 viewmodel 에 해당 위치의 데이터를 사용하는 것도 좋을것 같다.
 
-                                this@ReservationActivity.startActivity(intent)
-                            })
-                        .setNegativeButton(
-                            android.R.string.no,
-                            DialogInterface.OnClickListener { dialog, whichButton -> // 취소시 처리 로직
-                            })
+                            this@ReservationActivity.startActivity(intent)
+                        }
+                        .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
+                        }
                         .show()
 
                 }
