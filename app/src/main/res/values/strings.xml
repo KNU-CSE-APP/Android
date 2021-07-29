@@ -45,13 +45,15 @@
     <string name="tab_student">학생회공지</string>
     <string name="cancel">취소</string>
     <string name="search_hint">검색어를 입력해주세요</string>
-    <string name="search_blank">검색중...</string>
+    <string name="search_blank">게시글을 검색해보세요</string>
     <string name="search_result">검색결과</string>
     <string name="writing">글 쓰기</string>
     <string name="complete">완료</string>
     <string name="writing_title">제목</string>
     <string name="writing_notice">본문을 입력하세요.</string>
     <string name="choose_category">카테고리를 설정해주세요</string>
+    <string name="recommend_category">추천 카테고리</string>
+    <string name="category_explain">카테고리를 선택하지 않으면 전체 게시글에서 검색합니다.</string>
 
     <!-- notice view-->
     <string name="before_page">이전 페이지</string>
