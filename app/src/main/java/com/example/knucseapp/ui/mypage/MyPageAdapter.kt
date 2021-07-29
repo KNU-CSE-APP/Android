@@ -10,8 +10,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.MypageRecyclerBinding
 import com.example.knucseapp.ui.SignInActivity
+import com.example.knucseapp.ui.mypage.menu.PasswordEditActivity
 import com.example.knucseapp.ui.mypage.menu.ReservationHistoryActivity
 import com.example.knucseapp.ui.mypage.menu.SettingActivity
+import com.example.knucseapp.ui.mypage.menu.UserInfoEditActivity
 
 class MyPageAdapter : RecyclerView.Adapter<Holder>() {
     var menulist = mutableListOf<MyPageMenu>()
@@ -37,16 +39,26 @@ class Holder(val binding: MypageRecyclerBinding) : RecyclerView.ViewHolder(bindi
             when(binding.menutext.text)
             {
                 Menuname.grouplist[0] -> {
+                    val intent = Intent(it.context,UserInfoEditActivity::class.java)
+                    intent.putExtra("menu_name",Menuname.grouplist[0])
+                    it.context.startActivity(intent)
+                }
+                Menuname.grouplist[1] -> {
+                    val intent = Intent(it.context, PasswordEditActivity::class.java)
+                    intent.putExtra("menu_name",Menuname.grouplist[1])
+                    it.context.startActivity(intent)
+                }
+                Menuname.grouplist[2] -> {
                     val intent = Intent(it.context, ReservationHistoryActivity::class.java)
-                    intent.putExtra("menu_name", Menuname.grouplist[0])
+                    intent.putExtra("menu_name", Menuname.grouplist[2])
                     it.context.startActivity(intent)
                 }
-                Menuname.grouplist[4] -> {
+                Menuname.grouplist[6] -> {
                     val intent = Intent(it.context, SettingActivity::class.java)
-                    intent.putExtra("menu_name", Menuname.grouplist[4])
+                    intent.putExtra("menu_name", Menuname.grouplist[6])
                     it.context.startActivity(intent)
                 }
-                Menuname.grouplist[5] -> {
+                Menuname.grouplist[7] -> {
                     AlertDialog.Builder(it.context)
                             .setTitle("로그아웃")
                             .setMessage("로그아웃하시겠습니까?")
