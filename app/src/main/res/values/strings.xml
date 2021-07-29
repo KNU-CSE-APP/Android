@@ -72,5 +72,11 @@
     <string name="complete_reservation">확인</string>
     <!-- TODO: Remove or change this placeholder text -->
 
+    <!-- mypage-->
+    <string name="reservation_history_toolbar">예약 내역</string>
+    <string name="reservation_histroy_message">예약된 좌석 정보가 없습니다.</string>
+    <string name="reservation_return">좌석 반납</string>
+    <string name="reservation_extension">예약 연장</string>
+    <string name="reservation_extension_num">연장 횟수</string>
 
 </resources>

@@ -12,6 +12,7 @@ import com.example.knucseapp.databinding.MypageRecyclerBinding
 import com.example.knucseapp.ui.SignInActivity
 import com.example.knucseapp.ui.mypage.menu.ReservationHistoryActivity
 import com.example.knucseapp.ui.mypage.menu.SettingActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MyPageAdapter : RecyclerView.Adapter<Holder>() {
     var menulist = mutableListOf<MyPageMenu>()
@@ -47,15 +48,15 @@ class Holder(val binding: MypageRecyclerBinding) : RecyclerView.ViewHolder(bindi
                     it.context.startActivity(intent)
                 }
                 Menuname.grouplist[5] -> {
-                    AlertDialog.Builder(it.context)
+                    MaterialAlertDialogBuilder(binding.root.context)
                             .setTitle("로그아웃")
                             .setMessage("로그아웃하시겠습니까?")
-                            .setPositiveButton("OK") { _, _ ->
+                            .setPositiveButton("확인") { _, _ ->
                                 val intent = Intent(it.context, SignInActivity::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 it.context.startActivity(intent)
                             }
-                            .setNegativeButton("CANCEL") { _, _ -> // 취소시 처리 로직
+                            .setNegativeButton("취소") { _, _ -> // 취소시 처리 로직
                             }
                             .show()
 
