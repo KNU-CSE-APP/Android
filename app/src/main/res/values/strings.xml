@@ -34,6 +34,10 @@
     <string name="complete_signup">가입완료</string>
     <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
 
+    <!-- password_edit   -->
+    <string name="cur_password">현재 비밀번호</string>
+    <string name="new_password_notice">영문,숫자,특문이 2종류이상 조합된 8~20자</string>
+
     <!-- board, detail board, search, writing view   -->
     <string name="date">Date</string>
     <string name="tag">Tag</string>
