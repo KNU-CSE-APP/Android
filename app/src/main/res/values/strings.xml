@@ -34,6 +34,14 @@
     <string name="complete_signup">가입완료</string>
     <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
 
+    <!-- user_info edit   -->
+    <string-array name="user_info_edit_menu">
+        <item>프로필 사진 변경</item>
+        <item>프로필 사진 삭제</item>
+    </string-array>
+    <string name="edit">수정</string>
+
+
     <!-- password_edit   -->
     <string name="cur_password">현재 비밀번호</string>
     <string name="new_password_notice">영문,숫자,특문이 2종류이상 조합된 8~20자</string>
