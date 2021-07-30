@@ -28,7 +28,7 @@ class UserInfoEditActivity : AppCompatActivity() {
         menuName = intent.getStringExtra("menu_name").toString()
         setToolbar()
         nickName = binding.userNicknameText.text.toString()
-
+        binding.btnOk.isEnabled = false
 
         binding.userNicknameEdit.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -39,10 +39,7 @@ class UserInfoEditActivity : AppCompatActivity() {
 
             }
             override fun afterTextChanged(s: Editable?) {
-                if (binding.userNicknameEdit.text.toString().equals(nickName)){
-                    binding.btnOk.isEnabled = false
-                }
-                else{
+                if (!binding.userNicknameEdit.text.toString().equals(nickName)){
                     binding.btnOk.isEnabled = true
                 }
             }
