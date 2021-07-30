@@ -11,11 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.databinding.BoardFragmentBinding
 import com.example.knucseapp.databinding.ReservationFragmentBinding
-import com.example.knucseapp.ui.mypage.MyPageAdapter
-import com.example.knucseapp.ui.mypage.MyPageMenu
-
 class ReservationFragment : Fragment() {
 
     companion object {
