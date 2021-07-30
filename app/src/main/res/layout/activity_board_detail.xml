@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,25 +44,48 @@
         <LinearLayout
             android:id="@+id/edt_comment"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/text_comment"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/board_detail_textview_top_stroke">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/comment_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="댓글을 입력하세요."
-                android:inputType="textPersonName" />
+                app:hintEnabled="false"
+                app:endIconMode="clear_text"
+                app:boxStrokeColor="@null"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                android:background="@drawable/search_round">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/comment_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/comment_hint"
+                    android:textSize="12sp"
+                    android:inputType="text"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_ctv"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/knu_red"
-                android:text="등록" />
+                android:layout_weight="1"
+                android:text="@string/complete"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:backgroundTint="#00000000"
+                android:stateListAnimator="@null"
+                android:layout_marginStart="10dp"
+                android:padding="0dp"/>
         </LinearLayout>
 
     </RelativeLayout>

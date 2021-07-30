@@ -237,7 +237,8 @@
                                 android:background="@drawable/userinfo_edit_button_shape"
                                 android:gravity="center"
                                 android:text="@string/edit"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                android:stateListAnimator="@null"/>
                         </LinearLayout>
 
                     </LinearLayout>
