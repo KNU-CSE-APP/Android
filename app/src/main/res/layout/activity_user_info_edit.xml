@@ -23,14 +23,15 @@
                 android:id="@+id/userinfo_edit_toolbar_textview"
                 style="@style/toolbar_textstyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/mypage_mypage"/>
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_contraintlayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorDivision"
+            android:background="@color/mypage_background_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -17,4 +17,6 @@
     <color name="seat_selected">#a8a8a8</color>
     <color name="gray">#D6D6D6</color>
 
+    <color name="mypage_background_gray">#f2f2f7</color>
+
 </resources>

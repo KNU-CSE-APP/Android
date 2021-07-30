@@ -17,7 +17,6 @@ import com.example.knucseapp.databinding.ActivityUserInfoEditBinding
 class UserInfoEditActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityUserInfoEditBinding
-    lateinit var menuName : String
     lateinit var nickName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +24,6 @@ class UserInfoEditActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info_edit)
         binding.lifecycleOwner = this
 
-        menuName = intent.getStringExtra("menu_name").toString()
         setToolbar()
         nickName = binding.userNicknameText.text.toString()
         binding.btnOk.isEnabled = false
@@ -67,7 +65,6 @@ class UserInfoEditActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.userinfoEditToolbarTextview.text = menuName
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

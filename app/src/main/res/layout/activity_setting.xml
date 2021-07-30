@@ -19,7 +19,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/reservation_history_toolbar_textview"
-                style="@style/toolbar_textstyle"/>
+                style="@style/toolbar_textstyle"
+                android:text="@string/mypage_setting"/>
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.recyclerview.widget.RecyclerView

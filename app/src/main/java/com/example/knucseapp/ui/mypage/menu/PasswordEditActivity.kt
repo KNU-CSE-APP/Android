@@ -10,14 +10,11 @@ import com.example.knucseapp.databinding.ActivityPasswordEditBinding
 class PasswordEditActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityPasswordEditBinding
-    lateinit var menuName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_password_edit)
         binding.lifecycleOwner = this
-
-        menuName = intent.getStringExtra("menu_name").toString()
         setToolbar()
     }
 
@@ -25,7 +22,6 @@ class PasswordEditActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.passwordEditToolbarTextview.text = menuName
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
