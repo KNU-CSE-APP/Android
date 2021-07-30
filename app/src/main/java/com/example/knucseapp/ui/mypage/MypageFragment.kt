@@ -26,7 +26,6 @@ class MypageFragment : Fragment() {
 
     private lateinit var viewModel: MypageViewModel
     lateinit var binding: MypageFragmentBinding
-    var menulist = mutableListOf<MyPageMenu>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding = MypageFragmentBinding.inflate(inflater, container, false)
@@ -49,34 +48,35 @@ class MypageFragment : Fragment() {
 
 
     fun setButton() {
-        binding.btnMypageMypage.setOnClickListener {
-            Toast.makeText(context, "mypage clicked", Toast.LENGTH_SHORT).show()
-        }
-        binding.btnMypageChangePassword.setOnClickListener {
-            Toast.makeText(context, "change password clicked", Toast.LENGTH_SHORT).show()
-        }
+        binding.apply {
+            btnMypageMypage.setOnClickListener {
+                Toast.makeText(context, "mypage clicked", Toast.LENGTH_SHORT).show()
+            }
 
-        binding.btnMypageReservationHistory.setOnClickListener {
-            val intent = Intent(it.context, ReservationHistoryActivity::class.java)
-            it.context.startActivity(intent)
-        }
+            btnMypageChangePassword.setOnClickListener {
+                Toast.makeText(context, "change password clicked", Toast.LENGTH_SHORT).show()
+            }
 
-        binding.btnMypageWriteHistory.setOnClickListener {
-            Toast.makeText(context, "wrtie clicked", Toast.LENGTH_SHORT).show()
-        }
+            btnMypageReservationHistory.setOnClickListener {
+                val intent = Intent(it.context, ReservationHistoryActivity::class.java)
+                it.context.startActivity(intent)
+            }
 
-        binding.btnMypageSetting.setOnClickListener {
-            val intent = Intent(it.context, SettingActivity::class.java)
-            it.context.startActivity(intent)
-        }
+            btnMypageWriteHistory.setOnClickListener {
+                Toast.makeText(context, "wrtie clicked", Toast.LENGTH_SHORT).show()
+            }
 
-        binding.btnMypageLogout.setOnClickListener {
-            Toast.makeText(context, "logout clicked", Toast.LENGTH_SHORT).show()
-            logout()
-        }
+            btnMypageSetting.setOnClickListener {
+                val intent = Intent(it.context, SettingActivity::class.java)
+                it.context.startActivity(intent)
+            }
 
+            btnMypageLogout.setOnClickListener {
+                Toast.makeText(context, "logout clicked", Toast.LENGTH_SHORT).show()
+                logout()
+            }
+        }
     }
-
 
     //TODO : viewmodel로 옮기기
     fun logout(){
