@@ -251,10 +251,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/complete"
+                android:textColor="@color/button_text_color"
                 android:background="@drawable/userinfo_button_shape"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:stateListAnimator="@null"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

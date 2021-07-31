@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_gravity="center">
                     <View
                         android:layout_width="25dp"
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:text="사용불가"
                         android:textSize="12sp"/>
                 </LinearLayout>
@@ -86,10 +86,13 @@
                 android:id="@+id/btn_show_set_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/show_seat_layout" />
+                android:layout_marginEnd="20dp"
+                android:stateListAnimator="@null"
+                android:text="@string/show_seat_layout"
+                android:textSize="12sp"
+                android:textColor="@color/button_text_color"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/seat_recycler"
