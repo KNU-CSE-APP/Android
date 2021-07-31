@@ -1,6 +1,5 @@
 package com.example.knucseapp.ui.mypage.menu
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -8,10 +7,13 @@ import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageView
+import com.canhub.cropper.options
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityUserInfoEditBinding
 
@@ -19,11 +21,31 @@ class UserInfoEditActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityUserInfoEditBinding
     lateinit var nickName : String
-    private val getContent =
+
+    /*private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            Glide.with(this).load(it.data?.data).into(binding.accountIvProfile)
+            startCrop()
+        }
+    */
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            Glide.with(this).load(result.uriContent).into(binding.accountIvProfile)
             binding.btnOk.isEnabled=true
         }
+    }
+
+    private fun startCrop() {
+        // start picker to get image for cropping and then use the image in cropping activity
+        cropImage.launch(
+            options {
+                setGuidelines(CropImageView.Guidelines.ON)
+                setAllowRotation(true)
+                setActivityTitle("crop")
+                setCropMenuCropButtonIcon(0)
+            }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +87,14 @@ class UserInfoEditActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this).create()
         val dialogView = layoutInflater.inflate(R.layout.profile_edit_dialog,null)
         val tv_changeProfile = dialogView.findViewById<TextView>(R.id.change_profile)
-        val tv_removeProfile = dialogView.findViewById<TextView>(R.id.change_profile)
+        val tv_removeProfile = dialogView.findViewById<TextView>(R.id.remove_profile)
 
         tv_changeProfile.setOnClickListener {
-            var photoPickerIntent = Intent(Intent.ACTION_PICK)
-            photoPickerIntent.type = "image/*"
-            getContent.launch(photoPickerIntent)
+            startCrop()
+            builder.dismiss()
+        }
+        tv_removeProfile.setOnClickListener {
+            Glide.with(this).load(R.drawable.sample_image2).into(binding.accountIvProfile)
             builder.dismiss()
         }
 
