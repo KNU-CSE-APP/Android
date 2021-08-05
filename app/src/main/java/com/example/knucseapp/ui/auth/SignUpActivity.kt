@@ -8,23 +8,44 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
-import com.example.knucseapp.databinding.ActivitySignInBinding
 import com.example.knucseapp.databinding.ActivitySignUpBinding
+import com.example.knucseapp.ui.auth.AuthListener
+import com.example.knucseapp.ui.auth.AuthViewModel
+import com.example.knucseapp.ui.auth.AuthViewModelFactory
+import com.example.knucseapp.ui.data.VerifyEmailDTO
+import com.example.knucseapp.ui.repository.AuthRepository
+import com.example.knucseapp.ui.request.user.ApiRequestFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(), AuthListener {
 
 
     private lateinit var binding: ActivitySignUpBinding
+    lateinit var viewModel : AuthViewModel
+    lateinit var viewModelFactory: AuthViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
-
+        initViewModel()
         setToolbar()
         textWatcher()
         setButton()
     }
+
+    private fun initViewModel(){
+        viewModelFactory = AuthViewModelFactory(AuthRepository())
+        viewModel = ViewModelProvider(this,viewModelFactory).get(AuthViewModel::class.java)
+        viewModel.getResponse.observe(this){
+            Toast.makeText(this,it.response,Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -173,6 +194,17 @@ class SignUpActivity : AppCompatActivity() {
 
             })
         }
+    }
+
+    override fun onStarted() {
+
+    }
+
+    override fun onSuccess() {
+
+    }
+
+    override fun onFailure(message: String) {
 
     }
 }

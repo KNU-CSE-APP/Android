@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.auth.AuthViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,6 +75,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/email_text"
+                                android:text="@={viewmodel.email}"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:scrollHorizontally="true"
@@ -85,6 +88,7 @@
                             android:text="@string/send_verify_number"
                             android:textColor="@color/button_text_color"
                             android:textSize="8sp"
+                            android:onClick="@{() -> viewmodel.requestVerifyCode()}"
                             android:stateListAnimator="@null"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -113,11 +117,11 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/emailverify_text"
+                                android:text="@={viewmodel.permissionCode}"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 style="@style/signup_textview_textstyle"
                                 android:hint="@string/verify_hint"
-                                android:focusable ="false"
                                 android:enabled="false"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
