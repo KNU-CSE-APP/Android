@@ -41,8 +41,31 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
     private fun initViewModel(){
         viewModelFactory = AuthViewModelFactory(AuthRepository())
         viewModel = ViewModelProvider(this,viewModelFactory).get(AuthViewModel::class.java)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
+
         viewModel.getResponse.observe(this){
             Toast.makeText(this,it.response,Toast.LENGTH_SHORT).show()
+            binding.btnEmailConfirm.isEnabled = true
+            binding.emailverifyText.isEnabled=true
+            binding.emailverifyText.isFocusable=true
+        }
+
+        viewModel.verifyPostResponse.observe(this){
+            if(it.success){
+                Toast.makeText(this,"인증 성공!",Toast.LENGTH_SHORT).show()
+                binding.btnSignup.isEnabled = true
+            }
+            else{ Toast.makeText(this,it.error.message,Toast.LENGTH_SHORT).show() }
+        }
+
+        viewModel.signUpResponse.observe(this) {
+            if (it.success) {
+                Toast.makeText(this, "회원 가입 완료!", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, it.error.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
