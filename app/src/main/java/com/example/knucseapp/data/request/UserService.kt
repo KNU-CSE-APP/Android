@@ -1,8 +1,6 @@
 package com.example.knucseapp.data.request.user
 
-import com.example.knucseapp.data.model.AuthResponse
-import com.example.knucseapp.data.model.SignUpForm
-import com.example.knucseapp.data.model.VerifyEmailDTO
+import com.example.knucseapp.data.model.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -17,4 +15,7 @@ interface UserService {
 
     @POST("/user/signUp")
     suspend fun signUp(@Body signUpForm : SignUpForm) : AuthResponse
+
+    @POST("/user/signIn")
+    suspend fun signIn(@Body signInForm : SignInForm) : SignInResponse
 }

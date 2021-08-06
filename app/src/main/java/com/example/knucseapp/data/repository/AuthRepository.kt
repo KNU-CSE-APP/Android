@@ -1,5 +1,6 @@
 package com.example.knucseapp.data.repository
 
+import com.example.knucseapp.data.model.SignInForm
 import com.example.knucseapp.data.model.SignUpForm
 import com.example.knucseapp.data.model.VerifyEmailDTO
 import com.example.knucseapp.data.request.user.ApiRequestFactory
@@ -18,5 +19,9 @@ class AuthRepository{
 
     suspend fun requestSignUp(signUpForm: SignUpForm) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.signUp(signUpForm)
+    }
+
+    suspend fun requestSignIn(signInForm: SignInForm) = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.signIn(signInForm)
     }
 }

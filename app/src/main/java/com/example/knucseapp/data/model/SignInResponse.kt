@@ -1,13 +1,12 @@
 package com.example.knucseapp.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
-data class AuthResponse(
+data class SignInResponse(
     @SerializedName("error")
     val error: ApiError,
     @SerializedName("response")
-    val response: String,
+    val response: LoginSuccessDTO,
     @SerializedName("success")
     val success: Boolean
 )

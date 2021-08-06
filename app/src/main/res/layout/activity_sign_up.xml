@@ -75,7 +75,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/email_text"
-                                android:text="@={viewmodel.email}"
+                                android:text="@={viewmodel.signUpEmail}"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:scrollHorizontally="true"
@@ -168,7 +168,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/pw_text"
-                            android:text="@={viewmodel.password}"
+                            android:text="@={viewmodel.signUpPassword}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:inputType="textPassword"
