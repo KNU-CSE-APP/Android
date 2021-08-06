@@ -1,4 +1,4 @@
-package com.example.knucseapp.ui.data
+package com.example.knucseapp.data.model
 
 
 import com.google.gson.annotations.SerializedName

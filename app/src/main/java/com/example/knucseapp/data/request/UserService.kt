@@ -1,8 +1,8 @@
-package com.example.knucseapp.ui.request.user
+package com.example.knucseapp.data.request.user
 
-import com.example.knucseapp.ui.data.AuthResponse
-import com.example.knucseapp.ui.data.SignUpForm
-import com.example.knucseapp.ui.data.VerifyEmailDTO
+import com.example.knucseapp.data.model.AuthResponse
+import com.example.knucseapp.data.model.SignUpForm
+import com.example.knucseapp.data.model.VerifyEmailDTO
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

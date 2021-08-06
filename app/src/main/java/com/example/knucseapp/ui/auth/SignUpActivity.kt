@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -14,13 +13,7 @@ import com.example.knucseapp.databinding.ActivitySignUpBinding
 import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
-import com.example.knucseapp.ui.data.VerifyEmailDTO
-import com.example.knucseapp.ui.repository.AuthRepository
-import com.example.knucseapp.ui.request.user.ApiRequestFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.knucseapp.data.repository.AuthRepository
 
 class SignUpActivity : AppCompatActivity(), AuthListener {
 

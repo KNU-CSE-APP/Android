@@ -3,7 +3,6 @@ package com.example.knucseapp.ui.board.search
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.databinding.ReservationFragmentBinding
 import com.example.knucseapp.databinding.SearchResultFragmentBinding
-import com.example.knucseapp.ui.DividerItemDecoration
+import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.board.freeboard.*
 
 

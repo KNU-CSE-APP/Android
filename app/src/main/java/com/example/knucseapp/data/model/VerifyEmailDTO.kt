@@ -1,4 +1,4 @@
-package com.example.knucseapp.ui.data
+package com.example.knucseapp.data.model
 
 data class VerifyEmailDTO(
     val email : String,

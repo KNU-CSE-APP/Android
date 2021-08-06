@@ -1,16 +1,15 @@
 package com.example.knucseapp.ui.auth
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.R
-import com.example.knucseapp.ui.data.AuthResponse
-import com.example.knucseapp.ui.data.SignUpForm
-import com.example.knucseapp.ui.data.VerifyEmailDTO
-import com.example.knucseapp.ui.repository.AuthRepository
+import com.example.knucseapp.data.model.AuthResponse
+import com.example.knucseapp.data.model.SignUpForm
+import com.example.knucseapp.data.model.VerifyEmailDTO
+import com.example.knucseapp.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {

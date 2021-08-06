@@ -8,8 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
-import com.example.knucseapp.ui.DividerItemDecoration
-import com.example.knucseapp.ui.board.*
+import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.board.freeboard.*
 
 class BoardDetailActivity : AppCompatActivity() {

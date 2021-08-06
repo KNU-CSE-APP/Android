@@ -1,4 +1,4 @@
-package com.example.knucseapp.ui.request.user
+package com.example.knucseapp.data.request.user
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

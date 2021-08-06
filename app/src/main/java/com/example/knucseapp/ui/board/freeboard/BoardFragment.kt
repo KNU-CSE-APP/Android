@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.BoardFragmentBinding
-import com.example.knucseapp.ui.DividerItemDecoration
+import com.example.knucseapp.ui.util.DividerItemDecoration
 
 class BoardFragment : Fragment() {
 

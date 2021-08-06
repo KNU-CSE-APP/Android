@@ -1,8 +1,8 @@
-package com.example.knucseapp.ui.repository
+package com.example.knucseapp.data.repository
 
-import com.example.knucseapp.ui.data.SignUpForm
-import com.example.knucseapp.ui.data.VerifyEmailDTO
-import com.example.knucseapp.ui.request.user.ApiRequestFactory
+import com.example.knucseapp.data.model.SignUpForm
+import com.example.knucseapp.data.model.VerifyEmailDTO
+import com.example.knucseapp.data.request.user.ApiRequestFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
