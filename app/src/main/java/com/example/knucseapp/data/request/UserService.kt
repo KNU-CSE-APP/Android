@@ -8,14 +8,14 @@ import retrofit2.http.Path
 
 interface UserService {
     @GET("/user/verify/{requestEmail}")
-    suspend fun requestVerifyCode(@Path("requestEmail") email: String) : AuthResponse
+    suspend fun requestVerifyCode(@Path("requestEmail") email: String) : ApiResult<String>
 
     @POST("/user/verify")
-    suspend fun requestVerify(@Body verifyEmailDTO : VerifyEmailDTO) : AuthResponse
+    suspend fun requestVerify(@Body verifyEmailDTO : VerifyEmailDTO) : ApiResult<String>
 
     @POST("/user/signUp")
-    suspend fun signUp(@Body signUpForm : SignUpForm) : AuthResponse
+    suspend fun signUp(@Body signUpForm : SignUpForm) : ApiResult<String>
 
     @POST("/user/signIn")
-    suspend fun signIn(@Body signInForm : SignInForm) : SignInResponse
+    suspend fun signIn(@Body signInForm : SignInForm) : ApiResult<LoginSuccessDTO>
 }

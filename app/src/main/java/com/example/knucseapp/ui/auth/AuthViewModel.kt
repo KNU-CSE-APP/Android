@@ -25,17 +25,17 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     var signInEmail = ObservableField<String>()
     var signInPassword = ObservableField<String>()
 
-    private val _getResponse : MutableLiveData<AuthResponse> = MutableLiveData()
-    val getResponse : LiveData<AuthResponse> get() = _getResponse
+    private val _getResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val getResponse : LiveData<ApiResult<String>> get() = _getResponse
 
-    private val _verifyPostResponse : MutableLiveData<AuthResponse> = MutableLiveData()
-    val verifyPostResponse : LiveData<AuthResponse> get() = _verifyPostResponse
+    private val _verifyPostResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val verifyPostResponse : LiveData<ApiResult<String>> get() = _verifyPostResponse
 
-    private val _signUpResponse : MutableLiveData<AuthResponse> = MutableLiveData()
-    val signUpResponse : LiveData<AuthResponse> get() = _signUpResponse
+    private val _signUpResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val signUpResponse : LiveData<ApiResult<String>> get() = _signUpResponse
 
-    private val _signInResponse : MutableLiveData<SignInResponse> = MutableLiveData()
-    val signInResponse : LiveData<SignInResponse> = _signInResponse
+    private val _signInResponse : MutableLiveData<ApiResult<LoginSuccessDTO>> = MutableLiveData()
+    val signInResponse : LiveData<ApiResult<LoginSuccessDTO>> = _signInResponse
 
     fun getVerifyCode() = viewModelScope.launch {
         _getResponse.value = authRepository.requestVerifyCode(signUpEmail.get()!!)
