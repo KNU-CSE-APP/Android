@@ -1,5 +1,6 @@
 package com.example.knucseapp.data.request.user
 
+import com.example.knucseapp.data.request.BoardService
 import okhttp3.CookieJar
 import okhttp3.Interceptor
 import okhttp3.JavaNetCookieJar
@@ -32,5 +33,9 @@ object ApiRequestFactory {
 
     val userService : UserService by lazy{
         retrofit.create(UserService::class.java)
+    }
+
+    val boardService : BoardService by lazy {
+        retrofit.create(BoardService::class.java)
     }
 }

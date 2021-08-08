@@ -11,7 +11,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.databinding.BoardFragmentBinding
+import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.util.DividerItemDecoration
 
 class BoardFragment : Fragment() {
@@ -22,7 +24,7 @@ class BoardFragment : Fragment() {
 
     private lateinit var viewModel: BoardViewModel
     private lateinit var boardFragmentBinding: BoardFragmentBinding
-    val boardDTOs = mutableListOf<BoardDTO>()
+    val boardDTOs = mutableListOf<com.example.knucseapp.data.model.BoardDTO>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +56,11 @@ class BoardFragment : Fragment() {
     }
 
     fun loadData(){
-        boardDTOs.add(BoardDTO(Board(BoardItem(1,"#잡담","지완","배고파요","저녁 메뉴 추천좀요","2021-07-12 18:21"),
-            mutableListOf<Comment>())))
-        boardDTOs.add(BoardDTO(Board(BoardItem(2,"#잡담","지혜","키아누","커피 요즘 너무 맛있어진듯","2021-07-12 13:21"),mutableListOf<Comment>())))
-        boardDTOs.add(BoardDTO(Board(BoardItem(3,"#팀원구해요","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21"),mutableListOf<Comment>())))
-        boardDTOs.add(BoardDTO(Board(BoardItem(4,"#정보","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21"),mutableListOf<Comment>())))
+        boardDTOs.add(BoardDTO("지완", 1, "QNA", "저녁 메뉴 추천좀", "2021-07-12 18:21", "저녁메뉴??"))
+//        boardDTOs.add(BoardDTO(Board(BoardItem(1,"#잡담","지완","배고파요","저녁 메뉴 추천좀요","2021-07-12 18:21"),
+//            mutableListOf<Comment>())))
+//        boardDTOs.add(BoardDTO(Board(BoardItem(2,"#잡담","지혜","키아누","커피 요즘 너무 맛있어진듯","2021-07-12 13:21"),mutableListOf<Comment>())))
+//        boardDTOs.add(BoardDTO(Board(BoardItem(3,"#팀원구해요","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21"),mutableListOf<Comment>())))
+//        boardDTOs.add(BoardDTO(Board(BoardItem(4,"#정보","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21"),mutableListOf<Comment>())))
     }
 }

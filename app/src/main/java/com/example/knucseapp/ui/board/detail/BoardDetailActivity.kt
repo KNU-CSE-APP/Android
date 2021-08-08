@@ -7,6 +7,8 @@ import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.BoardDTO
+import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.board.freeboard.*
@@ -14,12 +16,12 @@ import com.example.knucseapp.ui.board.freeboard.*
 class BoardDetailActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBoardDetailBinding
-    private lateinit var getBoard : Board
+    private lateinit var getBoard : BoardDTO
     var boardDetailList = mutableListOf<Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getBoard = intent.getSerializableExtra("board") as Board
+        getBoard = intent.getSerializableExtra("board") as BoardDTO
         //getComment = intent.getSerializableExtra("comment") as Comment
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_detail)
         binding.lifecycleOwner = this
@@ -41,11 +43,13 @@ class BoardDetailActivity : AppCompatActivity() {
     }
 
     private fun setComment() {
-        var replys = mutableListOf<Reply>(Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"),Reply(0,"지완","굿","07/24"))
-        boardDetailList.add(getBoard.boardItem!!)
-        val comment = Comment(1,"지완","지코바!","07/24 17:53",replys)
+        var replys = mutableListOf<CommentDTO>(CommentDTO("지완",1,1,"굿", 0, "7/24"),
+            CommentDTO("지완",1,2,"대댓글", 1, "7/24"),
+            CommentDTO("지완",1,2,"굿", 0, "7/24")
+        , CommentDTO("지완",2,3,"굿", 0, "7/24"))
+        boardDetailList.add(getBoard!!)
         for (i in 1..7) {
-            boardDetailList.add(comment)
+            boardDetailList.addAll(replys)
         }
     }
 

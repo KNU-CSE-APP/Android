@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.databinding.BoardRecyclerBinding
 import com.example.knucseapp.ui.board.detail.BoardDetailActivity
 
@@ -22,15 +23,12 @@ class BoardAdapter: RecyclerView.Adapter<Holder>() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val board = boardDTOs.get(position).board
-        val boardItem = board?.boardItem
-        //val comment = boardDTOs.get(position).comments
-        holder.setBoard(board!!)
+        val boardDTO = boardDTOs.get(position)
+        holder.setBoard(boardDTO)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, BoardDetailActivity::class.java)
-            intent.putExtra("board",board)
-            //intent.putExtra("comment",comment)
+            intent.putExtra("board",boardDTO)
             it.context.startActivity(intent)
         }
     }
@@ -43,12 +41,12 @@ class Holder(val binding: BoardRecyclerBinding): RecyclerView.ViewHolder(binding
         }
     }*/
 
-    fun setBoard(item : Board){
-        binding.tvTitle.text = item.boardItem?.title
-        binding.tvAuthor.text = item.boardItem?.author
-        binding.tvContent.text = item.boardItem?.content
-        binding.tvDate.text = item.boardItem?.date
-        binding.tvCommentCnt.text = item.comments?.size.toString()
-        binding.tvTag.text = item.boardItem?.category
+    fun setBoard(item : BoardDTO){
+        binding.tvTitle.text = item.title
+        binding.tvAuthor.text = item.author
+        binding.tvContent.text = item.content
+        binding.tvDate.text = item.dateTime
+        binding.tvCommentCnt.text = "0"
+        binding.tvTag.text = item.category
     }
 }
