@@ -397,7 +397,7 @@
                     android:stateListAnimator="@null"
                     android:text="@string/complete_signup"
                     android:enabled="false"
-                    android:onClick="@{() -> viewmodel.checkFeild()}"
+                    android:onClick="@{() -> viewmodel.checkSignUpFeild()}"
                     android:textColor="@color/button_text_color" />
             </LinearLayout>
         </ScrollView>

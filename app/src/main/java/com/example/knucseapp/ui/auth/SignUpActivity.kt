@@ -34,7 +34,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
     private fun initViewModel(){
         viewModelFactory = AuthViewModelFactory(AuthRepository())
         viewModel = ViewModelProvider(this,viewModelFactory).get(AuthViewModel::class.java)
-        viewModel.authListener = this
+        viewModel.authSignUpListener = this
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 

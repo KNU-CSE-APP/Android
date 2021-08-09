@@ -28,7 +28,8 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     var signInPassword = ObservableField<String>()
 
     //auth listener
-    var authListener: AuthListener? = null
+    var authSignUpListener: AuthListener? = null
+    var authSignInListener: AuthListener? = null
 
     private val _getResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getResponse : LiveData<ApiResult<String>> get() = _getResponse
@@ -71,36 +72,54 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         )
     }
 
-    fun checkFeild(){
+    fun checkSignInFeild(){
+        if(signInEmail.get().isNullOrEmpty()){
+            authSignInListener?.onFailure("이메일을 입력해주세요",0)
+            return
+        }
+        if(signInPassword.get().isNullOrEmpty()){
+            authSignInListener?.onFailure("비밀번호를 입력해주세요",1)
+            return
+        }
+
+        postSignIn()
+
+    }
+    fun checkSignUpFeild(){
         if(signUpPassword.get().isNullOrEmpty()){
-            authListener?.onFailure("비밀번호를 입력해주세요",1)
+            authSignUpListener?.onFailure("비밀번호를 입력해주세요",1)
             return
         }
         if(passwordConfirm.get().isNullOrEmpty()){
-            authListener?.onFailure("비밀번호 재확인을 해주세요",2)
+            authSignUpListener?.onFailure("비밀번호 재확인을 해주세요",2)
             return
         }
         if(username.get().isNullOrEmpty()){
-            authListener?.onFailure("이름을 입력해주세요",3)
+            authSignUpListener?.onFailure("이름을 입력해주세요",3)
             return
         }
         if (nickname.get().isNullOrEmpty()){
-            authListener?.onFailure("닉네임을 입력해주세요",4)
+            authSignUpListener?.onFailure("닉네임을 입력해주세요",4)
             return
         }
         if (studentId.get().isNullOrEmpty()){
-            authListener?.onFailure("학번을 입력해주세요",5)
+            authSignUpListener?.onFailure("학번을 입력해주세요",5)
             return
         }
         if (majorRadio.get()!=R.id.major_radiobutton_advanced && majorRadio.get()!=R.id.major_radiobutton_global){
-            authListener?.onFailure("학과를 선택해주세요",6)
+            authSignUpListener?.onFailure("학과를 선택해주세요",6)
             return
         }
         if (genderRadio.get()!=R.id.gender_radiobutton_female && genderRadio.get()!=R.id.gender_radiobutton_male){
-            authListener?.onFailure("성별을 선택해주세요",7)
+            authSignUpListener?.onFailure("성별을 선택해주세요",7)
             return
         }
         postSignUP()
     }
 
+    fun removeEditText(){
+        signInEmail.set("")
+        signInPassword.set("")
+    }
+    
 }

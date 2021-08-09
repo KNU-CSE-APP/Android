@@ -65,6 +65,7 @@
                     app:suffixTextAppearance="@style/signup_textview_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
@@ -112,6 +113,7 @@
                     app:suffixTextAppearance="@style/signup_textview_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pw_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
@@ -137,7 +139,7 @@
             android:backgroundTint="@color/custombutton1"
             android:stateListAnimator="@null"
             android:text="@string/login"
-            android:onClick="@{() -> viewmodel.postSignIn()}"
+            android:onClick="@{() -> viewmodel.checkSignInFeild()}"
             android:textColor="@color/button_text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -10,12 +10,15 @@ import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.databinding.ActivitySignInBinding
+import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
 import com.example.knucseapp.ui.board.search.SearchActivity
 import com.example.knucseapp.ui.board.writeboard.WriteActivity
+import com.example.knucseapp.ui.util.toast
+import okhttp3.internal.wait
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity(),AuthListener {
 
     private lateinit var binding: ActivitySignInBinding
     lateinit var viewModel : AuthViewModel
@@ -41,13 +44,37 @@ class SignInActivity : AppCompatActivity() {
     private fun initViewModel(){
         viewModelFactory = AuthViewModelFactory(AuthRepository())
         viewModel = ViewModelProvider(this,viewModelFactory).get(AuthViewModel::class.java)
+        viewModel.authSignInListener = this
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
         viewModel.signInResponse.observe(this){
-            Toast.makeText(this,it.response.userId.toString() + "nickname : " + it.response.nickname, Toast.LENGTH_SHORT).show()
-            val intent = Intent(this,MainActivity::class.java)
-            startActivity(intent)
+            if(it.success){
+                toast(it.response.userId.toString() + "nickname : " + it.response.nickname)
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                toast(it.error.message)
+                viewModel.removeEditText()
+            }
+
+        }
+    }
+
+    override fun onStarted() {
+
+    }
+
+    override fun onSuccess() {
+
+    }
+
+    override fun onFailure(message: String, type: Int) {
+        toast(message)
+        when(type){
+            0 -> binding.emailText.requestFocus()
+            1 -> binding.pwText.requestFocus()
         }
     }
 }
