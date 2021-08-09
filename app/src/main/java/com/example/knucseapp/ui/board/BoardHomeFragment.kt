@@ -15,6 +15,7 @@ import com.example.knucseapp.ui.MainActivity
 import com.example.knucseapp.ui.board.detail.BoardDetailActivity
 import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.board.noticeboard.NoticeBoardFragment
+import com.example.knucseapp.ui.board.qnaboard.QnaBoardFragment
 import com.example.knucseapp.ui.board.search.SearchActivity
 import com.example.knucseapp.ui.board.writeboard.WriteActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -25,6 +26,9 @@ class BoardHomeFragment : Fragment() {
         fun newInstance() = BoardHomeFragment()
     }
 
+    private lateinit var viewModelFactory: BoardViewModelFactory
+    private lateinit var viewModel: BoardViewModel
+    
     private lateinit var boardHomeFragmentBinding : BoardHomeFragmentBinding
     private lateinit var toolBarTextView : TextView
     private lateinit var mainActivity: MainActivity
@@ -77,12 +81,12 @@ class BoardHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
 
-        val fragmentList = listOf(BoardFragment(), NoticeBoardFragment())
+        val fragmentList = listOf(BoardFragment(), QnaBoardFragment(), NoticeBoardFragment())
         val adapter = FragmentAdapter(requireActivity())
         adapter.fragmentList = fragmentList
         boardHomeFragmentBinding.viewPager.adapter = adapter
 
-        val tabTitles = listOf<String>("자유게시판","학생회공지")
+        val tabTitles = listOf<String>("자유게시판","QNA","학생회공지")
         TabLayoutMediator(boardHomeFragmentBinding.tabLayout,boardHomeFragmentBinding.viewPager){ tab, position ->
             tab.text = tabTitles.get(position)
         }.attach()
@@ -91,7 +95,7 @@ class BoardHomeFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when(position){
-                    0 -> {
+                    0, 1 -> {
                         toolBarTextView.text = tabTitles.get(position)
                         menuItem.findItem(R.id.action_write).isVisible = true
                     }

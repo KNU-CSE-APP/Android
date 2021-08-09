@@ -8,5 +8,6 @@ data class BoardDTO(
     val category: String,
     val content: String,
     val dateTime: String,
+    val commentCnt: Int,
     val title: String
 ) : Serializable

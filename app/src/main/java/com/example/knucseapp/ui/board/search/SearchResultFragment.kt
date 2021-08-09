@@ -43,7 +43,7 @@ class SearchResultFragment : Fragment() {
         binding.progressBar.visibility = VISIBLE
         setText()
         loadData()
-        val boardAdapter = BoardAdapter()
+        val boardAdapter = BoardAdapter("검색")
         boardAdapter.boardDTOs = boardDTOs
 
         val decoration = DividerItemDecoration(1f,1f, Color.LTGRAY)

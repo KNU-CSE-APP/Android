@@ -57,7 +57,7 @@ class BoardDetailActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.boardDetailToolbarTextview.text = "자유게시판"
+        binding.boardDetailToolbarTextview.text = intent.getStringExtra("title")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

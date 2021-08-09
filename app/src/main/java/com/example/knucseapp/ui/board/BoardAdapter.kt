@@ -9,7 +9,7 @@ import com.example.knucseapp.databinding.BoardRecyclerBinding
 import com.example.knucseapp.ui.board.detail.BoardDetailActivity
 
 
-class BoardAdapter: RecyclerView.Adapter<Holder>() {
+class BoardAdapter(val title: String): RecyclerView.Adapter<Holder>() {
 
     var boardDTOs = mutableListOf<BoardDTO>()
 
@@ -29,6 +29,7 @@ class BoardAdapter: RecyclerView.Adapter<Holder>() {
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, BoardDetailActivity::class.java)
             intent.putExtra("board",boardDTO)
+            intent.putExtra("title", title)
             it.context.startActivity(intent)
         }
     }
