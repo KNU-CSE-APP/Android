@@ -14,6 +14,7 @@ import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
 import com.example.knucseapp.data.repository.AuthRepository
+import com.example.knucseapp.ui.util.toast
 
 class SignUpActivity : AppCompatActivity(), AuthListener {
 
@@ -28,12 +29,12 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         initViewModel()
         setToolbar()
         textWatcher()
-        setButton()
     }
 
     private fun initViewModel(){
         viewModelFactory = AuthViewModelFactory(AuthRepository())
         viewModel = ViewModelProvider(this,viewModelFactory).get(AuthViewModel::class.java)
+        viewModel.authListener = this
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
@@ -46,20 +47,30 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
 
         viewModel.verifyPostResponse.observe(this){
             if(it.success){
-                Toast.makeText(this,"인증 성공!",Toast.LENGTH_SHORT).show()
-                binding.btnSignup.isEnabled = true
+                toast("인증 성공! \n이어서 회원 가입을 진행해주세요.")
+                setButtonState()
             }
-            else{ Toast.makeText(this,it.error.message,Toast.LENGTH_SHORT).show() }
+            else{ toast(it.error.message) }
         }
 
         viewModel.signUpResponse.observe(this) {
             if (it.success) {
-                Toast.makeText(this, "회원 가입 완료!", Toast.LENGTH_SHORT).show()
+                toast("회원 가입 완료! \n가입한 정보로 로그인해주세요.")
                 finish()
             } else {
-                Toast.makeText(this, it.error.message, Toast.LENGTH_SHORT).show()
+                toast(it.error.message)
             }
         }
+
+    }
+
+    private fun setButtonState(){
+        binding.emailText.isEnabled = false
+        binding.emailverifyText.isEnabled = false
+        binding.btnEmailVerify.isEnabled = false
+        binding.btnEmailConfirm.isEnabled = false
+        binding.btnSignup.isEnabled = true
+        binding.pwText.requestFocus()
     }
 
     private fun setToolbar(){
@@ -77,14 +88,6 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun setButton() {
-        binding.btnSignup.setOnClickListener {
-            //TODO: 입력 칸 확인
-            Toast.makeText(this, "가입한 정보로 로그인 해 주세요.", Toast.LENGTH_SHORT).show()
-            finish()
-        }
     }
 
     private fun textWatcher() {
@@ -220,7 +223,16 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
 
     }
 
-    override fun onFailure(message: String) {
-
+    override fun onFailure(message: String, type : Int) {
+        toast(message)
+        when(type){
+            1 -> binding.pwText.requestFocus()
+            2 -> binding.ckpwText.requestFocus()
+            3 -> binding.nameText.requestFocus()
+            4 -> binding.nicknameText.requestFocus()
+            5 -> binding.stdIdText.requestFocus()
+            6 -> binding.majorRadioGroup.requestFocus()
+            7 -> binding.genderRadioGroup.requestFocus()
+        }
     }
 }

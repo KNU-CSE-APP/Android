@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
+    // signUp field
     var signUpEmail = ObservableField<String>()
     var permissionCode = ObservableField<String>()
     var signUpPassword = ObservableField<String>()
@@ -22,8 +23,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     var majorRadio = ObservableField<Int>()
     var genderRadio = ObservableField<Int>()
 
+    // signIn field
     var signInEmail = ObservableField<String>()
     var signInPassword = ObservableField<String>()
+
+    //auth listener
+    var authListener: AuthListener? = null
 
     private val _getResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getResponse : LiveData<ApiResult<String>> get() = _getResponse
@@ -53,7 +58,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
         var major = when(majorRadio.get()){
             R.id.major_radiobutton_advanced -> "ADVANCED"
-            else -> "GLOBAL"
+            else ->"GLOBAL"
         }
         _signUpResponse.value = authRepository.requestSignUp(
             SignUpForm(signUpEmail.get()!!+"@knu.ac.kr",gender,major,nickname.get()!!,signUpPassword.get()!!,permissionCode.get()!!,studentId.get()!!,username.get()!!)
@@ -64,6 +69,38 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         _signInResponse.value = authRepository.requestSignIn(
             SignInForm(signInEmail.get()!!+"@knu.ac.kr",signInPassword.get()!!)
         )
+    }
+
+    fun checkFeild(){
+        if(signUpPassword.get().isNullOrEmpty()){
+            authListener?.onFailure("비밀번호를 입력해주세요",1)
+            return
+        }
+        if(passwordConfirm.get().isNullOrEmpty()){
+            authListener?.onFailure("비밀번호 재확인을 해주세요",2)
+            return
+        }
+        if(username.get().isNullOrEmpty()){
+            authListener?.onFailure("이름을 입력해주세요",3)
+            return
+        }
+        if (nickname.get().isNullOrEmpty()){
+            authListener?.onFailure("닉네임을 입력해주세요",4)
+            return
+        }
+        if (studentId.get().isNullOrEmpty()){
+            authListener?.onFailure("학번을 입력해주세요",5)
+            return
+        }
+        if (majorRadio.get()!=R.id.major_radiobutton_advanced && majorRadio.get()!=R.id.major_radiobutton_global){
+            authListener?.onFailure("학과를 선택해주세요",6)
+            return
+        }
+        if (genderRadio.get()!=R.id.gender_radiobutton_female && genderRadio.get()!=R.id.gender_radiobutton_male){
+            authListener?.onFailure("성별을 선택해주세요",7)
+            return
+        }
+        postSignUP()
     }
 
 }
