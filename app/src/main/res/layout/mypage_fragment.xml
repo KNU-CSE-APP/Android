@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.mypage.MypageViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
