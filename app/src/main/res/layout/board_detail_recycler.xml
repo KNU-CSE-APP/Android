@@ -12,8 +12,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/account_iv_profile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
@@ -28,9 +28,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Author"
-                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/account_iv_profile"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +41,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:text="date"
+                android:textSize="10sp"
                 app:layout_constraintStart_toEndOf="@+id/account_iv_profile"
                 app:layout_constraintTop_toBottomOf="@+id/tv_author" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -49,18 +52,19 @@
             android:id="@+id/boardcontent_conslayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/userinfo_conslayout">
+            android:layout_below="@id/userinfo_conslayout"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
                 android:layout_marginEnd="10dp"
                 android:text="Title"
                 android:ems="15"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/tv_content"
@@ -73,10 +77,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:ems="20"
                 android:text="content"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title" />

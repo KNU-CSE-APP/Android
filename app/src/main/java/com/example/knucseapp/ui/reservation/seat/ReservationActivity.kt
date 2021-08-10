@@ -93,11 +93,6 @@ class ReservationActivity : AppCompatActivity() {
                     Toast.makeText(this@ReservationActivity, "이미 예약된 좌석입니다.", Toast.LENGTH_SHORT).show()
                 }
                 else{
-//                    Toast.makeText(
-//                        this@ReservationActivity,
-//                        "${seat.Seat_number} 번 좌석을 선택하셨습니다.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
                     MaterialAlertDialogBuilder(binding.root.context)
                         .setTitle("좌석 확인")
                         .setMessage("다음 좌석을 예약하시겠습니까? \n${seat.Room_number} / ${seat.Seat_number}번 좌석\n\n※반드시 착석후 좌석을 예약해주세요.")

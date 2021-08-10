@@ -76,9 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/comment_hint"
-                    android:textSize="12sp"
                     android:inputType="text"
-                    />
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

@@ -90,9 +90,15 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             binding.tvTitle.text = item.title
             binding.tvAuthor.text = item.author
             binding.tvContent.text = item.content
-            binding.tvDate.text = item.dateTime
+            binding.tvDate.text = item.time
             binding.tvCommentCnt.text = item.commentCnt.toString()
-            binding.tvTag.text = item.category
+
+            if(item.category.equals("FREE")){
+                binding.tvTag.text = "#자유게시판"
+            }
+            else {
+                binding.tvTag.text = "#QNA"
+            }
         }
     }
 
