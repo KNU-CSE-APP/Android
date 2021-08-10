@@ -27,4 +27,7 @@ interface UserService {
         @Part image: MultipartBody.Part?,
         @Part nickname: MultipartBody.Part?
     ) : ApiResult<String>
+
+    @PUT("/user/changePassword")
+    suspend fun requestUserPasswordEdit(@Body changePasswordForm: ChangePasswordForm) : ApiResult<String>
 }

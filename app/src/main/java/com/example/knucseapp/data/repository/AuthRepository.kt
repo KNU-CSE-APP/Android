@@ -1,5 +1,6 @@
 package com.example.knucseapp.data.repository
 
+import com.example.knucseapp.data.model.ChangePasswordForm
 import com.example.knucseapp.data.model.SignInForm
 import com.example.knucseapp.data.model.SignUpForm
 import com.example.knucseapp.data.model.VerifyEmailDTO
@@ -32,5 +33,9 @@ class AuthRepository{
 
     suspend fun requestEditUserInfo(image : MultipartBody.Part?, nickName : MultipartBody.Part?) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.requestUserInfoEdit(image,nickName)
+    }
+
+    suspend fun requestChangePassword(changePasswordForm: ChangePasswordForm) = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestUserPasswordEdit(changePasswordForm)
     }
 }

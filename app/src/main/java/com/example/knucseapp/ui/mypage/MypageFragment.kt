@@ -51,13 +51,11 @@ class MypageFragment : Fragment() {
     fun setButton() {
         binding.apply {
             btnMypageMypage.setOnClickListener {
-                Toast.makeText(context, "mypage clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(it.context, UserInfoEditActivity::class.java)
                 it.context.startActivity(intent)
             }
 
             btnMypageChangePassword.setOnClickListener {
-                Toast.makeText(context, "change password clicked", Toast.LENGTH_SHORT).show()
                 val intent = Intent(it.context, PasswordEditActivity::class.java)
                 it.context.startActivity(intent)
             }
