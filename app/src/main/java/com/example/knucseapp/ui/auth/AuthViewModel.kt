@@ -1,5 +1,6 @@
 package com.example.knucseapp.ui.auth
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.*
 import com.example.knucseapp.data.repository.AuthRepository
+import com.example.knucseapp.ui.util.MyApplication
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
@@ -26,6 +28,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     // signIn field
     var signInEmail = ObservableField<String>()
     var signInPassword = ObservableField<String>()
+    var isSelected = ObservableField<Boolean>()
 
     //auth listener
     var authSignUpListener: AuthListener? = null
@@ -67,6 +70,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     }
 
     fun postSignIn() = viewModelScope.launch {
+        if(isSelected.get()!!){
+            MyApplication.prefs.setUserId(signInEmail.get()!!)
+            MyApplication.prefs.setUserPass(signInPassword.get()!!)
+        }
         _signInResponse.value = authRepository.requestSignIn(
             SignInForm(signInEmail.get()!!+"@knu.ac.kr",signInPassword.get()!!)
         )
@@ -120,6 +127,19 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     fun removeEditText(){
         signInEmail.set("")
         signInPassword.set("")
+    }
+
+    fun getSharedPreference(){
+        Log.d("prefs",MyApplication.prefs.getUserId())
+        Log.d("prefs",MyApplication.prefs.getUserPass())
+        if(!MyApplication.prefs.getUserId()!!.equals("") && !MyApplication.prefs.getUserPass()!!.equals("")) {
+            Log.d("prefs","in if ")
+            signInEmail.set(MyApplication.prefs.getUserId()!!)
+            signInPassword.set(MyApplication.prefs.getUserPass()!!)
+            checkSignInFeild()
+        }
+        else
+            return
     }
     
 }

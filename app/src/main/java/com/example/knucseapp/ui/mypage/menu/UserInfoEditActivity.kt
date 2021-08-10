@@ -19,6 +19,7 @@ import com.canhub.cropper.options
 import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityUserInfoEditBinding
+import com.example.knucseapp.ui.auth.MySharedPreferences
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
 import com.example.knucseapp.ui.util.hide
@@ -80,7 +81,6 @@ class UserInfoEditActivity : AppCompatActivity() {
 
         binding.apply {
             btnOk.setOnClickListener {
-
                 if(nickNameChanged && imageChanged){
                     file = File(createCopyAndReturnRealPath(filePath))
                     requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())

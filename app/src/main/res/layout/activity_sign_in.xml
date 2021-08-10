@@ -154,6 +154,7 @@
             android:layout_marginRight="30dp"
             android:buttonTint="#FFFFFF"
             android:text="@string/auto_login"
+            android:checked="@={viewmodel.isSelected}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
