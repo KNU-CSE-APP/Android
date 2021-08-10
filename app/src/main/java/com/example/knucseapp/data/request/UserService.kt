@@ -1,10 +1,9 @@
 package com.example.knucseapp.data.request.user
 
 import com.example.knucseapp.data.model.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
 
 interface UserService {
     @GET("/user/verify/{requestEmail}")
@@ -18,4 +17,14 @@ interface UserService {
 
     @POST("/user/signIn")
     suspend fun signIn(@Body signInForm : SignInForm) : ApiResult<LoginSuccessDTO>
+
+    @GET("/user/getUserEmailNickname")
+    suspend fun requestUserInfo() : ApiResult<MemberDTO>
+
+    @Multipart
+    @PUT("/user/image/nickname")
+    suspend fun requestUserInfoEdit(
+        @Part image: MultipartBody.Part?,
+        @Part nickname: MultipartBody.Part?
+    ) : ApiResult<String>
 }

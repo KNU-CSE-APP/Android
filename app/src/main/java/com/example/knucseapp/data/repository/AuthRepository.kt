@@ -6,6 +6,7 @@ import com.example.knucseapp.data.model.VerifyEmailDTO
 import com.example.knucseapp.data.request.user.ApiRequestFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 
 class AuthRepository{
 
@@ -23,5 +24,13 @@ class AuthRepository{
 
     suspend fun requestSignIn(signInForm: SignInForm) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.signIn(signInForm)
+    }
+
+    suspend fun requestUserInfo() = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestUserInfo()
+    }
+
+    suspend fun requestEditUserInfo(image : MultipartBody.Part?, nickName : MultipartBody.Part?) = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestUserInfoEdit(image,nickName)
     }
 }

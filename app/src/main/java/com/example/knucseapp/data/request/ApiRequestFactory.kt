@@ -16,6 +16,7 @@ object ApiRequestFactory {
         val request = it.request()
             .newBuilder()
             .addHeader("Content-Type", "application/json")
+            .addHeader("Content-Type","multipart/form-data")
             .build()
         return@Interceptor it.proceed(request)
     }
