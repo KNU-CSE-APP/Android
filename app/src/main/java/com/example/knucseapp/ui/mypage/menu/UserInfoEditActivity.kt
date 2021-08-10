@@ -89,8 +89,13 @@ class UserInfoEditActivity : AppCompatActivity() {
                     viewmodel?.editUserInfo(bodyFile,bodyNickname)
                 }
                 else if (nickNameChanged && !imageChanged){
-                    bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
-                    viewmodel?.editUserInfo(null,bodyNickname)
+                    if(binding.userNicknameEdit.text.toString().isNotEmpty()){
+                        bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
+                        viewmodel?.editUserInfo(null,bodyNickname)
+                    }
+                    else
+                        toast("닉네임을 입력해주세요.")
+
                 }
                 else if(!nickNameChanged && imageChanged){
                     file = File(createCopyAndReturnRealPath(filePath))
