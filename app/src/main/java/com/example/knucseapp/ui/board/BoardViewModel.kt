@@ -18,11 +18,24 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     var writeContent = ObservableField<String>()
     var writeTitle = ObservableField<String>()
 
+
     private val _boardData = MutableLiveData<List<BoardDTO>>()
     val data: LiveData<List<BoardDTO>> get() = _boardData
 
+    private val _commentData = MutableLiveData<List<CommentDTO>>()
+    val commentData: LiveData<List<CommentDTO>> get() = _commentData
+
+    private val _commentDataLoading = MutableLiveData<Boolean>()
+    val commentDataLoading: LiveData<Boolean> get() = _commentDataLoading
+
+    private val _writeCommentResponse : MutableLiveData<ApiResult<CommentDTO>> = MutableLiveData()
+    val writeCommentResponse : LiveData<ApiResult<CommentDTO>> = _writeCommentResponse
+
     private val _writeResponse : MutableLiveData<ApiResult<BoardDTO>> = MutableLiveData()
     val writeResponse : LiveData<ApiResult<BoardDTO>> = _writeResponse
+
+    private val _readByPageResponse : MutableLiveData<ApiResult<Page>> = MutableLiveData()
+    val readByPageResponse : LiveData<ApiResult<Page>> = _readByPageResponse
 
     private val _toastMessage : MutableLiveData<String> = MutableLiveData()
     val toastMessage : LiveData<String> = _toastMessage
@@ -30,11 +43,32 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     init {
         writeCategory.set(writeCategoryDefault)
     }
-    fun getAllBoard(category: String, page: Int, size: Int) {
+
+    fun getAllBoard(category: String, page: Int, size: Int) = viewModelScope.launch {
+        _readByPageResponse.value = boardRepository.getAllBoard(category, page, size)
+    }
+
+    fun getAllComment(boardId: Int){
+        _commentDataLoading.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
-            boardRepository.getAllBoard(category, page, size)?.let {
-                _boardData.postValue(it.response.content)
+            boardRepository.findCommentsByBoardId(boardId)?.let {
+                if(it.success && it.response.isNotEmpty()) {
+                    _commentData.postValue(it.response!!)
+                }
+                _commentDataLoading.postValue(false)
             }
+        }
+    }
+
+    fun writeComment(commentForm: CommentForm) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _writeCommentResponse.postValue(boardRepository.commentWrite(commentForm))
+        }
+    }
+
+    fun writeReply(replyForm: ReplyForm) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _writeCommentResponse.postValue(boardRepository.commentReplyWrite(replyForm))
         }
     }
 

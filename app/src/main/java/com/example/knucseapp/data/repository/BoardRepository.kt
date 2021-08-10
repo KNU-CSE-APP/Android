@@ -1,9 +1,6 @@
 package com.example.knucseapp.data.repository
 
-import com.example.knucseapp.data.model.ApiResult
-import com.example.knucseapp.data.model.BoardDTO
-import com.example.knucseapp.data.model.BoardForm
-import com.example.knucseapp.data.model.Page
+import com.example.knucseapp.data.model.*
 import com.example.knucseapp.data.request.user.ApiRequestFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,6 +18,30 @@ class BoardRepository {
 
     suspend fun getAllBoard(category: String, page: Int, size: Int) = withContext(Dispatchers.IO) {
         ApiRequestFactory.boardService.getAllBoard(category, page, size)
+    }
+
+    suspend fun commentWrite(commentForm: CommentForm) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.commentWrite(commentForm)
+    }
+
+    suspend fun commentReplyWrite(replyForm: ReplyForm) = withContext(Dispatchers.IO){
+        ApiRequestFactory.boardService.commentReplyWrite(replyForm)
+    }
+
+    suspend fun findCommentsByBoardId(boardId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.findCommentsByBoardId(boardId)
+    }
+
+    suspend fun changeComment(commentForm: CommentForm, commentId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.changeComment(commentForm, commentId)
+    }
+
+    suspend fun deleteComment(commentId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.deleteComment(commentId)
+    }
+
+    suspend fun getAllComments() = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.getAllComments()
     }
 
 }

@@ -11,7 +11,7 @@ import com.example.knucseapp.databinding.ReplyRecyclerBinding
 
 class CommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    lateinit var boardDetailList : MutableList<Any>
+    var boardDetailList = mutableListOf<Any>()
 
     private val VIEW_TYPE_BOARD = 0
     private val VIEW_TYPE_COMMENT = 1
@@ -32,6 +32,17 @@ class CommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 return ReplyHolder(binding)
             }
         }
+    }
+
+    fun setData(comment: List<CommentDTO>?, board: BoardDTO) {
+        boardDetailList.run {
+            clear()
+            add(board)
+            if (comment != null) {
+                addAll(comment)
+            }
+        }
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

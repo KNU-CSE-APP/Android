@@ -26,9 +26,6 @@ class BoardHomeFragment : Fragment() {
         fun newInstance() = BoardHomeFragment()
     }
 
-    private lateinit var viewModelFactory: BoardViewModelFactory
-    private lateinit var viewModel: BoardViewModel
-    
     private lateinit var boardHomeFragmentBinding : BoardHomeFragmentBinding
     private lateinit var toolBarTextView : TextView
     private lateinit var mainActivity: MainActivity
@@ -86,7 +83,7 @@ class BoardHomeFragment : Fragment() {
         adapter.fragmentList = fragmentList
         boardHomeFragmentBinding.viewPager.adapter = adapter
 
-        val tabTitles = listOf<String>("자유게시판","QNA","학생회공지")
+        val tabTitles = listOf("자유게시판","QNA","학생회공지")
         TabLayoutMediator(boardHomeFragmentBinding.tabLayout,boardHomeFragmentBinding.viewPager){ tab, position ->
             tab.text = tabTitles.get(position)
         }.attach()

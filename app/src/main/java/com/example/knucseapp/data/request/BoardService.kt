@@ -16,4 +16,30 @@ interface BoardService {
                             @Query("page") page: Int,
                             @Query("size") size: Int)
     :ApiResult<Page>
+
+
+
+
+    // 댓글
+    @POST("/comment/write")
+    suspend fun commentWrite(@Body commentForm: CommentForm) : ApiResult<CommentDTO>
+
+    @POST("/comment/reply/write")
+    suspend fun commentReplyWrite(@Body replyForm: ReplyForm) : ApiResult<CommentDTO>
+
+    @GET("comment/findContentsByBoardId")
+    suspend fun findCommentsByBoardId(@Query("boardId") boardId: Int)
+    :ApiResult<List<CommentDTO>>
+
+    @PUT("comment/{commentId}")
+    suspend fun changeComment(
+        @Body commentForm: CommentForm,
+        @Path ("commentId") commentId: Int
+    ) : ApiResult<String>
+
+    @DELETE("comment/{commentId}")
+    suspend fun deleteComment(@Path("commentId") commentId: Int) : ApiResult<String>
+
+    @GET("comment/getAllComments")
+    suspend fun getAllComments() : ApiResult<List<CommentDTO>>
 }

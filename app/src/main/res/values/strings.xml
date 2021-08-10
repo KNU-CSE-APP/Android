@@ -56,6 +56,7 @@
     <string name="reply">답글</string>
     <string name="tab_free">자유게시판</string>
     <string name="tab_student">학생회공지</string>
+    <string name="tab_qua">QNA</string>
     <string name="cancel">취소</string>
     <string name="search_hint">검색어를 입력해주세요</string>
     <string name="search_blank">게시글을 검색해보세요</string>
