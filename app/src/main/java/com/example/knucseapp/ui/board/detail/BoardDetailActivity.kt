@@ -6,10 +6,12 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -84,6 +86,15 @@ class BoardDetailActivity : AppCompatActivity() {
             hideKeyboard()
             Toast.makeText(this, "댓글 작성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
         }
+
+        viewModel.deleteCommentResponse.observe(this) {
+            if(it!=null) {
+                Toast.makeText(this, "${it.response}", Toast.LENGTH_SHORT).show()
+                viewModel.getBoardDetailData(boardid)
+                viewModel.setNull()
+
+            }
+        }
     }
 
     private fun setRecyclerView() {
@@ -126,9 +137,7 @@ class BoardDetailActivity : AppCompatActivity() {
     }
 
     //현재 focus 가 아닌 곳 클릭시 키보드 내려감
-    //TODO : 완료 버튼은 영역에서 제거해야함
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-//        val focusView = currentFocus
         val focusView = binding.edtComment
         if (focusView != null) {
 
@@ -174,6 +183,26 @@ class BoardDetailActivity : AppCompatActivity() {
                 Log.d(TAG, "${boardId}, ${commentId}, ${binding.commentTextview.text.toString()}")
                 viewModel.writeReply(ReplyForm(boardId, commentId, binding.commentTextview.text.toString()))
             }
+        }
+
+        fun setPopupMenu(commentId: Int, view: View) {
+            var popup = PopupMenu(this@BoardDetailActivity, view)
+            popup.setOnMenuItemClickListener { item ->
+                when(item.itemId){
+                    R.id.menu_delete -> {
+                        viewModel.deleteComment(commentId)
+                        true
+                    }
+                    else -> {
+                        Toast.makeText(this@BoardDetailActivity, "댓글 수정!", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                }
+
+            }
+            val inflater: MenuInflater = popup.menuInflater
+            inflater.inflate(R.menu.comment_menu_item, popup.menu)
+            popup.show()
         }
     }
 

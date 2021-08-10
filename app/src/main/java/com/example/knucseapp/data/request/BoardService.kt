@@ -14,8 +14,7 @@ interface BoardService {
     @GET("/board/list")
     suspend fun getAllBoard(@Query("category") category: String,
                             @Query("page") page: Int,
-                            @Query("size") size: Int)
-    :ApiResult<Page>
+                            @Query("size") size: Int) : ApiResult<Page>
 
 
 
@@ -28,14 +27,12 @@ interface BoardService {
     suspend fun commentReplyWrite(@Body replyForm: ReplyForm) : ApiResult<CommentDTO>
 
     @GET("comment/findContentsByBoardId")
-    suspend fun findCommentsByBoardId(@Query("boardId") boardId: Int)
-    :ApiResult<List<CommentDTO>>
+    suspend fun findCommentsByBoardId(@Query("boardId") boardId: Int) : ApiResult<List<CommentDTO>>
 
     @PUT("comment/{commentId}")
     suspend fun changeComment(
         @Body commentForm: CommentForm,
-        @Path ("commentId") commentId: Int
-    ) : ApiResult<String>
+        @Path ("commentId") commentId: Int) : ApiResult<String>
 
     @DELETE("comment/{commentId}")
     suspend fun deleteComment(@Path("commentId") commentId: Int) : ApiResult<String>

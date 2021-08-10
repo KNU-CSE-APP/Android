@@ -37,6 +37,9 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _writeResponse : MutableLiveData<ApiResult<BoardDTO>> = MutableLiveData()
     val writeResponse : LiveData<ApiResult<BoardDTO>> = _writeResponse
 
+    private val _deleteCommentResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val deleteCommentResponse : LiveData<ApiResult<String>> = _deleteCommentResponse
+
     private val _readByPageResponse : MutableLiveData<ApiResult<Page>> = MutableLiveData()
     val readByPageResponse : LiveData<ApiResult<Page>> = _readByPageResponse
 
@@ -78,6 +81,16 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         CoroutineScope(Dispatchers.IO).launch {
             _writeCommentResponse.postValue(boardRepository.commentReplyWrite(replyForm))
         }
+    }
+
+    fun deleteComment(commentId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _deleteCommentResponse.postValue(boardRepository.deleteComment(commentId))
+        }
+    }
+
+    fun setNull() {
+        _deleteCommentResponse.postValue(null)
     }
 
     fun write(categoryText: String) {

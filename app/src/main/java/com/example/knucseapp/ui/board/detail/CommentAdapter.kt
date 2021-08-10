@@ -96,7 +96,9 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder)
         {
-            is BoardDetailHolder -> holder.setBoard(boardDetailList.get(position) as BoardDTO)
+            is BoardDetailHolder -> {
+                holder.setBoard(boardDetailList.get(position) as BoardDTO)
+            }
             is CommentHolder -> {
                 val comment = boardDetailList.get(position) as CommentDTO
                 holder.setComment(comment)
@@ -111,10 +113,18 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                             .show()
                 }
 
+                holder.binding.imgSetting.setOnClickListener {
+                    link.setPopupMenu(comment.commentId, holder.binding.imgSetting)
+                }
+
             }
             else -> {
                 holder as ReplyHolder
-                holder.setReply(boardDetailList.get(position) as CommentDTO)
+                val comment = boardDetailList.get(position) as CommentDTO
+                holder.setReply(comment)
+                holder.binding.imgSetting.setOnClickListener{
+                    link.setPopupMenu(comment.commentId, holder.binding.imgSetting)
+                }
             }
         }
     }
