@@ -1,11 +1,13 @@
 package com.example.knucseapp.ui.board.detail
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -30,11 +32,12 @@ class BoardDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBoardDetailBinding
     private lateinit var boardDetail : BoardDTO
     private lateinit var adapter : CommentAdapter
+    private var boardid: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         boardDetail = intent.getSerializableExtra("board") as BoardDTO
-
+        boardid = boardDetail.boardId
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_detail)
 
         initViewModel()
@@ -59,13 +62,21 @@ class BoardDetailActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.boardDetailData.observe(this) {
+            if(it.success) {
+                boardDetail = it.response
+                viewModel.getAllComment(boardid)
+            }
+        }
+
         viewModel.commentData.observe(this) {
             adapter.setData(it, boardDetail)
         }
 
         viewModel.writeCommentResponse.observe(this){
-            viewModel.getAllComment(boardDetail.boardId)
+            viewModel.getBoardDetailData(boardid)
             binding.commentTextview.text = null
+            hideKeyboard()
             Toast.makeText(this, "댓글 작성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -74,8 +85,7 @@ class BoardDetailActivity : AppCompatActivity() {
         adapter = CommentAdapter()
         binding.commentRecycler.adapter = adapter
         adapter.setData(null, boardDetail)
-        viewModel.getAllComment(boardDetail.boardId)
-
+        viewModel.getBoardDetailData(boardid)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
 
         val decoration = DividerItemDecoration(1f,1f, Color.LTGRAY)
@@ -98,6 +108,11 @@ class BoardDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.boardDetailToolbarTextview.text = intent.getStringExtra("title")
+    }
+
+    fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.commentTextview.windowToken, 0)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

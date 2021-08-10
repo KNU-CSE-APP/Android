@@ -28,7 +28,7 @@ class BoardFragment : Fragment() {
 
     companion object {
         fun newInstance() = BoardFragment()
-        private const val size = 5 //한 페이지에 읽어올 게시글 개수
+        private const val size = 10 //한 페이지에 읽어올 게시글 개수
         private const val boardCategory = "FREE"
         private const val TAG = "BoardFragment"
     }
@@ -63,14 +63,9 @@ class BoardFragment : Fragment() {
 
         setRecyclerView()
         setviewModel()
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("BoardFragment", "onResume call")
         initData()
     }
+
 
     fun initData() {
         pages = 0
@@ -126,9 +121,4 @@ class BoardFragment : Fragment() {
     private fun getPage() = pages++
 
     private fun hasNextPage() = isNext
-
-    private fun setHasNextPage(b: Boolean){
-        isNext = b
-    }
-
 }

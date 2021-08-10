@@ -78,6 +78,7 @@ class BoardDetailHolder(val binding: BoardDetailRecyclerBinding) : RecyclerView.
         binding.tvDate.text = boardItem.dateTime
         binding.tvTitle.text = boardItem.title
         binding.tvContent.text = boardItem.content
+        binding.tvCommentCnt.text = "${boardItem.commentCnt}"
     }
 }
 

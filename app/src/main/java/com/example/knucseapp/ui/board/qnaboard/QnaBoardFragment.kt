@@ -3,6 +3,7 @@ package com.example.knucseapp.ui.board.qnaboard
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.repository.BoardRepository
@@ -19,21 +21,24 @@ import com.example.knucseapp.ui.auth.AuthViewModelFactory
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.board.freeboard.BoardAdapter
+import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.util.DividerItemDecoration
 
 class QnaBoardFragment : Fragment() {
 
     companion object {
         fun newInstance() = QnaBoardFragment()
+        private const val size = 10 //한 페이지에 읽어올 게시글 개수
+        private const val boardCategory = "QNA"
+        private const val TAG = "QnaBoardFragment"
     }
 
     lateinit var viewModelFactory: BoardViewModelFactory
     private lateinit var viewModel: BoardViewModel
     private lateinit var binding: BoardFragmentBinding
-
-
-
-    val boardDTOs = mutableListOf<BoardDTO>()
+    private lateinit var adapter: BoardAdapter
+    private var pages = 0
+    private var isNext = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,24 +60,66 @@ class QnaBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
 
-        loadData()
+        setRecyclerView()
+        setviewModel()
+        initData()
 
-        val boardAdapter = BoardAdapter("QNA")
-        boardAdapter.boardDTOs = boardDTOs
+    }
+
+    fun initData() {
+        pages = 0
+        adapter.boardDTOs.clear()
+        viewModel.getAllBoard(boardCategory, getPage(), size)
+    }
+
+    fun loadMoreData() {
+        viewModel.getAllBoard(boardCategory, getPage(), size)
+    }
+    fun setviewModel() {
+        viewModel.readByPageResponse.observe(viewLifecycleOwner) {
+            if(it.success) {
+                it.response.let { page ->
+                    isNext = !page.last
+                    Log.d(TAG, "${page.last}, ${isNext} !!")
+                    adapter.addItem(page.content, page.last)
+                }
+            }
+        }
+    }
+
+    fun setRecyclerView() {
+        adapter = BoardAdapter("QNA")
 
         val decoration = DividerItemDecoration(1f,1f, Color.LTGRAY)
         binding.boardRecycler.addItemDecoration(decoration)
-        binding.boardRecycler.adapter = boardAdapter
+        binding.boardRecycler.adapter = adapter
         binding.boardRecycler.layoutManager = LinearLayoutManager(activity)
+
+        binding.boardRecycler.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                Log.d("BoardFragment", "${hasNextPage()}")
+                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+
+                val itemTotalCount = recyclerView.adapter!!.itemCount-1
+
+                if (!binding.boardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                    Log.d(TAG, "end! : ${isNext}")
+                    if(hasNextPage()) {
+                        adapter.deleteLoading()
+                        loadMoreData()
+                    }
+                    else{
+                        if(adapter.deleteLoading()) adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
     }
 
 
-    fun loadData(){
-        boardDTOs.add(BoardDTO("지완", 1, "QNA", "저녁 메뉴 추천좀", "2021-07-12 18:21", 9, "저녁메뉴??"))
-//        boardDTOs.add(BoardDTO(Board(BoardItem(1,"#잡담","지완","배고파요","저녁 메뉴 추천좀요","2021-07-12 18:21"),
-//            mutableListOf<Comment>())))
-//        boardDTOs.add(BoardDTO(Board(BoardItem(2,"#잡담","지혜","키아누","커피 요즘 너무 맛있어진듯","2021-07-12 13:21"),mutableListOf<Comment>())))
-//        boardDTOs.add(BoardDTO(Board(BoardItem(3,"#팀원구해요","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21"),mutableListOf<Comment>())))
-//        boardDTOs.add(BoardDTO(Board(BoardItem(4,"#정보","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21"),mutableListOf<Comment>())))
-    }
+    private fun getPage() = pages++
+
+    private fun hasNextPage() = isNext
+
 }

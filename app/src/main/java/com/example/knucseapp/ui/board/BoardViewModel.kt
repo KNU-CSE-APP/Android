@@ -22,6 +22,9 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _boardData = MutableLiveData<List<BoardDTO>>()
     val data: LiveData<List<BoardDTO>> get() = _boardData
 
+    private val _boardDetailData = MutableLiveData<ApiResult<BoardDTO>>()
+    val boardDetailData: LiveData<ApiResult<BoardDTO>> get() = _boardDetailData
+
     private val _commentData = MutableLiveData<List<CommentDTO>>()
     val commentData: LiveData<List<CommentDTO>> get() = _commentData
 
@@ -48,8 +51,13 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         _readByPageResponse.value = boardRepository.getAllBoard(category, page, size)
     }
 
-    fun getAllComment(boardId: Int){
+    fun getBoardDetailData(boardId: Int) {
         _commentDataLoading.postValue(true)
+        CoroutineScope(Dispatchers.IO).launch {
+            _boardDetailData.postValue(boardRepository.getBoardDetail(boardId))
+        }
+    }
+    fun getAllComment(boardId: Int){
         CoroutineScope(Dispatchers.IO).launch {
             boardRepository.findCommentsByBoardId(boardId)?.let {
                 if(it.success && it.response.isNotEmpty()) {
