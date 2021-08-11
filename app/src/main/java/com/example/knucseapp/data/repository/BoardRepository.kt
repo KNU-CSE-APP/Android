@@ -20,6 +20,14 @@ class BoardRepository {
         ApiRequestFactory.boardService.getAllBoard(category, page, size)
     }
 
+    suspend fun changeBoardDetail(boardForm: BoardForm) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.changeBoardDetail(boardForm)
+    }
+
+    suspend fun deleteBoardDetail(boardId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.deleteBoardDetail(boardId)
+    }
+
     suspend fun commentWrite(commentForm: CommentForm) = withContext(Dispatchers.IO) {
         ApiRequestFactory.boardService.commentWrite(commentForm)
     }
@@ -40,8 +48,8 @@ class BoardRepository {
         ApiRequestFactory.boardService.deleteComment(commentId)
     }
 
-    suspend fun getAllComments() = withContext(Dispatchers.IO) {
-        ApiRequestFactory.boardService.getAllComments()
+    suspend fun getMyComments() = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.getMyComments()
     }
 
 }

@@ -31,8 +31,10 @@ import kotlinx.android.synthetic.main.comment_recycler.*
 class BoardDetailActivity : AppCompatActivity() {
 
     companion object {
-        val hint_reply = "대댓글을 입력하세요"
-        val hint_comment = "댓글을 입력하세요"
+        val hint_reply = "대댓글을 입력하세요."
+        val hint_comment = "댓글을 입력하세요."
+        val comment_type = 1
+        val boardContent_type = 0
     }
     lateinit var viewModel : BoardViewModel
     lateinit var viewModelFactory: BoardViewModelFactory
@@ -53,6 +55,10 @@ class BoardDetailActivity : AppCompatActivity() {
         setButton()
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("BoardDetailActivity", "resume call")
+    }
     private fun initViewModel(){
         viewModelFactory = BoardViewModelFactory(BoardRepository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(BoardViewModel::class.java)
@@ -91,9 +97,12 @@ class BoardDetailActivity : AppCompatActivity() {
             if(it!=null) {
                 Toast.makeText(this, "${it.response}", Toast.LENGTH_SHORT).show()
                 viewModel.getBoardDetailData(boardid)
-                viewModel.setNull()
-
             }
+        }
+
+        viewModel.deleteBoardDetailResponse.observe(this) {
+            Toast.makeText(this, "게시글 삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
@@ -127,7 +136,7 @@ class BoardDetailActivity : AppCompatActivity() {
                 {
                     0 -> viewModel.writeComment(CommentForm(boardDetail.boardId, content))
                     else -> {
-
+                        Log.d("BoardDetailActivity", "${commentType} call")
                     }
                 }
 
@@ -148,19 +157,17 @@ class BoardDetailActivity : AppCompatActivity() {
             if (!rect.contains(x, y)) {
                 hideKeyboard()
                 focusView.clearFocus()
-                binding.commentTextview.hint = hint_comment
             }
         }
         return super.dispatchTouchEvent(ev)
     }
+
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.boardDetailToolbarTextview.text = intent.getStringExtra("title")
     }
-
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -174,41 +181,58 @@ class BoardDetailActivity : AppCompatActivity() {
     }
 
     inner class reply{
+
         fun makeReply(boardId: Int, commentId: Int) {
             binding.commentTextview.requestFocus()
             showKeyboard()
             binding.commentTextview.hint = hint_reply
 
             binding.btnCtv.setOnClickListener {
-                Log.d(TAG, "${boardId}, ${commentId}, ${binding.commentTextview.text.toString()}")
-                viewModel.writeReply(ReplyForm(boardId, commentId, binding.commentTextview.text.toString()))
-            }
-        }
-
-        fun setPopupMenu(commentId: Int, view: View) {
-            var popup = PopupMenu(this@BoardDetailActivity, view)
-            popup.setOnMenuItemClickListener { item ->
-                when(item.itemId){
-                    R.id.menu_delete -> {
-                        viewModel.deleteComment(commentId)
-                        true
-                    }
-                    else -> {
-                        Toast.makeText(this@BoardDetailActivity, "댓글 수정!", Toast.LENGTH_SHORT).show()
-                        true
-                    }
+                val content = binding.commentTextview.text.toString()
+                if (content.isNullOrBlank()) {
+                    Toast.makeText(this@BoardDetailActivity, "댓글 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
                 }
-
+                else if(binding.commentTextview.hint == hint_reply) {
+                    viewModel.writeReply(ReplyForm(boardId, commentId, binding.commentTextview.text.toString()))
+                }
             }
-            val inflater: MenuInflater = popup.menuInflater
-            inflater.inflate(R.menu.comment_menu_item, popup.menu)
-            popup.show()
         }
+
+        fun callPopupMenu(type: Int, Id: Int, view: View) {
+            setPopupMenu(type, Id, view)
+        }
+    }
+
+    fun setPopupMenu(popupType: Int, Id: Int, view: View) {
+        var popup = PopupMenu(this@BoardDetailActivity, view)
+        popup.setOnMenuItemClickListener { item ->
+            when(item.itemId){
+                R.id.menu_delete -> {
+                    if(popupType == comment_type) {
+                        Log.d(TAG,"comment Type : ${popupType}")
+                        viewModel.deleteComment(Id)
+                    }
+                    else {
+                        viewModel.deleteBoardDetail(Id)
+                    }
+                    true
+                }
+                else -> {
+                    Toast.makeText(this@BoardDetailActivity, "댓글 수정!", Toast.LENGTH_SHORT).show()
+                    true
+                }
+            }
+
+        }
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.comment_menu_item, popup.menu)
+        popup.show()
     }
 
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.commentTextview.windowToken, 0)
+        binding.commentTextview.hint = hint_comment
     }
 
     fun showKeyboard() {

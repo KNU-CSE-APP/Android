@@ -70,7 +70,6 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     fun deleteLoading(): Boolean {
-        Log.d("BoardAdapter", "lastindex : ${boardDTOs.lastIndex}, ${boardDTOs.get(boardDTOs.lastIndex).boardId}")
         if(boardDTOs.get(boardDTOs.lastIndex).boardId == -1) {
             boardDTOs.removeAt(boardDTOs.lastIndex)
             return true

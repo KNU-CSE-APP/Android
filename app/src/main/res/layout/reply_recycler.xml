@@ -22,9 +22,9 @@
 
             <ImageView
                 android:id="@+id/img_reply_arrow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_baseline_subdirectory_arrow_right" />
+                android:layout_width="24dp"
+                android:layout_height="20dp"
+                android:background="@drawable/arrow" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

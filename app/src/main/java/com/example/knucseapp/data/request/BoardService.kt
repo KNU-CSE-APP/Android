@@ -16,7 +16,11 @@ interface BoardService {
                             @Query("page") page: Int,
                             @Query("size") size: Int) : ApiResult<Page>
 
+    @PUT("/board/{boardId}")
+    suspend fun changeBoardDetail(@Body boardForm: BoardForm) : ApiResult<String>
 
+    @DELETE("/board/{boardId}")
+    suspend fun deleteBoardDetail(@Path("boardId") boardId : Int) : ApiResult<String>
 
 
     // 댓글
@@ -38,5 +42,5 @@ interface BoardService {
     suspend fun deleteComment(@Path("commentId") commentId: Int) : ApiResult<String>
 
     @GET("comment/getAllComments")
-    suspend fun getAllComments() : ApiResult<List<CommentDTO>>
+    suspend fun getMyComments() : ApiResult<List<CommentDTO>>
 }

@@ -1,5 +1,6 @@
 package com.example.knucseapp.ui.board.writeboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -75,6 +76,10 @@ class WriteActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    companion object {
+        const val RESULT_DATA = "result_data"
     }
 
 }

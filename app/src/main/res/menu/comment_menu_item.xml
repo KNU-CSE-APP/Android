@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_edit"
-        android:title="댓글 수정"/>
+        android:title="수정"/>
 
     <item
         android:id="@+id/menu_delete"
-        android:title="댓글 삭제"/>
+        android:title="삭제"/>
 </menu>

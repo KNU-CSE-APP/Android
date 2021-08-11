@@ -25,6 +25,9 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _boardDetailData = MutableLiveData<ApiResult<BoardDTO>>()
     val boardDetailData: LiveData<ApiResult<BoardDTO>> get() = _boardDetailData
 
+    private val _deleteBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val deleteBoardDetailResponse : LiveData<ApiResult<String>> = _deleteBoardDetailResponse
+
     private val _commentData = MutableLiveData<List<CommentDTO>>()
     val commentData: LiveData<List<CommentDTO>> get() = _commentData
 
@@ -60,6 +63,12 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             _boardDetailData.postValue(boardRepository.getBoardDetail(boardId))
         }
     }
+
+    fun deleteBoardDetail(boardId: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _deleteBoardDetailResponse.postValue(boardRepository.deleteBoardDetail(boardId))
+        }
+    }
     fun getAllComment(boardId: Int){
         CoroutineScope(Dispatchers.IO).launch {
             boardRepository.findCommentsByBoardId(boardId)?.let {
@@ -84,13 +93,20 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     }
 
     fun deleteComment(commentId: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            _deleteCommentResponse.postValue(boardRepository.deleteComment(commentId))
+        CoroutineScope(Dispatchers.IO).launch() {
+            launch {
+                _deleteCommentResponse.postValue(boardRepository.deleteComment(commentId))
+            }.join()
+            setDeleteCommentNull()
         }
     }
 
-    fun setNull() {
+    fun setDeleteCommentNull() {
         _deleteCommentResponse.postValue(null)
+    }
+
+    fun setDeleteBoardDetailNull() {
+        _deleteBoardDetailResponse.postValue(null)
     }
 
     fun write(categoryText: String) {
