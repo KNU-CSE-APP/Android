@@ -1,35 +1,56 @@
 package com.example.knucseapp.ui.board.freeboard
 
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.knucseapp.R
+import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.BoardFragmentBinding
+import com.example.knucseapp.ui.board.BoardViewModel
+import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
 
-class BoardFragment : Fragment() {
+
+class BoardFragment(boardType: Int) : Fragment() {
 
     companion object {
-        fun newInstance() = BoardFragment()
+        private const val size = 10 //한 페이지에 읽어올 게시글 개수
+        private const val TAG = "BoardFragment"
     }
 
+    private val boardCategory = when(boardType) {
+        0 -> "FREE"
+        else -> "QNA"
+    }
+
+    private lateinit var viewModelFactory: BoardViewModelFactory
     private lateinit var viewModel: BoardViewModel
-    private lateinit var boardFragmentBinding: BoardFragmentBinding
-    val boardDTOs = mutableListOf<BoardDTO>()
+    private lateinit var binding: BoardFragmentBinding
+    private lateinit var adapter: BoardAdapter
+    private var pages = 0
+    private var isNext = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        boardFragmentBinding = DataBindingUtil.inflate(inflater,R.layout.board_fragment,container, false)
-        return boardFragmentBinding.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.board_fragment, container, false)
+        viewModelFactory = BoardViewModelFactory(BoardRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(BoardViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -39,25 +60,98 @@ class BoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
-
-        viewModel = ViewModelProvider(this).get(BoardViewModel::class.java)
-        boardFragmentBinding.viewModel = viewModel
-        loadData()
-
-        val boardAdapter = BoardAdapter()
-        boardAdapter.boardDTOs = boardDTOs
-
-        val decoration = DividerItemDecoration(1f,1f, Color.LTGRAY)
-        boardFragmentBinding.boardRecycler.addItemDecoration(decoration)
-        boardFragmentBinding.boardRecycler.adapter = boardAdapter
-        boardFragmentBinding.boardRecycler.layoutManager = LinearLayoutManager(activity)
+        setRecyclerView()
+        setviewModel()
+        initData()
     }
 
-    fun loadData(){
-        boardDTOs.add(BoardDTO(Board(BoardItem(1,"#잡담","지완","배고파요","저녁 메뉴 추천좀요","2021-07-12 18:21"),
-            mutableListOf<Comment>())))
-        boardDTOs.add(BoardDTO(Board(BoardItem(2,"#잡담","지혜","키아누","커피 요즘 너무 맛있어진듯","2021-07-12 13:21"),mutableListOf<Comment>())))
-        boardDTOs.add(BoardDTO(Board(BoardItem(3,"#팀원구해요","성기","줄임표시확인줄임표시확인줄임표시확인줄임표시확인","줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인줄임표시확인","2021-07-12 18:21"),mutableListOf<Comment>())))
-        boardDTOs.add(BoardDTO(Board(BoardItem(4,"#정보","성빈","까만 안경","사랑해요 나도~ 울고 있어요~ 오 난~~ 보고 싶어서 만나고 싶어서 죽고만 싶어요~","2021-07-12 11:21"),mutableListOf<Comment>())))
+
+    fun initData() {
+        pages = 0
+        adapter.boardDTOs.clear()
+        viewModel.getAllBoard(boardCategory, getPage(), size)
+    }
+
+    fun loadMoreData() {
+        viewModel.getAllBoard(boardCategory, getPage(), size)
+    }
+    fun setviewModel() {
+        viewModel.readByPageResponse.observe(viewLifecycleOwner) {
+            if(it.success) {
+                it.response.let { page ->
+                    isNext = !page.last
+                    adapter.addItem(page.content, page.last)
+                }
+            }
+        }
+    }
+
+    fun setRecyclerView() {
+        var boardname = when(boardCategory){
+            "FREE" -> "자유게시판"
+            else -> "QNA"
+        }
+        adapter = BoardAdapter(boardname)
+
+        val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
+        binding.boardRecycler.addItemDecoration(decoration)
+        binding.boardRecycler.adapter = adapter
+        binding.boardRecycler.layoutManager = LinearLayoutManager(activity)
+
+        binding.boardRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                //스크롤의 끝에 도달했을 때
+                if (!binding.boardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                    Log.d(TAG, "end! : ${isNext}")
+                    if (hasNextPage()) {
+                        adapter.deleteLoading()
+                        loadMoreData()
+                    } else {
+                        if (adapter.deleteLoading()) adapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        })
+
+        val swipeRefreshLayout = binding.swipe as SwipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            initData()
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun getPage() = pages++
+
+    private fun hasNextPage() = isNext
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "boardfragment - onStart call")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "boardfragment - onresume call")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(TAG, "boardfragment - onDetach call")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "boardfragment - onStop call")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "boardfragment - onPause call")
     }
 }
