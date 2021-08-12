@@ -39,7 +39,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         binding.lifecycleOwner = this
 
         viewModel.getResponse.observe(this){
-            Toast.makeText(this,it.response,Toast.LENGTH_SHORT).show()
+            toast(it.response)
             binding.btnEmailConfirm.isEnabled = true
             binding.emailverifyText.isEnabled=true
             binding.emailverifyText.isFocusable=true

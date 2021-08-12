@@ -16,6 +16,8 @@ import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.databinding.SearchResultFragmentBinding
 import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.board.freeboard.*
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 
 
 class SearchResultFragment : Fragment() {
@@ -40,7 +42,7 @@ class SearchResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SearchResultViewModel::class.java)
-        binding.progressBar.visibility = VISIBLE
+        binding.progressBar.show()
         setText()
         loadData()
         val boardAdapter = BoardAdapter("검색")
@@ -50,7 +52,7 @@ class SearchResultFragment : Fragment() {
         binding.searchRecycler.addItemDecoration(decoration)
         binding.searchRecycler.adapter = boardAdapter
         binding.searchRecycler.layoutManager = LinearLayoutManager(activity)
-        binding.progressBar.visibility = GONE
+        binding.progressBar.hide()
     }
 
     fun setText(){

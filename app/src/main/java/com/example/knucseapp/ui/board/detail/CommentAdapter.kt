@@ -67,7 +67,11 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                     MaterialAlertDialogBuilder(it.context)
                             .setMessage("대댓글을 작성하시겠습니까?")
                             .setPositiveButton("확인") { dialog, whichButton ->
-                                link.makeReply(comment.boardId, comment.commentId)
+//                                link.makeReply(comment.boardId, comment.commentId)
+                                val intent = Intent(it.context, CommentActivity::class.java)
+                                intent.putExtra("commentId", comment.commentId)
+                                intent.putExtra("boardId", comment.boardId)
+                                it.context.startActivity(intent)
                             }
                             .setNegativeButton("취소") { dialog, whichButton ->
                             }
@@ -105,7 +109,7 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvComment.text = comment.content
             binding.tvDate.text = comment.time
             if(comment.replyList!=null) {
-                val replyAdapter = ReplyAdapter(link)
+                val replyAdapter = ReplyAdapter(null)
                 replyAdapter.replys = comment.replyList!!
                 replyAdapter.notifyDataSetChanged()
                 binding.replyRecycler.adapter = replyAdapter

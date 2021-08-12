@@ -20,19 +20,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.model.CommentForm
-import com.example.knucseapp.data.model.ReplyForm
 import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
-import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.*
 import kotlinx.android.synthetic.main.comment_recycler.*
 
 class BoardDetailActivity : AppCompatActivity() {
 
     companion object {
-        val hint_reply = "대댓글을 입력하세요."
-        val hint_comment = "댓글을 입력하세요."
         val comment_type = 1
         val boardContent_type = 0
     }
@@ -66,12 +63,12 @@ class BoardDetailActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.commentDataLoading.observe(this){
+        viewModel.allCommentDataLoading.observe(this){
             if(it){
-                binding.detailProgressBar.visibility = View.VISIBLE
+                binding.detailProgressBar.show()
             }
             else{
-                binding.detailProgressBar.visibility = View.GONE
+                binding.detailProgressBar.hide()
             }
         }
 
@@ -82,26 +79,26 @@ class BoardDetailActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.commentData.observe(this) {
+        viewModel.allCommentData.observe(this) {
             adapter.setData(it, boardDetail)
         }
 
         viewModel.writeCommentResponse.observe(this){
             viewModel.getBoardDetailData(boardid)
             binding.commentTextview.text = null
-            hideKeyboard()
-            Toast.makeText(this, "댓글 작성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            hideKeyboard(binding.commentTextview)
+            toast("댓글 작성이 완료되었습니다.")
         }
 
         viewModel.deleteCommentResponse.observe(this) {
             if(it!=null) {
-                Toast.makeText(this, "${it.response}", Toast.LENGTH_SHORT).show()
+                toast("${it.response}")
                 viewModel.getBoardDetailData(boardid)
             }
         }
 
         viewModel.deleteBoardDetailResponse.observe(this) {
-            Toast.makeText(this, "게시글 삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            toast("게시글 삭제가 완료되었습니다.")
             finish()
         }
     }
@@ -120,26 +117,11 @@ class BoardDetailActivity : AppCompatActivity() {
     private fun setButton() {
         binding.btnCtv.setOnClickListener {
             val content = binding.commentTextview.text.toString()
-            val commentType = when(binding.commentTextview.hint){
-                hint_comment -> {
-                    0
-                }
-                else -> {
-                    1
-                }
-            }
             if (content.isNullOrBlank()) {
-                Toast.makeText(this, "댓글 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+                toast("댓글 내용을 입력해주세요.")
             }
             else {
-                when(commentType)
-                {
-                    0 -> viewModel.writeComment(CommentForm(boardDetail.boardId, content))
-                    else -> {
-                        Log.d("BoardDetailActivity", "${commentType} call")
-                    }
-                }
-
+                viewModel.writeComment(CommentForm(boardDetail.boardId, content))
             }
         }
 
@@ -155,7 +137,7 @@ class BoardDetailActivity : AppCompatActivity() {
             val x = ev!!.x.toInt()
             val y = ev.y.toInt()
             if (!rect.contains(x, y)) {
-                hideKeyboard()
+                hideKeyboard(binding.edtComment)
                 focusView.clearFocus()
             }
         }
@@ -181,23 +163,6 @@ class BoardDetailActivity : AppCompatActivity() {
     }
 
     inner class reply{
-
-        fun makeReply(boardId: Int, commentId: Int) {
-            binding.commentTextview.requestFocus()
-            showKeyboard()
-            binding.commentTextview.hint = hint_reply
-
-            binding.btnCtv.setOnClickListener {
-                val content = binding.commentTextview.text.toString()
-                if (content.isNullOrBlank()) {
-                    Toast.makeText(this@BoardDetailActivity, "댓글 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
-                }
-                else if(binding.commentTextview.hint == hint_reply) {
-                    viewModel.writeReply(ReplyForm(boardId, commentId, binding.commentTextview.text.toString()))
-                }
-            }
-        }
-
         fun callPopupMenu(type: Int, Id: Int, view: View) {
             setPopupMenu(type, Id, view)
         }
@@ -229,15 +194,5 @@ class BoardDetailActivity : AppCompatActivity() {
         popup.show()
     }
 
-    fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.commentTextview.windowToken, 0)
-        binding.commentTextview.hint = hint_comment
-    }
-
-    fun showKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-    }
 
 }

@@ -62,7 +62,6 @@ class MypageFragment : Fragment() {
             }
 
             btnMypageWriteHistory.setOnClickListener {
-                Toast.makeText(context, "wrtie clicked", Toast.LENGTH_SHORT).show()
             }
 
             btnMypageSetting.setOnClickListener {
@@ -71,7 +70,6 @@ class MypageFragment : Fragment() {
             }
 
             btnMypageLogout.setOnClickListener {
-                Toast.makeText(context, "logout clicked", Toast.LENGTH_SHORT).show()
                 logout()
             }
         }

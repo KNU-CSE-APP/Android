@@ -71,6 +71,7 @@
     <string name="recommend_category">추천 카테고리</string>
     <string name="category_explain">카테고리를 선택하지 않으면 전체 게시글에서 검색합니다.</string>
     <string name="comment_hint">댓글을 입력하세요.</string>
+    <string name="reply_hint">대댓글을 입력하세요.</string>
 
     <!-- notice view-->
     <string name="before_page">이전 페이지</string>

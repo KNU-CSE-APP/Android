@@ -2,12 +2,14 @@ package com.example.knucseapp.ui.board.detail
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.ReplyRecyclerBinding
+import okhttp3.internal.notify
 
-class ReplyAdapter(var link: BoardDetailActivity.reply) : RecyclerView.Adapter<ReplyHolder>() {
+class ReplyAdapter(var link: CommentActivity.reply?) : RecyclerView.Adapter<ReplyHolder>() {
 
     var replys = mutableListOf<CommentDTO>()
 
@@ -23,9 +25,21 @@ class ReplyAdapter(var link: BoardDetailActivity.reply) : RecyclerView.Adapter<R
     override fun onBindViewHolder(holder: ReplyHolder, position: Int) {
         val comment = replys.get(position)
         holder.setReply(comment)
-        holder.binding.imgSetting.setOnClickListener{
-            link.callPopupMenu(1, comment.commentId, holder.binding.imgSetting)
+        if(link == null){
+            holder.binding.imgSetting.visibility = INVISIBLE
         }
+        else {
+            holder.binding.imgSetting.setOnClickListener {
+                link?.callPopupMenu(comment.commentId, holder.binding.imgSetting)
+            }
+        }
+    }
+
+    fun setData(data: List<CommentDTO>)
+    {
+        replys.clear()
+        replys.addAll(data)
+        notifyDataSetChanged()
     }
 }
 

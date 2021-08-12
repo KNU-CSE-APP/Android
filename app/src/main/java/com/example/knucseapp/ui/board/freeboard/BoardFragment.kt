@@ -37,6 +37,7 @@ class BoardFragment(boardType: Int) : Fragment() {
     private lateinit var viewModel: BoardViewModel
     private lateinit var binding: BoardFragmentBinding
     private lateinit var adapter: BoardAdapter
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var pages = 0
     private var isNext = false
 
@@ -50,6 +51,8 @@ class BoardFragment(boardType: Int) : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(BoardViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        swipeRefreshLayout = binding.swipe
+
         return binding.root
     }
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
@@ -119,11 +122,11 @@ class BoardFragment(boardType: Int) : Fragment() {
             }
         })
 
-        val swipeRefreshLayout = binding.swipe as SwipeRefreshLayout
         swipeRefreshLayout.setOnRefreshListener {
             initData()
             swipeRefreshLayout.isRefreshing = false
         }
+
     }
 
     private fun getPage() = pages++

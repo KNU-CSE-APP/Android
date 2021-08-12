@@ -13,6 +13,7 @@ import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityPasswordBinding
 import com.example.knucseapp.databinding.ActivitySignInBinding
 import com.example.knucseapp.ui.reservation.seat.ReservationConfirmActivity
+import com.example.knucseapp.ui.util.toast
 
 class PasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPasswordBinding
@@ -61,7 +62,7 @@ class PasswordActivity : AppCompatActivity() {
         }
 
         binding.btnChangePw.setOnClickListener {
-            Toast.makeText(this, "변경된 아이디로 로그인해주세요", Toast.LENGTH_LONG).show()
+            toast("변경된 아이디로 로그인해주세요")
             finish()
         }
     }

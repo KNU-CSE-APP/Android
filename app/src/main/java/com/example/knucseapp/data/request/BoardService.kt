@@ -43,4 +43,7 @@ interface BoardService {
 
     @GET("comment/getAllComments")
     suspend fun getMyComments() : ApiResult<List<CommentDTO>>
+
+    @GET("comment/{commentId}")
+    suspend fun getComment(@Path("commentId") commentId: Int): ApiResult<CommentDTO>
 }
