@@ -1,8 +1,5 @@
 package com.example.knucseapp.ui.board.detail
 
-import android.content.ContentValues
-import android.content.Context
-import android.graphics.Color
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,22 +8,21 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.BoardDTO
-import com.example.knucseapp.data.model.CommentForm
 import com.example.knucseapp.data.model.ReplyForm
 import com.example.knucseapp.data.repository.BoardRepository
-import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.databinding.ActivityCommentBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
-import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.hideKeyboard
+import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.toast
 import kotlinx.android.synthetic.main.activity_comment.*
 
 class CommentActivity : AppCompatActivity() {
@@ -41,6 +37,7 @@ class CommentActivity : AppCompatActivity() {
     private lateinit var adapter : ReplyAdapter
     private var commentId: Int = 0
     private var boardId: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_comment)
@@ -61,10 +58,10 @@ class CommentActivity : AppCompatActivity() {
 
         viewModel.commentDataLoading.observe(this){
             if(it){
-                binding.commentProgressBar.visibility = View.VISIBLE
+                binding.commentProgressBar.show()
             }
             else{
-                binding.commentProgressBar.visibility = View.GONE
+                binding.commentProgressBar.hide()
             }
         }
 
@@ -75,8 +72,8 @@ class CommentActivity : AppCompatActivity() {
         viewModel.writeCommentResponse.observe(this){
             viewModel.getCommentReply(commentId)
             binding.replyTextview.text = null
-            hideKeyboard()
-            Toast.makeText(this, "댓글 작성이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+            hideKeyboard(binding.replyTextview)
+            toast("댓글 작성이 완료되었습니다.")
         }
 
     }
@@ -102,7 +99,7 @@ class CommentActivity : AppCompatActivity() {
         binding.btnCtv.setOnClickListener {
             val content = binding.replyTextview.text.toString()
             if (content.isNullOrBlank()) {
-                Toast.makeText(this, "댓글 내용을 입력해주세요", Toast.LENGTH_SHORT).show()
+                toast("댓글 내용을 입력해주세요.")
             }
             else {
                 viewModel.writeReply(ReplyForm(boardId, commentId, binding.replyTextview.text.toString()))
@@ -154,16 +151,12 @@ class CommentActivity : AppCompatActivity() {
             val x = ev!!.x.toInt()
             val y = ev.y.toInt()
             if (!rect.contains(x, y)) {
-                hideKeyboard()
+                hideKeyboard(binding.edtComment)
                 focusView.clearFocus()
             }
         }
         return super.dispatchTouchEvent(ev)
     }
 
-    fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.replyTextview.windowToken, 0)
-    }
 
 }

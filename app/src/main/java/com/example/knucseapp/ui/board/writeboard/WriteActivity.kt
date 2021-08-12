@@ -18,6 +18,7 @@ import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityWriteBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
+import com.example.knucseapp.ui.util.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class WriteActivity : AppCompatActivity() {
@@ -63,15 +64,15 @@ class WriteActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.toastMessage.observe(this) {
-            Toast.makeText(this, "${it}", Toast.LENGTH_SHORT).show()
+            toast("${it}")
         }
 
         viewModel.writeResponse.observe(this) {
             if (it.success) {
-                Toast.makeText(this, "게시글이 작성되었습니다.", Toast.LENGTH_SHORT).show()
+                toast("게시글이 작성되었습니다.")
                 finish()
             } else {
-                Toast.makeText(this, it.error.message, Toast.LENGTH_SHORT).show()
+                toast(it.error.message)
                 finish()
             }
         }
