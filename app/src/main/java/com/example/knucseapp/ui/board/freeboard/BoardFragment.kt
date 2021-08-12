@@ -71,7 +71,6 @@ class BoardFragment(boardType: Int) : Fragment() {
 
     fun initData() {
         pages = 0
-        adapter.boardDTOs.clear()
         viewModel.getAllBoard(boardCategory, getPage(), size)
     }
 
@@ -83,7 +82,7 @@ class BoardFragment(boardType: Int) : Fragment() {
             if(it.success) {
                 it.response.let { page ->
                     isNext = !page.last
-                    adapter.addItem(page.content, page.last)
+                    adapter.addItem(page.content, pages)
                 }
             }
         }

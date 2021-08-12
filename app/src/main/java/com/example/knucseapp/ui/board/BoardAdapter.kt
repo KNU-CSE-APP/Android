@@ -63,7 +63,11 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    fun addItem(items: List<BoardDTO>, last: Boolean) {
+
+    fun addItem(items: List<BoardDTO>, page: Int) {
+        if(page == 1) {
+            boardDTOs.clear()
+        }
         boardDTOs.addAll(items)
         boardDTOs.add(BoardDTO(" ", -1, " ", " ", " ", -1, " "))
         notifyDataSetChanged()
