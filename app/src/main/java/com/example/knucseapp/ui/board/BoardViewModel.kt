@@ -28,8 +28,14 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _deleteBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val deleteBoardDetailResponse : LiveData<ApiResult<String>> = _deleteBoardDetailResponse
 
-    private val _commentData = MutableLiveData<List<CommentDTO>>()
-    val commentData: LiveData<List<CommentDTO>> get() = _commentData
+    private val _allCommentData = MutableLiveData<List<CommentDTO>>()
+    val allCommentData: LiveData<List<CommentDTO>> get() = _allCommentData
+
+    private val _allCommentDataLoading = MutableLiveData<Boolean>()
+    val allCommentDataLoading: LiveData<Boolean> get() = _allCommentDataLoading
+
+    private val _commentData = MutableLiveData<CommentDTO>()
+    val commentData: LiveData<CommentDTO> get() = _commentData
 
     private val _commentDataLoading = MutableLiveData<Boolean>()
     val commentDataLoading: LiveData<Boolean> get() = _commentDataLoading
@@ -58,7 +64,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     }
 
     fun getBoardDetailData(boardId: Int) {
-        _commentDataLoading.postValue(true)
+        _allCommentDataLoading.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
             _boardDetailData.postValue(boardRepository.getBoardDetail(boardId))
         }
@@ -73,9 +79,9 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         CoroutineScope(Dispatchers.IO).launch {
             boardRepository.findCommentsByBoardId(boardId)?.let {
                 if(it.success && it.response.isNotEmpty()) {
-                    _commentData.postValue(it.response!!)
+                    _allCommentData.postValue(it.response!!)
                 }
-                _commentDataLoading.postValue(false)
+                _allCommentDataLoading.postValue(false)
             }
         }
     }
@@ -90,6 +96,23 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         CoroutineScope(Dispatchers.IO).launch {
             _writeCommentResponse.postValue(boardRepository.commentReplyWrite(replyForm))
         }
+    }
+
+    fun getCommentReply(commentId: Int) {
+        //comment 에 해당하는 정보를 가져옴
+        _commentDataLoading.postValue(true)
+        _commentData.postValue(CommentDTO("jihae", 1, 1, "hihi", 0, mutableListOf(
+            CommentDTO("jihae", 2, 4, "reply", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply2", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
+            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5")
+        ), "4/5"))
+        _commentDataLoading.postValue(false)
     }
 
     fun deleteComment(commentId: Int) {
