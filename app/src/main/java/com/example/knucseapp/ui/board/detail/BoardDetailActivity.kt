@@ -2,6 +2,8 @@ package com.example.knucseapp.ui.board.detail
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +27,9 @@ import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
+import com.example.knucseapp.ui.reservation.seat.ReservationConfirmActivity
 import com.example.knucseapp.ui.util.*
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.comment_recycler.*
 
 class BoardDetailActivity : AppCompatActivity() {
@@ -77,6 +82,16 @@ class BoardDetailActivity : AppCompatActivity() {
                 boardDetail = it.response
                 viewModel.getAllComment(boardid)
             }
+            else {
+                AlertDialog.Builder(this)
+                MaterialAlertDialogBuilder(binding.root.context)
+                        .setTitle("에러")
+                        .setMessage("존재하지 않는 게시글입니다.")
+                        .setPositiveButton("확인") { dialog, whichButton ->
+                            finish()
+                        }
+                        .show()
+            }
         }
 
         viewModel.allCommentData.observe(this) {
@@ -107,7 +122,7 @@ class BoardDetailActivity : AppCompatActivity() {
         val link = reply()
         adapter = CommentAdapter(link)
         binding.commentRecycler.adapter = adapter
-        adapter.setData(null, boardDetail)
+//        adapter.setData(null, boardDetail)
         viewModel.getBoardDetailData(boardid)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
