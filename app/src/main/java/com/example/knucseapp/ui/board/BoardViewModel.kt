@@ -101,18 +101,16 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     fun getCommentReply(commentId: Int) {
         //comment 에 해당하는 정보를 가져옴
         _commentDataLoading.postValue(true)
-        _commentData.postValue(CommentDTO("jihae", 1, 1, "hihi", 0, mutableListOf(
-            CommentDTO("jihae", 2, 4, "reply", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply2", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5"),
-            CommentDTO("jihae", 2, 4, "reply3", 1, mutableListOf(), "4/5")
-        ), "4/5"))
-        _commentDataLoading.postValue(false)
+        CoroutineScope(Dispatchers.IO).launch {
+            boardRepository.getComment(commentId).let {
+                if(it.success) {
+                    _commentData.postValue(it.response!!)
+                }
+                _commentDataLoading.postValue(false)
+            }
+
+        }
+
     }
 
     fun deleteComment(commentId: Int) {

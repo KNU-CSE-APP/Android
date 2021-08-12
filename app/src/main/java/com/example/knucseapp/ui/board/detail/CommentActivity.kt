@@ -66,6 +66,9 @@ class CommentActivity : AppCompatActivity() {
         }
 
         viewModel.commentData.observe(this) {
+            binding.tvAuthor.text = it.author
+            binding.tvComment.text = it.content
+            binding.tvDate.text = it.time
             adapter.setData(it.replyList)
         }
 

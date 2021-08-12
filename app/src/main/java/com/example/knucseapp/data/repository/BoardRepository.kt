@@ -52,4 +52,8 @@ class BoardRepository {
         ApiRequestFactory.boardService.getMyComments()
     }
 
+    suspend fun getComment(commentId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.getComment(commentId)
+    }
+
 }
