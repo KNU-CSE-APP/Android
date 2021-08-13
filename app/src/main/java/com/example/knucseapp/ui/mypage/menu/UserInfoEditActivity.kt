@@ -175,12 +175,11 @@ class UserInfoEditActivity : AppCompatActivity() {
             {
                 if (it.response.imagePath == null){ Glide.with(this).load(R.drawable.profile_default_image).into(binding.accountIvProfile) }
                 else{ Glide.with(this).load(it.response.imagePath).into(binding.accountIvProfile) }
-
-                binding.userNicknameText.setText(it.response.nickname)
-                binding.userStudentidText.setText(it.response.studentId)
+                binding.userEmailText.setText(it.response.email)
                 binding.userNameText.setText(it.response.username)
+                binding.userStudentidText.setText(it.response.studentId)
+                binding.userNicknameText.setText(it.response.nickname)
                 nickName = it.response.nickname
-                filePath = Uri.parse(it.response.imagePath)
             }
             else
                 toast(it.error.message)
