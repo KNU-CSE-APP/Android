@@ -78,7 +78,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     fun getAllComment(boardId: Int){
         CoroutineScope(Dispatchers.IO).launch {
             boardRepository.findCommentsByBoardId(boardId)?.let {
-                if(it.success && it.response.isNotEmpty()) {
+                if(it.success) {
                     _allCommentData.postValue(it.response!!)
                 }
                 _allCommentDataLoading.postValue(false)
