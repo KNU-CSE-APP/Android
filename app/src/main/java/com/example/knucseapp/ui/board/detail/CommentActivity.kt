@@ -24,6 +24,7 @@ import com.example.knucseapp.ui.util.hideKeyboard
 import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 import kotlinx.android.synthetic.main.activity_comment.*
+import kotlinx.android.synthetic.main.comment_recycler.*
 
 class CommentActivity : AppCompatActivity() {
 
@@ -56,7 +57,8 @@ class CommentActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.commentDataLoading.observe(this){
+        //원래 commentdataloading
+        viewModel.allCommentDataLoading.observe(this){
             if(it){
                 binding.commentProgressBar.show()
             }
@@ -73,10 +75,29 @@ class CommentActivity : AppCompatActivity() {
         }
 
         viewModel.writeCommentResponse.observe(this){
-            viewModel.getCommentReply(commentId)
+            viewModel.setLoading()
+            viewModel.getAllComment(boardId)
+//            viewModel.getCommentReply(commentId)
             binding.replyTextview.text = null
             hideKeyboard(binding.replyTextview)
             toast("댓글 작성이 완료되었습니다.")
+        }
+
+        viewModel.allCommentData.observe(this) {
+            val comment = it.filter {
+                it.commentId == commentId
+            }
+            binding.tvAuthor.text = comment[0].author
+            binding.tvComment.text = comment[0].content
+            binding.tvDate.text = comment[0].time
+            adapter.setData(comment[0].replyList)
+        }
+
+        viewModel.deleteCommentResponse.observe(this) {
+            if(it!=null) {
+                toast("${it.response}")
+                viewModel.getAllComment(boardId)
+            }
         }
 
     }
@@ -91,7 +112,8 @@ class CommentActivity : AppCompatActivity() {
         val link = reply()
         adapter = ReplyAdapter(link)
         binding.commentRecycler.adapter = adapter
-        viewModel.getCommentReply(commentId)
+//        viewModel.getCommentReply(commentId)
+        viewModel.getAllComment(boardId)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
 //        binding.commentRecycler.isNestedScrollingEnabled()
 //        val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
@@ -128,6 +150,7 @@ class CommentActivity : AppCompatActivity() {
             popup.setOnMenuItemClickListener { item ->
                 when(item.itemId){
                     R.id.menu_delete -> {
+                        Log.d(TAG, "delete ${Id}")
                         viewModel.deleteComment(Id)
                         true
                     }

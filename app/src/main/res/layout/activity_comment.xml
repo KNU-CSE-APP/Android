@@ -51,7 +51,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:padding="10dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/account_iv_profile"
@@ -116,7 +116,9 @@
                     android:id="@+id/comment_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode = "never"/>
+                    android:overScrollMode = "never"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

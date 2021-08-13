@@ -1,5 +1,6 @@
 package com.example.knucseapp.ui.board
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -116,6 +117,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     fun deleteComment(commentId: Int) {
         CoroutineScope(Dispatchers.IO).launch() {
             launch {
+                Log.d("BoardViewModel", "try to delete${commentId}")
                 _deleteCommentResponse.postValue(boardRepository.deleteComment(commentId))
             }.join()
             setDeleteCommentNull()
@@ -157,6 +159,10 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
                 )
             }
         }
+    }
+
+    fun setLoading(){
+        _allCommentDataLoading.postValue(true)
     }
 
 }
