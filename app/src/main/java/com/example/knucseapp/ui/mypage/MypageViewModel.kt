@@ -64,6 +64,7 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
             _getMyBoardResponse.postValue(authRepository.getMyBoards())
             _dataLoading.postValue(false)
         }
+    }
 
     fun deleteMember() = viewModelScope.launch {
         _getDeleteMemberResponse.value = authRepository.requestDeleteMember(DeleteForm(curPassword.get()!!))
