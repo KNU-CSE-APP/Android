@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.example.knucseapp.databinding.MypageFragmentBinding
 import com.example.knucseapp.ui.SignInActivity
@@ -50,6 +49,11 @@ class MypageFragment : Fragment() {
 
             btnMypageChangePassword.setOnClickListener {
                 val intent = Intent(it.context, PasswordEditActivity::class.java)
+                it.context.startActivity(intent)
+            }
+
+            btnMypageDeleteMember.setOnClickListener {
+                val intent = Intent(it.context, DeleteMemberActivity::class.java)
                 it.context.startActivity(intent)
             }
 
