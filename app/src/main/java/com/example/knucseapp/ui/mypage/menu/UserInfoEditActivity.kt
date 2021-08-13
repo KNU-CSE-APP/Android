@@ -199,7 +199,8 @@ class UserInfoEditActivity : AppCompatActivity() {
         viewModel.getPutProfileResponse.observe(this){
             if (it.success){
                 toast("성공적으로 수정하였습니다.")
-                MyApplication.prefs.setUserNickname(it.response.newNickName)
+                if(it.response.newNickName!=null)
+                    MyApplication.prefs.setUserNickname(it.response.newNickName)
                 finish()
             }
             else{ toast(it.error.message) }
