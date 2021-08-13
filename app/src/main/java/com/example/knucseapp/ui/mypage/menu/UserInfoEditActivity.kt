@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -19,9 +18,9 @@ import com.canhub.cropper.options
 import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityUserInfoEditBinding
-import com.example.knucseapp.ui.auth.MySharedPreferences
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
+import com.example.knucseapp.ui.util.MyApplication
 import com.example.knucseapp.ui.util.hide
 import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
@@ -42,15 +41,19 @@ class UserInfoEditActivity : AppCompatActivity() {
     private lateinit var viewModelFactory: MypageViewModelFactory
     lateinit var nickName : String
     lateinit var filePath : Uri
-    private var imageChanged = false
-    private var nickNameChanged = false
+
     private lateinit var file : File
     private lateinit var requestFile : RequestBody
     private lateinit var bodyFile : MultipartBody.Part
     private lateinit var bodyNickname : MultipartBody.Part
 
+    // 프로필 or 닉네임 변경 여부
+    private var imageChanged = false
+    private var nickNameChanged = false
+
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
+            toast("선택하신 이미지로 변경했습니다.")
             Glide.with(this).load(result.uriContent).into(binding.accountIvProfile)
             filePath = result.uriContent!!
             binding.btnOk.isEnabled=true
@@ -81,6 +84,12 @@ class UserInfoEditActivity : AppCompatActivity() {
 
         binding.apply {
             btnOk.setOnClickListener {
+                /*when(checkChanged()){
+                    0 -> {}
+                    1 -> {}
+                    2 -> {}
+                    else -> {}
+                }*/
                 if(nickNameChanged && imageChanged){
                     file = File(createCopyAndReturnRealPath(filePath))
                     requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
@@ -93,8 +102,7 @@ class UserInfoEditActivity : AppCompatActivity() {
                         bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
                         viewmodel?.editUserInfo(null,bodyNickname)
                     }
-                    else
-                        toast("닉네임을 입력해주세요.")
+                    else toast("닉네임을 입력해주세요.")
 
                 }
                 else if(!nickNameChanged && imageChanged){
@@ -123,6 +131,8 @@ class UserInfoEditActivity : AppCompatActivity() {
                     if (!binding.userNicknameEdit.text.toString().equals(nickName)){
                         binding.btnOk.isEnabled = true
                         nickNameChanged = true
+                    }else{
+                        binding.btnOk.isEnabled = false
                     }
                 }
             })
@@ -185,12 +195,23 @@ class UserInfoEditActivity : AppCompatActivity() {
                 toast(it.error.message)
         }
 
+        // 프로필이미지 or 닉네임 변경
         viewModel.getPutProfileResponse.observe(this){
             if (it.success){
-                toast(it.response)
+                toast("성공적으로 수정하였습니다.")
+                MyApplication.prefs.setUserNickname(it.response.newNickName)
                 finish()
             }
             else{ toast(it.error.message) }
+        }
+
+        // 프로필 이미지 삭제
+        viewModel.getDeleteProfileImage.observe(this){
+            if (it.success){
+                toast(it.response)
+                binding.btnOk.isEnabled = true
+                imageChanged = false
+            }
         }
     }
 
@@ -206,6 +227,7 @@ class UserInfoEditActivity : AppCompatActivity() {
         }
         tv_removeProfile.setOnClickListener {
             Glide.with(this).load(R.drawable.profile_default_image).into(binding.accountIvProfile)
+            viewModel.deleteProfileImage()
             builder.dismiss()
         }
         builder.setView(dialogView)
