@@ -37,6 +37,7 @@ class BoardDetailActivity : AppCompatActivity() {
     companion object {
         val comment_type = 1
         val boardContent_type = 0
+        val TAG = "BoardDetailActivity"
     }
     lateinit var viewModel : BoardViewModel
     lateinit var viewModelFactory: BoardViewModelFactory
@@ -78,9 +79,11 @@ class BoardDetailActivity : AppCompatActivity() {
         }
 
         viewModel.boardDetailData.observe(this) {
+            Log.d(TAG,"board detail data observe")
             if(it.success) {
                 boardDetail = it.response
                 viewModel.getAllComment(boardid)
+                Log.d(TAG,"board detail data observe ${it.response}" )
             }
             else {
                 AlertDialog.Builder(this)
@@ -95,6 +98,7 @@ class BoardDetailActivity : AppCompatActivity() {
         }
 
         viewModel.allCommentData.observe(this) {
+            Log.d(TAG,"comment data observe ${it}" )
             adapter.setData(it, boardDetail)
         }
 

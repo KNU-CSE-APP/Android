@@ -1,6 +1,7 @@
 package com.example.knucseapp.ui.board.detail
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,7 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
     }
 
     fun setData(comment: List<CommentDTO>?, board: BoardDTO) {
+        Log.d("CommentAdapter", "comment data : ${comment.toString()}, ${board}")
         boardDetailList.run {
             clear()
             add(board)
@@ -43,6 +45,7 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             }
         }
         notifyDataSetChanged()
+
     }
 
     override fun getItemCount(): Int {

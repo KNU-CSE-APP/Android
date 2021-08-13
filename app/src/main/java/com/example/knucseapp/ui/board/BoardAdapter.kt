@@ -73,6 +73,12 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged()
     }
 
+    fun myboardItem(items: List<BoardDTO>){
+        boardDTOs.clear()
+        boardDTOs.addAll(items)
+        notifyDataSetChanged()
+    }
+
     fun deleteLoading(): Boolean {
         if(boardDTOs.get(boardDTOs.lastIndex).boardId == -1) {
             boardDTOs.removeAt(boardDTOs.lastIndex)

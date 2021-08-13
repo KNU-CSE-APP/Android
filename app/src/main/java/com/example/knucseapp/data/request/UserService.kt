@@ -31,6 +31,10 @@ interface UserService {
     @PUT("/user/changePassword")
     suspend fun requestUserPasswordEdit(@Body changePasswordForm: ChangePasswordForm) : ApiResult<String>
 
+    @GET("/board/findMyBoards")
+    suspend fun getMyBoards() : ApiResult<List<BoardDTO>>
+  
     @HTTP(method = "DELETE", path = "/user/deleteMember", hasBody = true)
     suspend fun requestDeleteMember(@Body deleteForm: DeleteForm) : ApiResult<String>
+
 }

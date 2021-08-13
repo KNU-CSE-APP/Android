@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.data.model.ApiResult
+import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.model.ChangePasswordForm
 import com.example.knucseapp.data.model.DeleteForm
 import com.example.knucseapp.data.model.MemberDTO
@@ -31,8 +32,12 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
     private val _getChangePasswordResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getChangePasswordResponse : LiveData<ApiResult<String>> get() = _getChangePasswordResponse
 
+    private val _getMyBoardResponse : MutableLiveData<ApiResult<List<BoardDTO>>> = MutableLiveData()
+    val getMyBoardResponse : LiveData<ApiResult<List<BoardDTO>>> get() = _getMyBoardResponse
+  
     private val _getDeleteMemberResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getDeleteMemberResponse : LiveData<ApiResult<String>> get() = _getDeleteMemberResponse
+
 
     fun getUserInfo(){
         _dataLoading.postValue(true)
@@ -51,6 +56,14 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
             ChangePasswordForm(newPassword.get()!!,curPassword.get()!!)
         )
     }
+
+
+    fun getMyBoard() {
+        _dataLoading.postValue(true)
+        viewModelScope.launch {
+            _getMyBoardResponse.postValue(authRepository.getMyBoards())
+            _dataLoading.postValue(false)
+        }
 
     fun deleteMember() = viewModelScope.launch {
         _getDeleteMemberResponse.value = authRepository.requestDeleteMember(DeleteForm(curPassword.get()!!))

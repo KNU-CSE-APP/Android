@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import com.example.knucseapp.databinding.MypageFragmentBinding
 import com.example.knucseapp.ui.SignInActivity
+import com.example.knucseapp.ui.auth.MySharedPreferences
 import com.example.knucseapp.ui.mypage.menu.*
 import com.example.knucseapp.ui.util.MyApplication
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -62,6 +63,8 @@ class MypageFragment : Fragment() {
             }
 
             btnMypageWriteHistory.setOnClickListener {
+                val intent = Intent(it.context, WriteHistoryActivity::class.java)
+                it.context.startActivity(intent)
             }
 
             btnMypageSetting.setOnClickListener {
