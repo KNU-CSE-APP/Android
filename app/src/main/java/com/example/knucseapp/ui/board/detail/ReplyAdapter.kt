@@ -35,10 +35,12 @@ class ReplyAdapter(var link: CommentActivity.reply?) : RecyclerView.Adapter<Repl
         }
     }
 
-    fun setData(data: List<CommentDTO>)
+    fun setData(data: List<CommentDTO>?)
     {
         replys.clear()
-        replys.addAll(data)
+        if(data!=null) {
+            replys.addAll(data)
+        }
         notifyDataSetChanged()
     }
 }
