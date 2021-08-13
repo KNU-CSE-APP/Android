@@ -6,15 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.example.knucseapp.databinding.MypageFragmentBinding
 import com.example.knucseapp.ui.SignInActivity
-import com.example.knucseapp.ui.auth.MySharedPreferences
-import com.example.knucseapp.ui.mypage.menu.PasswordEditActivity
-import com.example.knucseapp.ui.mypage.menu.ReservationHistoryActivity
-import com.example.knucseapp.ui.mypage.menu.SettingActivity
-import com.example.knucseapp.ui.mypage.menu.UserInfoEditActivity
+import com.example.knucseapp.ui.mypage.menu.*
 import com.example.knucseapp.ui.util.MyApplication
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -53,6 +48,11 @@ class MypageFragment : Fragment() {
 
             btnMypageChangePassword.setOnClickListener {
                 val intent = Intent(it.context, PasswordEditActivity::class.java)
+                it.context.startActivity(intent)
+            }
+
+            btnMypageDeleteMember.setOnClickListener {
+                val intent = Intent(it.context, DeleteMemberActivity::class.java)
                 it.context.startActivity(intent)
             }
 

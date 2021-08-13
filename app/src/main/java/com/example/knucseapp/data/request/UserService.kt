@@ -30,4 +30,7 @@ interface UserService {
 
     @PUT("/user/changePassword")
     suspend fun requestUserPasswordEdit(@Body changePasswordForm: ChangePasswordForm) : ApiResult<String>
+
+    @HTTP(method = "DELETE", path = "/user/deleteMember", hasBody = true)
+    suspend fun requestDeleteMember(@Body deleteForm: DeleteForm) : ApiResult<String>
 }

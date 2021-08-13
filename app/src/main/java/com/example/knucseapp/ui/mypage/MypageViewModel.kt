@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.data.model.ApiResult
 import com.example.knucseapp.data.model.ChangePasswordForm
+import com.example.knucseapp.data.model.DeleteForm
 import com.example.knucseapp.data.model.MemberDTO
 import com.example.knucseapp.data.repository.AuthRepository
 import kotlinx.coroutines.launch
@@ -30,6 +31,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
     private val _getChangePasswordResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getChangePasswordResponse : LiveData<ApiResult<String>> get() = _getChangePasswordResponse
 
+    private val _getDeleteMemberResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val getDeleteMemberResponse : LiveData<ApiResult<String>> get() = _getDeleteMemberResponse
+
     fun getUserInfo(){
         _dataLoading.postValue(true)
         viewModelScope.launch {
@@ -46,5 +50,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
         _getChangePasswordResponse.value = authRepository.requestChangePassword(
             ChangePasswordForm(newPassword.get()!!,curPassword.get()!!)
         )
+    }
+
+    fun deleteMember() = viewModelScope.launch {
+        _getDeleteMemberResponse.value = authRepository.requestDeleteMember(DeleteForm(curPassword.get()!!))
     }
 }
