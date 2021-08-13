@@ -30,4 +30,7 @@ interface UserService {
 
     @PUT("/user/changePassword")
     suspend fun requestUserPasswordEdit(@Body changePasswordForm: ChangePasswordForm) : ApiResult<String>
+
+    @GET("/board/findMyBoards")
+    suspend fun getMyBoards() : ApiResult<List<BoardDTO>>
 }

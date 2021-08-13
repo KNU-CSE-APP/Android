@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.data.model.ApiResult
+import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.model.ChangePasswordForm
 import com.example.knucseapp.data.model.MemberDTO
 import com.example.knucseapp.data.repository.AuthRepository
@@ -30,6 +31,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
     private val _getChangePasswordResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getChangePasswordResponse : LiveData<ApiResult<String>> get() = _getChangePasswordResponse
 
+    private val _getMyBoardResponse : MutableLiveData<ApiResult<List<BoardDTO>>> = MutableLiveData()
+    val getMyBoardResponse : LiveData<ApiResult<List<BoardDTO>>> get() = _getMyBoardResponse
+
     fun getUserInfo(){
         _dataLoading.postValue(true)
         viewModelScope.launch {
@@ -46,5 +50,13 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
         _getChangePasswordResponse.value = authRepository.requestChangePassword(
             ChangePasswordForm(newPassword.get()!!,curPassword.get()!!)
         )
+    }
+
+    fun getMyBoard() {
+        _dataLoading.postValue(true)
+        viewModelScope.launch {
+            _getMyBoardResponse.postValue(authRepository.getMyBoards())
+            _dataLoading.postValue(false)
+        }
     }
 }

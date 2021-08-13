@@ -38,4 +38,8 @@ class AuthRepository{
     suspend fun requestChangePassword(changePasswordForm: ChangePasswordForm) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.requestUserPasswordEdit(changePasswordForm)
     }
+
+    suspend fun getMyBoards() = withContext(Dispatchers.IO) {
+        ApiRequestFactory.userService.getMyBoards()
+    }
 }
