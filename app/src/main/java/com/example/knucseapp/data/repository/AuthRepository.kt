@@ -42,6 +42,9 @@ class AuthRepository{
 
     suspend fun requestDeleteMember(deleteForm: DeleteForm) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.requestDeleteMember(deleteForm)
+    }
 
+    suspend fun requestDeleteProfileImage() = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestDeleteProfileImage()
     }
 }

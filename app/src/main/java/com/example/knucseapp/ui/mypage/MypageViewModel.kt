@@ -5,11 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.knucseapp.data.model.ApiResult
-import com.example.knucseapp.data.model.BoardDTO
-import com.example.knucseapp.data.model.ChangePasswordForm
-import com.example.knucseapp.data.model.DeleteForm
-import com.example.knucseapp.data.model.MemberDTO
+import com.example.knucseapp.data.model.*
 import com.example.knucseapp.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -26,8 +22,8 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
     private val _getUserInfoResponse : MutableLiveData<ApiResult<MemberDTO>> = MutableLiveData()
     val getUserInfoResponse : LiveData<ApiResult<MemberDTO>> get() = _getUserInfoResponse
 
-    private val _getPutProfileResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
-    val getPutProfileResponse : LiveData<ApiResult<String>> get() = _getPutProfileResponse
+    private val _getPutProfileResponse : MutableLiveData<ApiResult<UpdateNickNameAndImageDTO>> = MutableLiveData()
+    val getPutProfileResponse : LiveData<ApiResult<UpdateNickNameAndImageDTO>> get() = _getPutProfileResponse
 
     private val _getChangePasswordResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getChangePasswordResponse : LiveData<ApiResult<String>> get() = _getChangePasswordResponse
@@ -37,6 +33,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
   
     private val _getDeleteMemberResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getDeleteMemberResponse : LiveData<ApiResult<String>> get() = _getDeleteMemberResponse
+
+    private val _getDeleteProfileImage : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val getDeleteProfileImage : LiveData<ApiResult<String>> get() = _getDeleteProfileImage
 
 
     fun getUserInfo(){
@@ -57,7 +56,6 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
         )
     }
 
-
     fun getMyBoard() {
         _dataLoading.postValue(true)
         viewModelScope.launch {
@@ -68,5 +66,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
 
     fun deleteMember() = viewModelScope.launch {
         _getDeleteMemberResponse.value = authRepository.requestDeleteMember(DeleteForm(curPassword.get()!!))
+    }
+
+    fun deleteProfileImage() = viewModelScope.launch {
+        _getDeleteProfileImage.value = authRepository.requestDeleteProfileImage()
     }
 }

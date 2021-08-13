@@ -23,10 +23,7 @@ interface UserService {
 
     @Multipart
     @PUT("/user/image/nickname")
-    suspend fun requestUserInfoEdit(
-        @Part image: MultipartBody.Part?,
-        @Part nickname: MultipartBody.Part?
-    ) : ApiResult<String>
+    suspend fun requestUserInfoEdit(@Part image: MultipartBody.Part?, @Part nickname: MultipartBody.Part?) : ApiResult<UpdateNickNameAndImageDTO>
 
     @PUT("/user/changePassword")
     suspend fun requestUserPasswordEdit(@Body changePasswordForm: ChangePasswordForm) : ApiResult<String>
@@ -37,4 +34,6 @@ interface UserService {
     @HTTP(method = "DELETE", path = "/user/deleteMember", hasBody = true)
     suspend fun requestDeleteMember(@Body deleteForm: DeleteForm) : ApiResult<String>
 
+    @DELETE("/user/profileimage")
+    suspend fun requestDeleteProfileImage() : ApiResult<String>
 }
