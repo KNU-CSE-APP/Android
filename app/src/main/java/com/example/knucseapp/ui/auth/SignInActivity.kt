@@ -28,10 +28,10 @@ class SignInActivity : AppCompatActivity(),AuthListener {
         initViewModel()
         viewModel.getSharedPreference()
 
-        /*binding.btnSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-        }*/
+        }
 
         binding.btnFindPW.setOnClickListener {
             val intent = Intent(this, PasswordActivity::class.java)
