@@ -36,4 +36,7 @@ interface UserService {
 
     @DELETE("/user/profileimage")
     suspend fun requestDeleteProfileImage() : ApiResult<String>
+
+    @POST("/user/logout")
+    suspend fun requestUserLogout() : ApiResult<String>
 }

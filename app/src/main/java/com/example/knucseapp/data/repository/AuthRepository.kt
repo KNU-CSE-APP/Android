@@ -47,4 +47,8 @@ class AuthRepository{
     suspend fun requestDeleteProfileImage() = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.requestDeleteProfileImage()
     }
+
+    suspend fun requestLogout() = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestUserLogout()
+    }
 }

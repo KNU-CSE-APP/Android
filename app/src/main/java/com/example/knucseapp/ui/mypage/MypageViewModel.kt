@@ -37,6 +37,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
     private val _getDeleteProfileImage : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getDeleteProfileImage : LiveData<ApiResult<String>> get() = _getDeleteProfileImage
 
+    private val _getLogoutResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val getLogoutResponse : LiveData<ApiResult<String>> get() = _getLogoutResponse
+
 
     fun getUserInfo(){
         _dataLoading.postValue(true)
@@ -70,5 +73,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
 
     fun deleteProfileImage() = viewModelScope.launch {
         _getDeleteProfileImage.value = authRepository.requestDeleteProfileImage()
+    }
+
+    fun logout() = viewModelScope.launch {
+        _getLogoutResponse.value = authRepository.requestLogout()
     }
 }
