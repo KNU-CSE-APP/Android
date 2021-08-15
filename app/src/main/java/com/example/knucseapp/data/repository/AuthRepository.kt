@@ -9,11 +9,23 @@ import okhttp3.MultipartBody
 class AuthRepository{
 
     suspend fun requestVerifyCode(email : String) = withContext(Dispatchers.IO){
-        ApiRequestFactory.userService.requestVerifyCode(email+"@knu.ac.kr")
+        ApiRequestFactory.userService.requestVerifyCode(email)
+    }
+
+    suspend fun requestFindPasswordCode(email : String) = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestFindPasswordCode(email)
     }
 
     suspend fun requestVerify(verifyEmailDTO: VerifyEmailDTO) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.requestVerify(verifyEmailDTO)
+    }
+
+    suspend fun requestVerifyPassword(verifyEmailDTO: VerifyEmailDTO) = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestVerifyPassword(verifyEmailDTO)
+    }
+
+    suspend fun requestChangeValidatedPassword(validatedPasswordForm: ValidatedPasswordForm) = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.requestChangeValidatedPassword(validatedPasswordForm)
     }
 
     suspend fun requestSignUp(signUpForm: SignUpForm) = withContext(Dispatchers.IO){

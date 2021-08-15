@@ -2,15 +2,28 @@ package com.example.knucseapp.data.request.user
 
 import com.example.knucseapp.data.model.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface UserService {
+    // 회원 가입 인증 번호 전송
     @GET("/user/verify/{requestEmail}")
     suspend fun requestVerifyCode(@Path("requestEmail") email: String) : ApiResult<String>
 
+    // 비밀번호 찾기 인증 번호 전송
+    @GET("/user/findPassword/{requestEmail}")
+    suspend fun requestFindPasswordCode(@Path("requestEmail") email: String) : ApiResult<String>
+
+    // 이메일 인증번호 검증
     @POST("/user/verify")
     suspend fun requestVerify(@Body verifyEmailDTO : VerifyEmailDTO) : ApiResult<String>
+
+    // 비밀번호 찾기 인증번호 검증
+    @POST("/user/verifyPassword")
+    suspend fun requestVerifyPassword(@Body verifyEmailDTO: VerifyEmailDTO) : ApiResult<String>
+
+    // 비번 인증번호 검증 후 변경
+    @POST("/user/changeValidatedPassword")
+    suspend fun requestChangeValidatedPassword(@Body validatedPasswordForm: ValidatedPasswordForm) : ApiResult<String>
 
     @POST("/user/signUp")
     suspend fun signUp(@Body signUpForm : SignUpForm) : ApiResult<String>
