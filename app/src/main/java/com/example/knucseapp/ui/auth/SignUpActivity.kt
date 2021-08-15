@@ -48,6 +48,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         viewModel.verifyPostResponse.observe(this){
             if(it.success){
                 toast("인증 성공! \n이어서 회원 가입을 진행해주세요.")
+                viewModel.signUpResponseCode = it.response
                 setButtonState()
             }
             else{ toast(it.error.message) }
