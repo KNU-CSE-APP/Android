@@ -36,12 +36,12 @@
                 android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/account_iv_profile"
+                android:layout_toEndOf="@+id/account_iv_profile"
                 android:text="Author"
                 android:textSize="13sp"
-                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginStart="5dp"/>
 
             <TextView
                 android:id="@+id/tvDate"
@@ -49,9 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="@string/date"
-                android:textSize="13sp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"/>
+                android:textSize="11sp"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
 
         <TextView
@@ -81,8 +80,9 @@
             android:layout_marginEnd="20dp"
             android:ellipsize="end"
             android:ems="22"
-            android:maxLines="5"
+            android:maxLines="3"
             android:text="@string/content"
+            android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,13 +90,13 @@
 
         <ImageView
             android:id="@+id/imgComment"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginBottom="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvCommentCnt"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvContent"
             app:srcCompat="@drawable/ic_outline_insert_comment" />
 
@@ -107,6 +107,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="2dp"
+            android:textSize="12sp"
             android:text="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

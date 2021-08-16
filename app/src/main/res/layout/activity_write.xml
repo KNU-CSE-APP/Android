@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="viewModel"
+            type="com.example.knucseapp.ui.board.BoardViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,9 +50,11 @@
                 android:layout_height="48dp"
                 android:layout_gravity="end"
                 android:scaleType="centerInside"
-                android:id="@+id/btnAddWriting"
+                android:id="@+id/add_write"
                 android:src="@drawable/ic_check_white"
-                android:contentDescription="AddWriting"/>
+                android:contentDescription="AddWriting"
+                android:clickable="true"
+                android:onClick="@{() -> viewModel.write(categoryTextview.getText().toString())}"/>
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
@@ -64,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/writing_title"
+                android:text="@={viewModel.writeTitle}"
                 android:textSize="18sp"
                 android:layout_margin="20dp"
                 android:inputType="text"
@@ -84,6 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:hint="@string/writing_notice"
+                android:text="@={viewModel.writeContent}"
                 android:textSize="14sp"
                 android:inputType="textMultiLine"
                 android:singleLine="false"

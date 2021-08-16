@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ReservationFragmentBinding
+import com.example.knucseapp.ui.util.DividerItemDecoration
+
 class ReservationFragment : Fragment() {
 
     companion object {
@@ -51,7 +53,7 @@ class ReservationFragment : Fragment() {
         adapter.itemList = itemlist
 
 //        val decoration = DividerItemDecoration(activity, VERTICAL)
-        val decoration = com.example.knucseapp.ui.DividerItemDecoration(1f, 1f, Color.LTGRAY)
+        val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
 
         reservationFragmentBinding.reservationRecycler.addItemDecoration(decoration)
         reservationFragmentBinding.reservationRecycler.adapter = adapter

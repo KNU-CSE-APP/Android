@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.auth.AuthViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -73,6 +75,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/email_text"
+                                android:text="@={viewmodel.signUpEmail}"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:scrollHorizontally="true"
@@ -85,6 +88,7 @@
                             android:text="@string/send_verify_number"
                             android:textColor="@color/button_text_color"
                             android:textSize="8sp"
+                            android:onClick="@{() -> viewmodel.getVerifyCode()}"
                             android:stateListAnimator="@null"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -113,11 +117,12 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/emailverify_text"
+                                android:inputType="number"
+                                android:text="@={viewmodel.permissionCode}"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 style="@style/signup_textview_textstyle"
                                 android:hint="@string/verify_hint"
-                                android:focusable ="false"
                                 android:enabled="false"/>
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -130,6 +135,7 @@
                             android:textSize="8sp"
                             android:stateListAnimator="@null"
                             android:enabled="false"
+                            android:onClick="@{() -> viewmodel.postVerify()}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/emailverify_layout"
@@ -163,6 +169,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/pw_text"
+                            android:text="@={viewmodel.signUpPassword}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:inputType="textPassword"
@@ -194,6 +201,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/ckpw_text"
+                            android:text="@={viewmodel.passwordConfirm}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:inputType="textPassword"
@@ -225,6 +233,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/name_text"
+                            android:text="@={viewmodel.username}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"/>
@@ -270,6 +279,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/nickname_text"
+                            android:text="@={viewmodel.nickname}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"/>
@@ -300,6 +310,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/std_id_text"
+                            android:text="@={viewmodel.studentId}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             style="@style/signup_textview_textstyle"
@@ -340,18 +351,17 @@
                         <RadioGroup
                             android:id="@+id/major_radioGroup"
                             android:orientation="horizontal"
-                            android:checkedButton="@+id/radio_button_1"
+                            android:checkedButton="@={viewmodel.majorRadio}"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:layout_weight="1">
                             <RadioButton
-                                android:id="@+id/major_radiobutton_simcom"
+                                android:id="@+id/major_radiobutton_advanced"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/major_simcom"
-                                android:checked="true"/>
+                                android:text="@string/major_simcom" />
                             <RadioButton
-                                android:id="@+id/major_radiobutton_glesob"
+                                android:id="@+id/major_radiobutton_global"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/major_glesob"/>
@@ -360,18 +370,17 @@
                         <RadioGroup
                             android:id="@+id/gender_radioGroup"
                             android:orientation="horizontal"
-                            android:checkedButton="@+id/radio_button_1"
+                            android:checkedButton="@={viewmodel.genderRadio}"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:layout_weight="1">
                             <RadioButton
-                                android:id="@+id/gender_radiobutton_m"
+                                android:id="@+id/gender_radiobutton_male"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/gender_m"
-                                android:checked="true"/>
+                                android:text="@string/gender_m" />
                             <RadioButton
-                                android:id="@+id/gender_radiobutton_w"
+                                android:id="@+id/gender_radiobutton_female"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
                                 android:text="@string/gender_w"/>
@@ -387,6 +396,8 @@
                     android:layout_marginBottom="30dp"
                     android:stateListAnimator="@null"
                     android:text="@string/complete_signup"
+                    android:enabled="false"
+                    android:onClick="@{() -> viewmodel.checkSignUpFeild()}"
                     android:textColor="@color/button_text_color" />
             </LinearLayout>
         </ScrollView>

@@ -3,6 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.mypage.MypageViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/total_layout"
@@ -32,20 +37,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/mypage_background_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/image_constraintLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 app:layout_constraintBottom_toTopOf="@+id/info_linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/account_iv_profile"
@@ -81,7 +85,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/btn_ok"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -91,6 +95,47 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:background="@drawable/userinfo_top_edge"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="2">
+
+                        <TextView
+                            style="@style/user_info_layout_textstyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:text="@string/email" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/name_linear_layout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/user_email_text"
+                            style="@style/user_info_textstyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/email" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/userinfo_middle_top_edge"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -122,7 +167,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="천지완" />
+                            android:text="@string/name" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -131,7 +176,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:background="@drawable/userinfo_middle_edge"
+                    android:background="@drawable/userinfo_middle_bottom_edge"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -163,7 +208,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="2015113955" />
+                            android:text="@string/student_id" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -201,27 +246,29 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
                             android:layout_weight="7"
-                            android:gravity="center|left">
+                            android:gravity="center|left"
+                            android:orientation="vertical">
+
                             <TextView
                                 android:id="@+id/user_nickname_text"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:textSize="13sp"
-                                android:layout_marginLeft="20dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="wan2good" />
+                                android:layout_marginLeft="20dp"
+                                android:text="@string/nickname"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
                             <EditText
                                 android:id="@+id/user_nickname_edit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="normal"
-                                android:textSize="13sp"
                                 android:layout_marginLeft="17dp"
                                 android:textColor="@color/black"
-                                android:visibility="gone"/>
+                                android:textSize="13sp"
+                                android:textStyle="normal"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -236,9 +283,9 @@
                                 android:layout_gravity="center"
                                 android:background="@drawable/userinfo_edit_button_shape"
                                 android:gravity="center"
+                                android:stateListAnimator="@null"
                                 android:text="@string/edit"
-                                android:textSize="13sp"
-                                android:stateListAnimator="@null"/>
+                                android:textSize="13sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -246,19 +293,32 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_ok"
-                android:layout_width="0dp"
+            <ProgressBar
+                android:id="@+id/progressbar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/complete"
-                android:textColor="@color/button_text_color"
-                android:background="@drawable/userinfo_button_shape"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:stateListAnimator="@null"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/complete"
+            android:textColor="@color/button_text_color"
+            android:background="@drawable/userinfo_button_shape"
+            android:visibility="visible"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:stateListAnimator="@null"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

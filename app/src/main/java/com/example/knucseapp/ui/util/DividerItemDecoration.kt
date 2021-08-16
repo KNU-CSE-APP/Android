@@ -1,4 +1,4 @@
-package com.example.knucseapp.ui
+package com.example.knucseapp.ui.util
 
 import android.graphics.Canvas
 import android.graphics.Paint

@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.mypage.MypageViewModel" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +54,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/mypage_change_password"
+                        style = "@style/mypage_textviewstyle"
+                        android:background="@drawable/mypage_textview_middle_edge"
+                        android:layout_marginTop="1dp"
+                        android:clickable="true"/>
+
+                    <TextView
+                        android:id="@+id/btn_mypage_delete_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mypage_delete_member"
                         style = "@style/mypage_textviewstyle"
                         android:background="@drawable/mypage_textview_bottom_edge"
                         android:layout_marginTop="1dp"

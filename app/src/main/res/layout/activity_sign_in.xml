@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.auth.AuthViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -63,11 +65,13 @@
                     app:suffixTextAppearance="@style/signup_textview_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
                         android:gravity="center_vertical"
                         android:inputType="text"
+                        android:text="@={viewmodel.signInEmail}"
                         android:scrollHorizontally="true"
                         android:textCursorDrawable="@color/black"
                         style="@style/signup_textview_textstyle"/>
@@ -109,10 +113,12 @@
                     app:suffixTextAppearance="@style/signup_textview_textstyle">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pw_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/white"
                         android:inputType="textPassword"
+                        android:text="@={viewmodel.signInPassword}"
                         android:scrollHorizontally="true"
                         android:textCursorDrawable="@color/black"
                         style="@style/signup_textview_textstyle"/>
@@ -133,6 +139,7 @@
             android:backgroundTint="@color/custombutton1"
             android:stateListAnimator="@null"
             android:text="@string/login"
+            android:onClick="@{() -> viewmodel.checkSignInFeild()}"
             android:textColor="@color/button_text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -147,6 +154,7 @@
             android:layout_marginRight="30dp"
             android:buttonTint="#FFFFFF"
             android:text="@string/auto_login"
+            android:checked="@={viewmodel.isSelected}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />

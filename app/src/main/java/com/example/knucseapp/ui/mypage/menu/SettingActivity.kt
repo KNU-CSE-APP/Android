@@ -7,9 +7,8 @@ import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.databinding.ActivityReservationHistoryBinding
 import com.example.knucseapp.databinding.ActivitySettingBinding
-import com.example.knucseapp.ui.mypage.MyPageMenu
+import com.example.knucseapp.ui.util.DividerItemDecoration
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
@@ -25,7 +24,7 @@ class SettingActivity : AppCompatActivity() {
         var adapter = SettingAdapter()
         adapter.setting_list = setting_list
 
-        val decoration = com.example.knucseapp.ui.DividerItemDecoration(1f, 1f, Color.LTGRAY)
+        val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
         binding.settingRecycler.addItemDecoration(decoration)
         binding.settingRecycler.adapter = adapter
         binding.settingRecycler.layoutManager = LinearLayoutManager(this)

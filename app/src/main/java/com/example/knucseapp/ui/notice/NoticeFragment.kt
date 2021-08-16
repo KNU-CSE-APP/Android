@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.NoticeFragmentBinding
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 
 
 class NoticeFragment : Fragment(){
@@ -139,13 +141,13 @@ class NoticeFragment : Fragment(){
 
         override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            noticeFragmentBinding.progressbar.visibility = ProgressBar.VISIBLE
+            noticeFragmentBinding.progressbar.show()
             noticeFragmentBinding.webview.visibility = View.INVISIBLE
         }
 
         override fun onPageCommitVisible(view: WebView, url: String) {
             super.onPageCommitVisible(view, url)
-            noticeFragmentBinding.progressbar.visibility = ProgressBar.GONE
+            noticeFragmentBinding.progressbar.hide()
             noticeFragmentBinding.webview.visibility = View.VISIBLE
         }
 
