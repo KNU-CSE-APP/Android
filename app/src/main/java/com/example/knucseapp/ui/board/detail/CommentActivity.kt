@@ -24,6 +24,7 @@ import com.example.knucseapp.ui.util.hideKeyboard
 import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 import kotlinx.android.synthetic.main.activity_comment.*
+import kotlinx.android.synthetic.main.comment_recycler.*
 
 class CommentActivity : AppCompatActivity() {
 
@@ -56,6 +57,7 @@ class CommentActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        //원래 commentdataloading
         viewModel.commentDataLoading.observe(this){
             if(it){
                 binding.commentProgressBar.show()
@@ -79,6 +81,13 @@ class CommentActivity : AppCompatActivity() {
             toast("댓글 작성이 완료되었습니다.")
         }
 
+        viewModel.deleteCommentResponse.observe(this) {
+            if(it!=null) {
+                toast("${it.response}")
+                viewModel.getCommentReply(commentId)
+            }
+        }
+
     }
 
     private fun setToolbar(){
@@ -92,6 +101,7 @@ class CommentActivity : AppCompatActivity() {
         adapter = ReplyAdapter(link)
         binding.commentRecycler.adapter = adapter
         viewModel.getCommentReply(commentId)
+//        viewModel.getAllComment(boardId)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
 //        binding.commentRecycler.isNestedScrollingEnabled()
 //        val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
@@ -128,6 +138,7 @@ class CommentActivity : AppCompatActivity() {
             popup.setOnMenuItemClickListener { item ->
                 when(item.itemId){
                     R.id.menu_delete -> {
+                        Log.d(TAG, "delete ${Id}")
                         viewModel.deleteComment(Id)
                         true
                     }

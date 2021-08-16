@@ -48,7 +48,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/setting_dot_gray"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_comment"

@@ -65,6 +65,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/setting_dot_gray"
                 android:clickable="true"
+                android:visibility="gone"
                 />
 
             <TextView

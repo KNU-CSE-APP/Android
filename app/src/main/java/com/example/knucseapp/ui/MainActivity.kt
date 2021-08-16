@@ -78,10 +78,4 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("MainActivity", "main - restart call")
-    }
-
 }

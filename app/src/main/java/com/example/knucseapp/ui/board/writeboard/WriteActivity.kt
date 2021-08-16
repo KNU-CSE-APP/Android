@@ -1,7 +1,9 @@
 package com.example.knucseapp.ui.board.writeboard
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -16,8 +18,10 @@ import com.example.knucseapp.R
 import com.example.knucseapp.data.model.BoardForm
 import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityWriteBinding
+import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
+import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.util.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -70,6 +74,11 @@ class WriteActivity : AppCompatActivity() {
         viewModel.writeResponse.observe(this) {
             if (it.success) {
                 toast("게시글이 작성되었습니다.")
+                val mIntent = Intent(this, BoardHomeFragment::class.java).apply {
+                    putExtra("category", it.response.category)
+                }
+                setResult(Activity.RESULT_OK, mIntent);
+                Log.d("WriteActivity", "${viewModel.freeBoardPage.value}")
                 finish()
             } else {
                 toast(it.error.message)

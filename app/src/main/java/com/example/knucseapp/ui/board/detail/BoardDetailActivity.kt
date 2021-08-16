@@ -58,9 +58,13 @@ class BoardDetailActivity : AppCompatActivity() {
         setButton()
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getBoardDetailData(boardid)
+    }
+
     override fun onResume() {
         super.onResume()
-        Log.d("BoardDetailActivity", "resume call")
     }
     private fun initViewModel(){
         viewModelFactory = BoardViewModelFactory(BoardRepository())
@@ -127,7 +131,6 @@ class BoardDetailActivity : AppCompatActivity() {
         adapter = CommentAdapter(link)
         binding.commentRecycler.adapter = adapter
 //        adapter.setData(null, boardDetail)
-        viewModel.getBoardDetailData(boardid)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
         binding.commentRecycler.addItemDecoration(decoration)

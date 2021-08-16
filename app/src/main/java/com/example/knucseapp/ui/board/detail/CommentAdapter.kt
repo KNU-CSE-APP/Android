@@ -1,8 +1,10 @@
 package com.example.knucseapp.ui.board.detail
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,7 @@ import com.example.knucseapp.databinding.CommentRecyclerBinding
 import com.example.knucseapp.databinding.ReplyRecyclerBinding
 import com.example.knucseapp.ui.reservation.seat.ReservationActivity
 import com.example.knucseapp.ui.reservation.seat.ReservationConfirmActivity
+import com.example.knucseapp.ui.util.MyApplication
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -58,8 +61,13 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             is BoardDetailHolder -> {
                 val boardDetail = boardDetailList.get(position) as BoardDTO
                 holder.setBoard(boardDetail)
-                holder.binding.imgSetting.setOnClickListener {
-                    link.callPopupMenu(0, boardDetail.boardId, holder.binding.imgSetting)
+                if(boardDetail.author == MyApplication.prefs.getUserNickname()) {
+                    holder.binding.imgSetting.run {
+                        visibility = VISIBLE
+                        setOnClickListener {
+                            link.callPopupMenu(0, boardDetail.boardId, holder.binding.imgSetting)
+                        }
+                    }
                 }
             }
             else -> {
@@ -80,9 +88,13 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                             }
                             .show()
                 }
-
-                holder.binding.imgSetting.setOnClickListener {
-                    link.callPopupMenu(1, comment.commentId, holder.binding.imgSetting)
+                if(comment.author == MyApplication.prefs.getUserNickname()) {
+                    holder.binding.imgSetting.run {
+                        visibility = VISIBLE
+                        setOnClickListener {
+                            link.callPopupMenu(1, comment.commentId, holder.binding.imgSetting)
+                        }
+                    }
                 }
 
             }
