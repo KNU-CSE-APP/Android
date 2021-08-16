@@ -210,7 +210,7 @@ class UserInfoEditActivity : AppCompatActivity() {
         viewModel.getDeleteProfileImage.observe(this){
             if (it.success){
                 toast(it.response)
-                binding.btnOk.isEnabled = true
+                binding.btnOk.isEnabled = false
                 imageChanged = false
             }
         }
