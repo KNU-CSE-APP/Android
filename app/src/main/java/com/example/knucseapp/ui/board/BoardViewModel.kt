@@ -19,6 +19,8 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     var writeContent = ObservableField<String>()
     var writeTitle = ObservableField<String>()
 
+    private val _freeBoardPage = MutableLiveData<Int>()
+    val freeBoardPage : LiveData<Int> get() = _freeBoardPage
 
     private val _boardData = MutableLiveData<List<BoardDTO>>()
     val data: LiveData<List<BoardDTO>> get() = _boardData
@@ -160,9 +162,4 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             }
         }
     }
-
-    fun setLoading(){
-        _allCommentDataLoading.postValue(true)
-    }
-
 }

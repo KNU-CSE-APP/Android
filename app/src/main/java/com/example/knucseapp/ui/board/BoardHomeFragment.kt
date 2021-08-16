@@ -1,28 +1,31 @@
 package com.example.knucseapp.ui.board
 
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.knucseapp.R
+import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.BoardHomeFragmentBinding
 import com.example.knucseapp.ui.MainActivity
-import com.example.knucseapp.ui.board.detail.BoardDetailActivity
 import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.board.noticeboard.NoticeBoardFragment
 import com.example.knucseapp.ui.board.search.SearchActivity
 import com.example.knucseapp.ui.board.writeboard.WriteActivity
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class BoardHomeFragment : Fragment() {
 
@@ -31,21 +34,27 @@ class BoardHomeFragment : Fragment() {
         val TAG = "BoardHomeFragment"
     }
 
-    private lateinit var boardHomeFragmentBinding : BoardHomeFragmentBinding
+    private lateinit var viewModelFactory: BoardViewModelFactory
+    private lateinit var viewModel: BoardViewModel
+    private lateinit var binding : BoardHomeFragmentBinding
     private lateinit var toolBarTextView : TextView
     private lateinit var mainActivity: MainActivity
     private lateinit var menuItem: Menu
+    lateinit var fragmentList: List<Fragment>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         setHasOptionsMenu(true)
         toolBarTextView = mainActivity.getToolbarTextView()
-        boardHomeFragmentBinding = DataBindingUtil.inflate(inflater,R.layout.board_home_fragment,container, false)
-
-        return boardHomeFragmentBinding.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.board_home_fragment, container, false)
+        viewModelFactory = BoardViewModelFactory(BoardRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(BoardViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
 
@@ -56,7 +65,18 @@ class BoardHomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.d(TAG, "BoardHomeFragment - onAttach call")
         mainActivity = context as MainActivity
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "BoardHomeFragment - onStart call")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "BoardHomeFragment - onResume call")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,13 +89,14 @@ class BoardHomeFragment : Fragment() {
 
         when(item.itemId){
             R.id.action_search -> {
-                val intent = Intent(context,SearchActivity::class.java)
+                val intent = Intent(context, SearchActivity::class.java)
                 startActivity(intent)
                 return super.onOptionsItemSelected(item)
             }
             R.id.action_write -> {
-                val intent = Intent(context,WriteActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(context, WriteActivity::class.java)
+//                startActivity(intent)
+                openActivityForResult()
                 return super.onOptionsItemSelected(item)
             }
             else -> return super.onOptionsItemSelected(item)
@@ -87,20 +108,20 @@ class BoardHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
 
-        val fragmentList = listOf(BoardFragment(0), BoardFragment(1), NoticeBoardFragment())
+        fragmentList = listOf(BoardFragment(0), BoardFragment(1), NoticeBoardFragment())
         val adapter = FragmentAdapter(requireActivity())
         adapter.fragmentList = fragmentList
-        boardHomeFragmentBinding.viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
 
-        val tabTitles = listOf("자유게시판","QNA","학생회공지")
-        TabLayoutMediator(boardHomeFragmentBinding.tabLayout,boardHomeFragmentBinding.viewPager){ tab, position ->
+        val tabTitles = listOf("자유게시판", "QNA", "학생회공지")
+        TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
             tab.text = tabTitles.get(position)
         }.attach()
 
-        boardHomeFragmentBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                when(position){
+                when (position) {
                     0, 1 -> {
                         toolBarTextView.text = tabTitles.get(position)
                         menuItem.findItem(R.id.action_write).isVisible = true
@@ -111,46 +132,32 @@ class BoardHomeFragment : Fragment() {
                     }
                 }
             }
-
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
-            }
         })
-
-
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "boardhome - onStart call")
+    fun openActivityForResult()
+    {
+        startForResult.launch(Intent(context, WriteActivity::class.java))
     }
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    {
+        result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK)
+        {
+            val intent = result.data // Handle the Intent //do stuff here } }
+            if (intent != null) {
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "boardhome - onresume call")
+                if(intent.getStringExtra("category") == "FREE") {
+                    Log.d("BoardHomeFragment", "FREE!!")
+//                    binding.viewModel!!.setPage(0)
+                }
+                else {
+                    Log.d("BoardHomeFragment", "get data done!")
+//                    binding.viewModel!!.setPage(1)
+                }
+            }
+
+        }
+
     }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG, "boardhome - onDetach call")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "boardhome - onStop call")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "boardhome - onPause call")
-    }
-
 }

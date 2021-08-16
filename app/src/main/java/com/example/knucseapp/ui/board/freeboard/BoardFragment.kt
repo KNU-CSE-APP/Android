@@ -70,6 +70,7 @@ class BoardFragment(boardType: Int) : Fragment() {
 
 
     fun initData() {
+//        viewModel.setPage(-1)
         pages = 0
         viewModel.getAllBoard(boardCategory, getPage(), size)
     }
@@ -86,6 +87,12 @@ class BoardFragment(boardType: Int) : Fragment() {
                 }
             }
         }
+//        viewModel.freeBoardPage.observe(viewLifecycleOwner) {
+//            if(it != -1){
+//                Log.d("BoardFragment", )
+//
+//            }
+//        }
     }
 
     fun setRecyclerView() {
@@ -139,6 +146,12 @@ class BoardFragment(boardType: Int) : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if(viewModel.freeBoardPage.value != -1) {
+
+            binding.boardRecycler.layoutManager?.scrollToPosition(0)
+            initData()
+        }
+        Log.d("BoardFragment", "${viewModel.freeBoardPage.value}")
         Log.d(TAG, "boardfragment - onresume call")
     }
 

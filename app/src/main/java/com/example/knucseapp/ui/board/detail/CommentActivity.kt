@@ -58,7 +58,7 @@ class CommentActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         //원래 commentdataloading
-        viewModel.allCommentDataLoading.observe(this){
+        viewModel.commentDataLoading.observe(this){
             if(it){
                 binding.commentProgressBar.show()
             }
@@ -75,28 +75,16 @@ class CommentActivity : AppCompatActivity() {
         }
 
         viewModel.writeCommentResponse.observe(this){
-            viewModel.setLoading()
-            viewModel.getAllComment(boardId)
-//            viewModel.getCommentReply(commentId)
+            viewModel.getCommentReply(commentId)
             binding.replyTextview.text = null
             hideKeyboard(binding.replyTextview)
             toast("댓글 작성이 완료되었습니다.")
         }
 
-        viewModel.allCommentData.observe(this) {
-            val comment = it.filter {
-                it.commentId == commentId
-            }
-            binding.tvAuthor.text = comment[0].author
-            binding.tvComment.text = comment[0].content
-            binding.tvDate.text = comment[0].time
-            adapter.setData(comment[0].replyList)
-        }
-
         viewModel.deleteCommentResponse.observe(this) {
             if(it!=null) {
                 toast("${it.response}")
-                viewModel.getAllComment(boardId)
+                viewModel.getCommentReply(commentId)
             }
         }
 
@@ -112,8 +100,8 @@ class CommentActivity : AppCompatActivity() {
         val link = reply()
         adapter = ReplyAdapter(link)
         binding.commentRecycler.adapter = adapter
-//        viewModel.getCommentReply(commentId)
-        viewModel.getAllComment(boardId)
+        viewModel.getCommentReply(commentId)
+//        viewModel.getAllComment(boardId)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
 //        binding.commentRecycler.isNestedScrollingEnabled()
 //        val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
