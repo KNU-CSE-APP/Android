@@ -64,7 +64,9 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                 if(boardDetail.author == MyApplication.prefs.getUserNickname()) {
                     holder.binding.imgSetting.run {
                         visibility = VISIBLE
-                        link.callPopupMenu(0, boardDetail.boardId, holder.binding.imgSetting)
+                        setOnClickListener {
+                            link.callPopupMenu(0, boardDetail.boardId, holder.binding.imgSetting)
+                        }
                     }
                 }
             }

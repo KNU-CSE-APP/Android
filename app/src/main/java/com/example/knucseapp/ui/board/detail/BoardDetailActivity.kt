@@ -65,7 +65,6 @@ class BoardDetailActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("BoardDetailActivity", "resume call")
     }
     private fun initViewModel(){
         viewModelFactory = BoardViewModelFactory(BoardRepository())
