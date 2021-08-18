@@ -5,10 +5,16 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.ClassSeatDTO
+import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
 import com.example.knucseapp.ui.MainActivity
+import com.example.knucseapp.ui.reservation.ReservationViewModel
+import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -16,6 +22,8 @@ import java.util.*
 
 class ReservationConfirmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReservationConfirmBinding
+    private lateinit var viewModelFactory: ReservationViewModelFactory
+    private lateinit var viewModel: ReservationViewModel
     private lateinit var seat: ClassSeatDTO
     private lateinit var roomnum: String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +33,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
 
         seat = intent.getSerializableExtra("seat") as ClassSeatDTO
         roomnum = intent.getStringExtra("roomnum").toString()
+        initViewModel()
         setData()
         setToolbar()
         setButton()
@@ -37,6 +46,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -65,4 +75,13 @@ class ReservationConfirmActivity : AppCompatActivity() {
         cal.add(Calendar.HOUR, 6)
         binding.reservationConfirmExitTime.text = "${df.format(cal.time)}"
     }
+
+    private fun initViewModel(){
+        viewModelFactory = ReservationViewModelFactory(ReservationRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+    }
+
 }

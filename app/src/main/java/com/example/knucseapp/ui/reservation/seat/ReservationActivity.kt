@@ -42,8 +42,6 @@ class ReservationActivity : AppCompatActivity() {
         setToolbar()
         setRecyclerView()
         setButton()
-
-
     }
 
     private fun initViewModel(){
@@ -88,7 +86,7 @@ class ReservationActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.reservationToolbarTextview.text = "${room.roomNumber}"
+        binding.reservationToolbarTextview.text = "${room.building} - ${room.roomNumber}호"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
