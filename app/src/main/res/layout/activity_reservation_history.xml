@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="viewmodel"
+            type="com.example.knucseapp.ui.reservation.ReservationViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.mypage.menu.ReservationHistoryActivity">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -26,13 +29,14 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 
             <TextView
@@ -57,32 +61,30 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
-                android:visibility="invisible"
-                >
+                android:visibility="invisible">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/reservation_confirm_top_edge"
-                    >
+                    android:background="@drawable/reservation_confirm_top_edge">
 
                     <TextView
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="23dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/seat_info"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/reservation_history_seat_info"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="23dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/seat_info"
                         android:textColor="@color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
 
@@ -96,18 +98,18 @@
                         android:layout_marginTop="23dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/seat_status"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/reservation_history_seat_status"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="23dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/seat_info"
                         android:textColor="@color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
 
@@ -121,18 +123,18 @@
                         android:layout_marginTop="23dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/reservation_extension_num"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/reservation_history_extension_num"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="23dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/seat_info"
                         android:textColor="@color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
 
@@ -146,18 +148,18 @@
                         android:layout_marginTop="23dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/enter_time"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/reservation_history_enter_time"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="23dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/seat_info"
                         android:textColor="@color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
 
@@ -171,9 +173,9 @@
                         android:layout_marginTop="23dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="23dp"
-                        android:textSize="12sp"
                         android:text="@string/exit_time"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/reservation_history_exit_time"
@@ -181,43 +183,54 @@
                         android:layout_marginTop="23dp"
                         android:layout_marginBottom="23dp"
                         android:text="@string/seat_info"
-                        android:textSize="12sp"
                         android:textColor="@color/black"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </TableRow>
 
 
             </TableLayout>
+
             <LinearLayout
                 android:id="@+id/reservation_history_btn_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:visibility="invisible">
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/reservation_return_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color2"
                     android:layout_marginRight="5dp"
-                    android:text="@string/reservation_return"
                     android:background="@drawable/reservation_cancel_button"
                     android:stateListAnimator="@null"
-                    />
+                    android:text="@string/reservation_return"
+                    android:textColor="@color/button_text_color2" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/reservation_extension_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/button_text_color"
                     android:layout_marginLeft="5dp"
-                    android:text="@string/reservation_extension"
                     android:background="@drawable/reservation_confirm_button"
-                    android:stateListAnimator="@null"/>
+                    android:stateListAnimator="@null"
+                    android:text="@string/reservation_extension"
+                    android:textColor="@color/button_text_color" />
             </LinearLayout>
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

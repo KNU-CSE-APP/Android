@@ -15,5 +15,5 @@ interface ReservationService {
     fun makeReservation(@Body reservationDTO: ReservationDTO): ApiResult<String>
 
     @POST("reservation/findReservation")
-    fun myReservation(): ApiResult<FindReservationDTO>
+    suspend fun myReservation(): ApiResult<FindReservationDTO>
 }
