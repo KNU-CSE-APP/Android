@@ -66,18 +66,7 @@ class BoardHomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(TAG, "BoardHomeFragment - onAttach call")
         mainActivity = context as MainActivity
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "BoardHomeFragment - onStart call")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "BoardHomeFragment - onResume call")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -95,8 +84,6 @@ class BoardHomeFragment : Fragment() {
                 return super.onOptionsItemSelected(item)
             }
             R.id.action_write -> {
-//                val intent = Intent(context, WriteActivity::class.java)
-//                startActivity(intent)
                 openActivityForResult()
                 return super.onOptionsItemSelected(item)
             }
@@ -154,14 +141,11 @@ class BoardHomeFragment : Fragment() {
                     frag.refresh()
                 }
                 else {
-                    Log.d("BoardHomeFragment", "get data done!")
                     binding.viewPager.setCurrentItem(1)
                     val frag = adapter.getItem(1) as BoardFragment
                     frag.refresh()
                 }
             }
-
         }
-
     }
 }

@@ -132,16 +132,6 @@ class BoardFragment(boardType: Int) : Fragment() {
 
     private fun hasNextPage() = isNext
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "boardfragment - onStart call")
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
     fun refresh() {
         if(::binding.isInitialized) {
             binding.boardRecycler.layoutManager?.scrollToPosition(0)
