@@ -22,8 +22,8 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     private val _allSeatData = MutableLiveData<List<ClassSeatDTO>>()
     val allSeatData: LiveData<List<ClassSeatDTO>> get() = _allSeatData
 
-    private val _makeReservationResult = MutableLiveData<String>()
-    val makeReservationResult: LiveData<String> get() = _makeReservationResult
+    private val _makeReservationResult = MutableLiveData<ApiResult<String>>()
+    val makeReservationResult: LiveData<ApiResult<String>> get() = _makeReservationResult
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> get() = _dataLoading
@@ -46,16 +46,15 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     fun makeReservation(reservationDTO: ReservationDTO) {
         CoroutineScope(Dispatchers.IO).launch {
             repository.makeReservation(reservationDTO)?.let {
-                if (it.success) {
-                    _makeReservationResult.postValue(it.response!!)
-                }
+                _makeReservationResult.postValue(it)
+
             }
         }
     }
-
-    fun makeReservationResultNull(){
-        _makeReservationResult.postValue("")
-    }
+//
+//    fun makeReservationResultNull(){
+//        _makeReservationResult.postValue()
+//    }
 
     fun requestFindReservation(){
         _dataLoading.postValue(true)

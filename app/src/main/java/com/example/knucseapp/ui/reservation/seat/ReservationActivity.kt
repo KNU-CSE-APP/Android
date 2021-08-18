@@ -66,14 +66,16 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         viewModel.makeReservationResult.observe(this) {
-            if(it!= ""){
-                toast(it)
+            if(it.success){
+                toast(it.response)
                 val intent = Intent(
                         this@ReservationActivity,
                         ReservationConfirmActivity::class.java
                 )
                 this@ReservationActivity.startActivity(intent)
-                viewModel.makeReservationResultNull()
+            }
+            else{
+                toast(it.error.message)
             }
         }
     }
