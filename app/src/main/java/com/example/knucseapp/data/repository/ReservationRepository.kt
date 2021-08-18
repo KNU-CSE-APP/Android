@@ -18,4 +18,8 @@ class ReservationRepository {
     suspend fun myReservation() = withContext(Dispatchers.IO) {
         ApiRequestFactory.reservationService.myReservation()
     }
+
+    suspend fun deleteReservation() = withContext(Dispatchers.IO){
+        ApiRequestFactory.reservationService.deleteReservation()
+    }
 }

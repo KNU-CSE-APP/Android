@@ -10,6 +10,7 @@ import android.view.View.VISIBLE
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.ReservationDTO
 import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.databinding.ActivityReservationHistoryBinding
@@ -18,6 +19,7 @@ import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
 import com.example.knucseapp.ui.util.hide
 import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,8 +34,24 @@ class ReservationHistoryActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation_history)
         initViewModel()
         viewModel.requestFindReservation()
+        setBtnListener()
         setToolbar()
-//        setData()
+    }
+
+    private fun setBtnListener(){
+        binding.apply {
+            reservationReturnButton.setOnClickListener {
+                MaterialAlertDialogBuilder(binding.root.context)
+                    .setTitle("반납 확인")
+                    .setMessage("좌석을 반납하시겠습니까?")
+                    .setPositiveButton("반납") { dialog, whichButton ->
+                        viewModel.requestDeleteSeat()
+                    }
+                    .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
+                    }
+                    .show()
+            }
+        }
     }
 
     private fun initViewModel(){
@@ -61,7 +79,14 @@ class ReservationHistoryActivity : AppCompatActivity() {
                 binding.reservationHistorySeatInfo.setText("${it.response.building}호관 ${it.response.roomNumber}호 ${it.response.seatNumber}번")
                 binding.reservationHistorySeatStatus.setText("이용중")
             }
-            else{ toast(it.error.message) }
+        }
+
+        viewModel.getDeleteSeatResponse.observe(this){
+            if(it.success){
+                toast(it.response)
+                finish()
+            }
+            else toast(it.error.message)
         }
     }
 
