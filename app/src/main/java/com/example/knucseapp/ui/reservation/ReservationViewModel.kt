@@ -8,6 +8,9 @@ import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.data.repository.ReservationRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import androidx.lifecycle.viewModelScope
+import com.example.knucseapp.data.model.ApiResult
+import com.example.knucseapp.data.model.FindReservationDTO
 import kotlinx.coroutines.launch
 
 class ReservationViewModel(private val repository: ReservationRepository) : ViewModel() {
@@ -18,6 +21,8 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     private val _allSeatData = MutableLiveData<List<ClassSeatDTO>>()
     val allSeatData: LiveData<List<ClassSeatDTO>> get() = _allSeatData
 
+    private val _dataLoading = MutableLiveData<Boolean>()
+    val dataLoading: LiveData<Boolean> get() = _dataLoading
 
     fun getAllSeat(building: String, roomNum: Int){
         _allSeatDataLoading.postValue(true)
@@ -31,5 +36,15 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
         }
     }
 
+    private val _getFindReservationResponse : MutableLiveData<ApiResult<FindReservationDTO>> = MutableLiveData()
+    val getFindReservationResponse : LiveData<ApiResult<FindReservationDTO>> get() = _getFindReservationResponse
+    fun requestFindReservation(){
+        _dataLoading.postValue(true)
+        viewModelScope.launch{
+            _getFindReservationResponse.value = repository.myReservation()
+            _dataLoading.postValue(false)
+        }
+
+    }
 
 }
