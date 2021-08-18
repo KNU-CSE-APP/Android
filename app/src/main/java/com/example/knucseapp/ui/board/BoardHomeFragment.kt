@@ -40,6 +40,7 @@ class BoardHomeFragment : Fragment() {
     private lateinit var toolBarTextView : TextView
     private lateinit var mainActivity: MainActivity
     private lateinit var menuItem: Menu
+    lateinit var adapter: FragmentAdapter
     lateinit var fragmentList: List<Fragment>
 
     override fun onCreateView(
@@ -65,18 +66,7 @@ class BoardHomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(TAG, "BoardHomeFragment - onAttach call")
         mainActivity = context as MainActivity
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "BoardHomeFragment - onStart call")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "BoardHomeFragment - onResume call")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -94,8 +84,6 @@ class BoardHomeFragment : Fragment() {
                 return super.onOptionsItemSelected(item)
             }
             R.id.action_write -> {
-//                val intent = Intent(context, WriteActivity::class.java)
-//                startActivity(intent)
                 openActivityForResult()
                 return super.onOptionsItemSelected(item)
             }
@@ -109,7 +97,7 @@ class BoardHomeFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
 
         fragmentList = listOf(BoardFragment(0), BoardFragment(1), NoticeBoardFragment())
-        val adapter = FragmentAdapter(requireActivity())
+        adapter = FragmentAdapter(requireActivity())
         adapter.fragmentList = fragmentList
         binding.viewPager.adapter = adapter
 
@@ -148,16 +136,16 @@ class BoardHomeFragment : Fragment() {
             if (intent != null) {
 
                 if(intent.getStringExtra("category") == "FREE") {
-                    Log.d("BoardHomeFragment", "FREE!!")
-//                    binding.viewModel!!.setPage(0)
+                    val frag = adapter.getItem(0) as BoardFragment
+                    binding.viewPager.setCurrentItem(0)
+                    frag.refresh()
                 }
                 else {
-                    Log.d("BoardHomeFragment", "get data done!")
-//                    binding.viewModel!!.setPage(1)
+                    binding.viewPager.setCurrentItem(1)
+                    val frag = adapter.getItem(1) as BoardFragment
+                    frag.refresh()
                 }
             }
-
         }
-
     }
 }

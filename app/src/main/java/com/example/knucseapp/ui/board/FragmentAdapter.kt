@@ -16,5 +16,7 @@ class FragmentAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter
         return fragmentList.get(position)
     }
 
-
+    fun getItem(position: Int): Fragment{
+        return fragmentList[position]
+    }
 }

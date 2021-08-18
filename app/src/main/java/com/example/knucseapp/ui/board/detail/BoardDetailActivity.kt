@@ -63,9 +63,6 @@ class BoardDetailActivity : AppCompatActivity() {
         viewModel.getBoardDetailData(boardid)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
     private fun initViewModel(){
         viewModelFactory = BoardViewModelFactory(BoardRepository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(BoardViewModel::class.java)
