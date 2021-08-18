@@ -8,12 +8,12 @@ import retrofit2.http.Path
 
 interface ReservationService {
 
-    @GET("classRoom/searchSeats/{building}/{roomNumber}")
-    fun classState(@Path("building") building: String, @Path("roomNumber") roomNumber: Int): ApiResult<List<ClassSeatDTO>>
+    @GET("/classRoom/searchSeats/{building}/{roomNumber}")
+    suspend fun classState(@Path("building") building: String, @Path("roomNumber") roomNumber: Int): ApiResult<List<ClassSeatDTO>>
 
     @POST("/reservation/reservation")
-    fun makeReservation(@Body reservationDTO: ReservationDTO): ApiResult<String>
+    suspend fun makeReservation(@Body reservationDTO: ReservationDTO): ApiResult<String>
 
     @POST("reservation/findReservation")
-    fun myReservation(): ApiResult<FindReservationDTO>
+    suspend fun myReservation(): ApiResult<FindReservationDTO>
 }

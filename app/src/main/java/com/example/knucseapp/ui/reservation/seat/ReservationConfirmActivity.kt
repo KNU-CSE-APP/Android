@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.ClassSeatDTO
 import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
 import com.example.knucseapp.ui.MainActivity
 import java.text.DateFormat
@@ -15,13 +16,15 @@ import java.util.*
 
 class ReservationConfirmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReservationConfirmBinding
-    private lateinit var seat: Seat
+    private lateinit var seat: ClassSeatDTO
+    private lateinit var roomnum: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation_confirm)
         binding.lifecycleOwner = this
 
-        seat = intent.getSerializableExtra("seat") as Seat
+        seat = intent.getSerializableExtra("seat") as ClassSeatDTO
+        roomnum = intent.getStringExtra("roomnum").toString()
         setData()
         setToolbar()
         setButton()
@@ -52,7 +55,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        binding.reservationConfirmSeatInfo.text = "${seat.Room_number} ${seat.Seat_number}번 좌석"
+        binding.reservationConfirmSeatInfo.text = "${roomnum} ${seat.number}번 좌석"
         binding.reservationConfirmSeatStatus.text = "예약 완료"
         val cal = Calendar.getInstance()
         cal.time = Date()
