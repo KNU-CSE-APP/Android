@@ -16,12 +16,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.ClassRoomDTO
 import com.example.knucseapp.data.model.ClassSeatDTO
+import com.example.knucseapp.data.model.ReservationDTO
 import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationBinding
 import com.example.knucseapp.ui.reservation.ReservationViewModel
 import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
 import com.example.knucseapp.ui.util.hide
 import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
@@ -61,6 +63,18 @@ class ReservationActivity : AppCompatActivity() {
 
         viewModel.allSeatData.observe(this) {
             adapter.setData(it)
+        }
+
+        viewModel.makeReservationResult.observe(this) {
+            if(it!= ""){
+                toast(it)
+                val intent = Intent(
+                        this@ReservationActivity,
+                        ReservationConfirmActivity::class.java
+                )
+                this@ReservationActivity.startActivity(intent)
+                viewModel.makeReservationResultNull()
+            }
         }
     }
 
@@ -111,14 +125,7 @@ class ReservationActivity : AppCompatActivity() {
                         .setTitle("좌석 확인")
                         .setMessage("다음 좌석을 예약하시겠습니까? \n${room.roomNumber} / ${seat.number}번 좌석\n\n※반드시 착석후 좌석을 예약해주세요.")
                         .setPositiveButton("예약") { dialog, whichButton ->
-                            val intent = Intent(
-                                this@ReservationActivity,
-                                ReservationConfirmActivity::class.java
-                            )
-                            intent.putExtra("seat", seat)
-                            intent.putExtra("roomnum", room.roomNumber)
-
-                            this@ReservationActivity.startActivity(intent)
+                            viewModel.makeReservation(ReservationDTO(room.building, room.roomNumber, seat.number))
                         }
                         .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
                         }

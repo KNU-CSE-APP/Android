@@ -24,17 +24,13 @@ class ReservationConfirmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReservationConfirmBinding
     private lateinit var viewModelFactory: ReservationViewModelFactory
     private lateinit var viewModel: ReservationViewModel
-    private lateinit var seat: ClassSeatDTO
-    private lateinit var roomnum: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation_confirm)
         binding.lifecycleOwner = this
 
-        seat = intent.getSerializableExtra("seat") as ClassSeatDTO
-        roomnum = intent.getStringExtra("roomnum").toString()
         initViewModel()
-        setData()
         setToolbar()
         setButton()
     }
@@ -64,18 +60,6 @@ class ReservationConfirmActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setData() {
-        binding.reservationConfirmSeatInfo.text = "${roomnum} ${seat.number}번 좌석"
-        binding.reservationConfirmSeatStatus.text = "예약 완료"
-        val cal = Calendar.getInstance()
-        cal.time = Date()
-        val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        binding.reservationConfirmEnterTime.text = "${df.format(cal.time)}"
-
-        cal.add(Calendar.HOUR, 6)
-        binding.reservationConfirmExitTime.text = "${df.format(cal.time)}"
-    }
-
     private fun initViewModel(){
         viewModelFactory = ReservationViewModelFactory(ReservationRepository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
@@ -83,5 +67,4 @@ class ReservationConfirmActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
     }
-
 }

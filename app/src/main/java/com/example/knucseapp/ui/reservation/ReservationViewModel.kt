@@ -53,6 +53,10 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
         }
     }
 
+    fun makeReservationResultNull(){
+        _makeReservationResult.postValue("")
+    }
+
     fun requestFindReservation(){
         _dataLoading.postValue(true)
         viewModelScope.launch{
