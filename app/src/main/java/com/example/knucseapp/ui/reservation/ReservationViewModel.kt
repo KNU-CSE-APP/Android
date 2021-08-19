@@ -31,6 +31,9 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     private val _getFindReservationResponse : MutableLiveData<ApiResult<FindReservationDTO>> = MutableLiveData()
     val getFindReservationResponse : LiveData<ApiResult<FindReservationDTO>> get() = _getFindReservationResponse
 
+    private val _getDeleteSeatResponse = MutableLiveData<ApiResult<String>>()
+    val getDeleteSeatResponse : LiveData<ApiResult<String>> get() = _getDeleteSeatResponse
+
     fun getAllSeat(building: String, roomNum: Int){
         _allSeatDataLoading.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
@@ -61,6 +64,12 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
         viewModelScope.launch{
             _getFindReservationResponse.value = repository.myReservation()
             _dataLoading.postValue(false)
+        }
+    }
+
+    fun requestDeleteSeat() = viewModelScope.launch{
+        repository.deleteReservation()?.let {
+            _getDeleteSeatResponse.postValue(it)
         }
     }
 }

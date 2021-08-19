@@ -16,4 +16,7 @@ interface ReservationService {
 
     @POST("reservation/findReservation")
     suspend fun myReservation(): ApiResult<FindReservationDTO>
+
+    @POST("reservation/delete")
+    suspend fun deleteReservation() : ApiResult<String>
 }
