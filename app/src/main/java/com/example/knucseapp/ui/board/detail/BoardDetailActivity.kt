@@ -27,6 +27,8 @@ import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
+import com.example.knucseapp.ui.board.writeboard.EditWriteActivity
+import com.example.knucseapp.ui.mypage.menu.UserInfoEditActivity
 import com.example.knucseapp.ui.reservation.seat.ReservationConfirmActivity
 import com.example.knucseapp.ui.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -80,6 +82,7 @@ class BoardDetailActivity : AppCompatActivity() {
         }
 
         viewModel.boardDetailData.observe(this) {
+            boardDetail = it.response
             Log.d(TAG,"board detail data observe")
             if(it.success) {
                 boardDetail = it.response
@@ -202,16 +205,24 @@ class BoardDetailActivity : AppCompatActivity() {
                     true
                 }
                 else -> {
-                    Toast.makeText(this@BoardDetailActivity, "댓글 수정!", Toast.LENGTH_SHORT).show()
+                    if(popupType == boardContent_type){
+                        val intent = Intent(this@BoardDetailActivity, EditWriteActivity::class.java)
+                        intent.putExtra("board", boardDetail)
+                        startActivity(intent)
+                    }
                     true
                 }
             }
 
         }
         val inflater: MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.comment_menu_item, popup.menu)
+
+        if(popupType == comment_type) {
+            inflater.inflate(R.menu.comment_menu_item, popup.menu)
+        }
+        else {
+            inflater.inflate(R.menu.board_menu_item, popup.menu)
+        }
         popup.show()
     }
-
-
 }
