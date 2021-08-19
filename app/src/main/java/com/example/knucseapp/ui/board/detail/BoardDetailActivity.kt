@@ -216,9 +216,13 @@ class BoardDetailActivity : AppCompatActivity() {
 
         }
         val inflater: MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.comment_menu_item, popup.menu)
+
+        if(popupType == comment_type) {
+            inflater.inflate(R.menu.comment_menu_item, popup.menu)
+        }
+        else {
+            inflater.inflate(R.menu.board_menu_item, popup.menu)
+        }
         popup.show()
     }
-
-
 }
