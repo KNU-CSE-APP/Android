@@ -3,6 +3,7 @@ package com.example.knucseapp.ui.reservation.seat
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +36,11 @@ class ReservationConfirmActivity : AppCompatActivity() {
         setButton()
     }
 
+    override fun onStart(){
+        super.onStart()
+        viewModel.requestFindReservation()
+    }
+
     private fun setButton() {
         binding.btnCompleteReservation.setOnClickListener {
             val intent = Intent(this@ReservationConfirmActivity, MainActivity::class.java)
@@ -65,6 +71,26 @@ class ReservationConfirmActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        // viewmodel observe
+        viewModel.dataLoading.observe(this){
+            if (it){
+                binding.infoLinearLayout.visibility = View.GONE
+                binding.progressBar.show()
+            }
+            else{
+                binding.infoLinearLayout.visibility = View.VISIBLE
+                binding.progressBar.hide()
+            }
+        }
+
+        viewModel.getFindReservationResponse.observe(this){
+            if (it.success){
+                binding.reservationConfirmSeatInfo.setText("${it.response.building}호관 ${it.response.roomNumber}호 ${it.response.seatNumber}번")
+                binding.reservationConfirmSeatStatus.setText("이용중")
+                //TODO 입실시간, 퇴실시간 입력하기
+            }
+        }
 
     }
 }
