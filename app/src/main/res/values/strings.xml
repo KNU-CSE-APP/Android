@@ -106,11 +106,5 @@
     <string name="reservation_return">좌석 반납</string>
     <string name="reservation_extension">예약 연장</string>
     <string name="reservation_extension_num">연장 횟수</string>
-    <string name="title_activity_edit_write">EditWriteActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
 
 </resources>
