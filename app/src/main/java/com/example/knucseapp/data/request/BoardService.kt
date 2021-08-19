@@ -17,7 +17,7 @@ interface BoardService {
                             @Query("size") size: Int) : ApiResult<Page>
 
     @PUT("/board/{boardId}")
-    suspend fun changeBoardDetail(@Body boardForm: BoardForm) : ApiResult<String>
+    suspend fun changeBoardDetail(@Body boardForm: BoardForm, @Path("boardId") boardId: Int) : ApiResult<String>
 
     @DELETE("/board/{boardId}")
     suspend fun deleteBoardDetail(@Path("boardId") boardId : Int) : ApiResult<String>

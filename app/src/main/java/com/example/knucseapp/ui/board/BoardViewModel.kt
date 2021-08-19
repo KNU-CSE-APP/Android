@@ -58,6 +58,9 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _toastMessage : MutableLiveData<String> = MutableLiveData()
     val toastMessage : LiveData<String> = _toastMessage
 
+    private val _changeBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val changeBoardDetailResponse : LiveData<ApiResult<String>> = _changeBoardDetailResponse
+
     init {
         writeCategory.set(writeCategoryDefault)
     }
@@ -161,5 +164,29 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
                 )
             }
         }
+    }
+
+    fun changeBoardDetail(boardForm: BoardForm, boardId: Int) {
+        //boardForm 이 기존의 것
+
+        if(writeTitle.get().isNullOrEmpty()){
+            _toastMessage.value = "제목을 입력해주세요"
+        }
+        else if(writeContent.get().isNullOrEmpty()){
+            _toastMessage.value = "본문을 입력해주세요"
+        }
+        else {
+            viewModelScope.launch {
+                _changeBoardDetailResponse.value = boardRepository.changeBoardDetail(
+                    BoardForm(
+                        boardForm.category,
+                        if(writeContent.get()!! == boardForm.content) "" else writeContent.get()!!,
+                        if(writeTitle.get()!! == boardForm.title) "" else writeTitle.get()!!
+                    )
+                , boardId
+                )
+            }
+        }
+
     }
 }

@@ -20,8 +20,8 @@ class BoardRepository {
         ApiRequestFactory.boardService.getAllBoard(category, page, size)
     }
 
-    suspend fun changeBoardDetail(boardForm: BoardForm) = withContext(Dispatchers.IO) {
-        ApiRequestFactory.boardService.changeBoardDetail(boardForm)
+    suspend fun changeBoardDetail(boardForm: BoardForm, boardId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.changeBoardDetail(boardForm, boardId)
     }
 
     suspend fun deleteBoardDetail(boardId: Int) = withContext(Dispatchers.IO) {

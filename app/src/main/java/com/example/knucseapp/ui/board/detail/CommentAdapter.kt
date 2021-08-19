@@ -4,7 +4,7 @@ import android.content.Intent
 import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,6 +69,11 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                         }
                     }
                 }
+                else {
+                    holder.binding.imgSetting.run {
+                        visibility = GONE
+                    }
+                }
             }
             else -> {
                 holder as CommentHolder
@@ -96,7 +101,11 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                         }
                     }
                 }
-
+                else {
+                    holder.binding.imgSetting.run {
+                        visibility = GONE
+                    }
+                }
             }
         }
     }
