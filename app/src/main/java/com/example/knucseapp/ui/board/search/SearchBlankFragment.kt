@@ -19,6 +19,7 @@ class SearchBlankFragment : Fragment() {
 
     private lateinit var binding : SearchBlankFragmentBinding
     private lateinit var searchActivity: SearchActivity
+    lateinit var adapter : SearchCategoryAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,25 +39,10 @@ class SearchBlankFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var adapter = SearchCategoryAdapter()
-        adapter.category_list.addAll(setData())
+        adapter = SearchCategoryAdapter()
 
-        adapter.setOnItemClickListener(object : SearchCategoryAdapter.OnItemClickListener{
-            override fun onItemClick(v: View, data: String, pos : Int, flag: Boolean) {
-                when(flag){
-                    true -> {
-                        searchActivity.addClickedItem(data)
-                    }
-                    false -> {
-                        searchActivity.deleteClickedItem(data)
-                    }
-                }
-            }
-
-        })
         binding.blankRecycler.adapter = adapter
         binding.blankRecycler.layoutManager = LinearLayoutManager(context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
     }
 
-    private fun setData() = arrayOf("잡담하기", "정보", "팀원 구하기", "수업", "aaaa", "bbbbbbb")
 }

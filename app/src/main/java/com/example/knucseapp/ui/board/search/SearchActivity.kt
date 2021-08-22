@@ -66,10 +66,10 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun goSearchResult(keyword: String) {
-
         var bundle = Bundle()
         bundle.putString("keyword", keyword)
-        bundle.putStringArrayList("category", clickeditem)
+        bundle.putInt("category", blankFragment.adapter.selectedPosition)
+
         resultFragment = SearchResultFragment()
         resultFragment!!.arguments = bundle
         val transaction = supportFragmentManager.beginTransaction()

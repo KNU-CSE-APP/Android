@@ -22,6 +22,16 @@ interface BoardService {
     @DELETE("/board/{boardId}")
     suspend fun deleteBoardDetail(@Path("boardId") boardId : Int) : ApiResult<String>
 
+    // 검색
+    @GET("/board/findContent")
+    suspend fun findContent(@Query("content") content: String) : ApiResult<List<BoardDTO>>
+
+    @GET("/board/findTitle")
+    suspend fun findTitle(@Query("title") title: String) : ApiResult<List<BoardDTO>>
+
+    @GET("/board/findAuthor")
+    suspend fun findAuthor(@Query("author") author: String) : ApiResult<List<BoardDTO>>
+
 
     // 댓글
     @POST("/comment/write")
