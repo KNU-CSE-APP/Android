@@ -25,6 +25,12 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _boardData = MutableLiveData<List<BoardDTO>>()
     val data: LiveData<List<BoardDTO>> get() = _boardData
 
+    private val _findBoardData = MutableLiveData<ApiResult<List<BoardDTO>>>()
+    val findBoardData: LiveData<ApiResult<List<BoardDTO>>> get() = _findBoardData
+
+    private val _findBoardDataLoading = MutableLiveData<Boolean>()
+    val findBoardDataLoading: LiveData<Boolean> get() = _findBoardDataLoading
+
     private val _boardDetailData = MutableLiveData<ApiResult<BoardDTO>>()
     val boardDetailData: LiveData<ApiResult<BoardDTO>> get() = _boardDetailData
 
@@ -76,6 +82,19 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         }
     }
 
+    fun findBoard(category: Int, searchKey: String) = viewModelScope.launch {
+        _findBoardDataLoading.postValue(true)
+        CoroutineScope(Dispatchers.IO).launch{
+            _findBoardData.postValue(
+                    when(category){
+                        0 -> boardRepository.findContent(searchKey)
+                        1 -> boardRepository.findTitle(searchKey)
+                        else -> boardRepository.findAuthor(searchKey)
+                    }
+            )
+            _findBoardDataLoading.postValue(false)
+        }
+    }
     fun deleteBoardDetail(boardId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             _deleteBoardDetailResponse.postValue(boardRepository.deleteBoardDetail(boardId))

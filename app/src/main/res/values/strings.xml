@@ -68,8 +68,8 @@
     <string name="writing_title">제목</string>
     <string name="writing_notice">본문을 입력하세요.</string>
     <string name="choose_category">카테고리를 설정해주세요</string>
-    <string name="recommend_category">추천 카테고리</string>
-    <string name="category_explain">카테고리를 선택하지 않으면 전체 게시글에서 검색합니다.</string>
+    <string name="recommend_category">검색 범위</string>
+    <string name="category_explain">검색 범위를 설정해주세요.</string>
     <string name="comment_hint">댓글을 입력하세요.</string>
     <string name="reply_hint">대댓글을 입력하세요.</string>
 

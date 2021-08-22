@@ -28,6 +28,18 @@ class BoardRepository {
         ApiRequestFactory.boardService.deleteBoardDetail(boardId)
     }
 
+    suspend fun findContent(content: String) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.findContent(content)
+    }
+
+    suspend fun findTitle(title: String) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.findTitle(title)
+    }
+
+    suspend fun findAuthor(author: String) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.findAuthor(author)
+    }
+
     suspend fun commentWrite(commentForm: CommentForm) = withContext(Dispatchers.IO) {
         ApiRequestFactory.boardService.commentWrite(commentForm)
     }
