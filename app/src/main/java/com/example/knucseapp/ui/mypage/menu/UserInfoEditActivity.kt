@@ -80,7 +80,6 @@ class UserInfoEditActivity : AppCompatActivity() {
         setToolbar()
 
         nickName = binding.userNicknameText.text.toString()
-        viewModel.getUserInfo()
 
         binding.apply {
             btnOk.setOnClickListener {
@@ -137,6 +136,11 @@ class UserInfoEditActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getUserInfo()
     }
 
     // Uri -> absolutePath

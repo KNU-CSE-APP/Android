@@ -29,6 +29,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/info_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -180,8 +181,18 @@
                     android:text="@string/complete_reservation"
                     android:textColor="@color/button_text_color" />
             </LinearLayout>
+
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/info_linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/info_linearLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
