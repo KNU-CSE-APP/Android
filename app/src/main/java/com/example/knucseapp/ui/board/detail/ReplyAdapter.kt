@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View.*
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.knucseapp.R
 import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.ReplyRecyclerBinding
 import com.example.knucseapp.ui.util.MyApplication
@@ -56,5 +58,7 @@ class ReplyHolder(val binding : ReplyRecyclerBinding) : RecyclerView.ViewHolder(
         binding.tvAuthor.text = reply.author
         binding.tvComment.text = reply.content
         binding.tvDate.text = reply.time
+        if(reply.profileImage == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+        else{ Glide.with(binding.root.context).load(reply.profileImage).into(binding.accountIvProfile) }
     }
 }

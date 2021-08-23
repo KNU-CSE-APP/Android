@@ -8,6 +8,8 @@ import android.view.View.*
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.knucseapp.R
 import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.BoardDetailRecyclerBinding
@@ -124,6 +126,8 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvTitle.text = boardItem.title
             binding.tvContent.text = boardItem.content
             binding.tvCommentCnt.text = "${boardItem.commentCnt}"
+            if(boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+            else{ Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile) }
         }
     }
 
@@ -132,6 +136,10 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvAuthor.text = comment.author
             binding.tvComment.text = comment.content
             binding.tvDate.text = comment.time
+
+            if(comment.profileImage == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+            else{ Glide.with(binding.root.context).load(comment.profileImage).into(binding.accountIvProfile) }
+
             if(comment.replyList!=null) {
                 val replyAdapter = ReplyAdapter(null)
                 replyAdapter.replys = comment.replyList!!

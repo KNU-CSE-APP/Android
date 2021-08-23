@@ -7,5 +7,6 @@ data class CommentDTO(
     val content: String,
     val parentId: Int,
     val replyList: MutableList<CommentDTO>,
-    val time: String
+    val time: String,
+    val profileImage: String
 )
