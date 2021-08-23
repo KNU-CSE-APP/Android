@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.knucseapp.R
 import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.databinding.BoardRecyclerBinding
 import com.example.knucseapp.databinding.BoardRecyclerLoadingBinding
@@ -69,7 +71,7 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             boardDTOs.clear()
         }
         boardDTOs.addAll(items)
-        boardDTOs.add(BoardDTO(" ", -1, " ", " ", " ", -1, " "))
+        boardDTOs.add(BoardDTO(" ", -1, " ", " ", " ", -1, " ", " "))
         notifyDataSetChanged()
     }
 
@@ -101,6 +103,8 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             binding.tvContent.text = item.content
             binding.tvDate.text = item.time
             binding.tvCommentCnt.text = item.commentCnt.toString()
+            if(item.profileImg == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+            else{ Glide.with(binding.root.context).load(item.profileImg).into(binding.accountIvProfile) }
 
             if(item.category.equals("FREE")){
                 binding.tvTag.text = "#자유게시판"

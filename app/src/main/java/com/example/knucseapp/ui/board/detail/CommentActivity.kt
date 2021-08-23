@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.ReplyForm
 import com.example.knucseapp.data.repository.BoardRepository
@@ -71,6 +72,8 @@ class CommentActivity : AppCompatActivity() {
             binding.tvAuthor.text = it.author
             binding.tvComment.text = it.content
             binding.tvDate.text = it.time
+            if(it.profileImage == null) Glide.with(this).load(R.drawable.user).into(binding.accountIvProfile)
+            else{ Glide.with(binding.root.context).load(it.profileImage).into(binding.accountIvProfile) }
             adapter.setData(it.replyList)
         }
 
