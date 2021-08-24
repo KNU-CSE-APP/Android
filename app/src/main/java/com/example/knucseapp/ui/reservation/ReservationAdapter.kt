@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.data.model.ClassRoomDTO
+import com.example.knucseapp.data.model.FindClassRoomDTO
 import com.example.knucseapp.databinding.ReservationRecyclerBinding
 import com.example.knucseapp.ui.reservation.seat.ReservationActivity
+import okhttp3.internal.notify
 
 class ReservationAdapter : RecyclerView.Adapter<Holder>() {
-    var itemList = mutableListOf<ClassRoomDTO>()
+    var itemList = mutableListOf<FindClassRoomDTO>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ReservationRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
@@ -29,11 +31,18 @@ class ReservationAdapter : RecyclerView.Adapter<Holder>() {
     override fun getItemCount(): Int {
         return itemList.size
     }
+
+    fun setData(item: List<FindClassRoomDTO>)
+    {
+        itemList.clear()
+        itemList.addAll(item)
+        notifyDataSetChanged()
+    }
 }
 
 class Holder(val binding: ReservationRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun setItem(item: ClassRoomDTO){
-        binding.roomNum.text = "${item.building}-${item.roomNumber}"
-        binding.numOfStd.text = "(0/${item.totalSeatNumber})"
+    fun setItem(item: FindClassRoomDTO){
+        binding.roomNum.text = "${item.building} - ${item.roomNumber}호"
+        binding.numOfStd.text = "(${item.totalSeatNumber-item.reservedSeatNumber}/${item.totalSeatNumber})"
     }
 }

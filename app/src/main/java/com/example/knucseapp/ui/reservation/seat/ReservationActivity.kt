@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.ClassRoomDTO
 import com.example.knucseapp.data.model.ClassSeatDTO
+import com.example.knucseapp.data.model.FindClassRoomDTO
 import com.example.knucseapp.data.model.ReservationDTO
 import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationBinding
@@ -33,13 +34,13 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var viewModelFactory: ReservationViewModelFactory
     private lateinit var binding: ActivityReservationBinding
     private lateinit var adapter: SeatAdapter
-    lateinit var room: ClassRoomDTO
+    lateinit var room: FindClassRoomDTO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation)
 
-        room = intent.getSerializableExtra("room") as ClassRoomDTO
+        room = intent.getSerializableExtra("room") as FindClassRoomDTO
         initViewModel()
         setToolbar()
         setRecyclerView()

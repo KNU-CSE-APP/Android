@@ -22,4 +22,8 @@ class ReservationRepository {
     suspend fun deleteReservation() = withContext(Dispatchers.IO){
         ApiRequestFactory.reservationService.deleteReservation()
     }
+
+    suspend fun searchAllClassRoom() = withContext(Dispatchers.IO) {
+        ApiRequestFactory.reservationService.searchAllClassRoom()
+    }
 }

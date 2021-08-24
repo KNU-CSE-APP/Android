@@ -3,15 +3,11 @@ package com.example.knucseapp.ui.reservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.knucseapp.data.model.ClassSeatDTO
-import com.example.knucseapp.data.model.CommentDTO
-import com.example.knucseapp.data.model.FindReservationDTO
-import com.example.knucseapp.data.model.ReservationDTO
 import com.example.knucseapp.data.repository.ReservationRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import androidx.lifecycle.viewModelScope
-import com.example.knucseapp.data.model.ApiResult
+import com.example.knucseapp.data.model.*
 import kotlinx.coroutines.launch
 
 class ReservationViewModel(private val repository: ReservationRepository) : ViewModel() {
@@ -34,6 +30,9 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     private val _getDeleteSeatResponse = MutableLiveData<ApiResult<String>>()
     val getDeleteSeatResponse : LiveData<ApiResult<String>> get() = _getDeleteSeatResponse
 
+    private val _allClassRoomData = MutableLiveData<ApiResult<List<FindClassRoomDTO>>>()
+    val allClassRoomData: LiveData<ApiResult<List<FindClassRoomDTO>>> get() = _allClassRoomData
+
     fun getAllSeat(building: String, roomNum: Int){
         _allSeatDataLoading.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
@@ -54,10 +53,6 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
             }
         }
     }
-//
-//    fun makeReservationResultNull(){
-//        _makeReservationResult.postValue()
-//    }
 
     fun requestFindReservation(){
         _dataLoading.postValue(true)
@@ -70,6 +65,12 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     fun requestDeleteSeat() = viewModelScope.launch{
         repository.deleteReservation()?.let {
             _getDeleteSeatResponse.postValue(it)
+        }
+    }
+
+    fun searchAllClassRoom() = viewModelScope.launch {
+        repository.searchAllClassRoom()?.let {
+            _allClassRoomData.postValue(it)
         }
     }
 }

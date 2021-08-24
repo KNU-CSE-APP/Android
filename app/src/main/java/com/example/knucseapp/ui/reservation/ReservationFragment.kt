@@ -3,6 +3,7 @@ package com.example.knucseapp.ui.reservation
 import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,7 @@ class ReservationFragment : Fragment() {
     private lateinit var viewModelFactory: ReservationViewModelFactory
     private lateinit var binding: ReservationFragmentBinding
     private lateinit var viewModel: ReservationViewModel
-    var itemlist = mutableListOf<ClassRoomDTO>()
+    private lateinit var adapter: ReservationAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,21 +49,28 @@ class ReservationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
+        setviewModel()
+        setRecycler()
+    }
 
-        loadItem()
-        var adapter = ReservationAdapter()
-        adapter.itemList = itemlist
-
-//        val decoration = DividerItemDecoration(activity, VERTICAL)
+    private fun setRecycler() {
+        adapter = ReservationAdapter()
         val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
-
         binding.reservationRecycler.addItemDecoration(decoration)
         binding.reservationRecycler.adapter = adapter
         binding.reservationRecycler.layoutManager = LinearLayoutManager(activity)
-
     }
 
-    fun loadItem(){
-        itemlist.add(ClassRoomDTO("IT4", 104, 40))
+    private fun setviewModel() {
+        viewModel.searchAllClassRoom()
+        viewModel.allClassRoomData.observe(viewLifecycleOwner) {
+            if(it.success){
+                adapter.setData(it.response)
+            }
+            else {
+                Log.d("ReservationFragment", "${it.error}")
+            }
+        }
     }
+
 }
