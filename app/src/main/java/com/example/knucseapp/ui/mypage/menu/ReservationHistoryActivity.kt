@@ -78,6 +78,9 @@ class ReservationHistoryActivity : AppCompatActivity() {
                 binding.reservationHistoryBtnLayout.visibility = VISIBLE
                 binding.reservationHistorySeatInfo.setText("${it.response.building}호관 ${it.response.roomNumber}호 ${it.response.seatNumber}번")
                 binding.reservationHistorySeatStatus.setText("이용중")
+                binding.reservationHistoryExtensionNum.setText(it.response.extensionNum)
+                binding.reservationHistoryEnterTime.setText("${it.response.startDate.substring(0,10)} ${it.response.startDate.substring(11,it.response.startDate.length)}")
+                binding.reservationHistoryExitTime.setText("${it.response.dueDate.substring(0,10)} ${it.response.dueDate.substring(11,it.response.dueDate.length)}")
             }
         }
 

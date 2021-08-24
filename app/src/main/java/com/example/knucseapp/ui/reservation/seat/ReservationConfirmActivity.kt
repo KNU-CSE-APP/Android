@@ -88,7 +88,8 @@ class ReservationConfirmActivity : AppCompatActivity() {
             if (it.success){
                 binding.reservationConfirmSeatInfo.setText("${it.response.building}호관 ${it.response.roomNumber}호 ${it.response.seatNumber}번")
                 binding.reservationConfirmSeatStatus.setText("이용중")
-                //TODO 입실시간, 퇴실시간 입력하기
+                binding.reservationConfirmEnterTime.setText("${it.response.startDate.substring(0,10)} ${it.response.startDate.substring(11,it.response.startDate.length)}")
+                binding.reservationConfirmExitTime.setText("${it.response.dueDate.substring(0,10)} ${it.response.dueDate.substring(11,it.response.dueDate.length)}")
             }
         }
 
