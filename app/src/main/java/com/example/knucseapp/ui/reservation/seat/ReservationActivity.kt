@@ -46,6 +46,12 @@ class ReservationActivity : AppCompatActivity() {
         setButton()
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.getAllSeat(room.building, room.roomNumber)
+    }
+
+
     private fun initViewModel(){
         viewModelFactory = ReservationViewModelFactory(ReservationRepository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
@@ -93,7 +99,6 @@ class ReservationActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         var link = changeActivity()
         adapter = SeatAdapter(link)
-        viewModel.getAllSeat(room.building, room.roomNumber)
         binding.seatRecycler.adapter = adapter
         binding.seatRecycler.layoutManager = GridLayoutManager(this, 4)
     }
