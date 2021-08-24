@@ -11,7 +11,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.ClassRoomDTO
+import com.example.knucseapp.data.repository.BoardRepository
+import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ReservationFragmentBinding
+import com.example.knucseapp.ui.board.BoardViewModel
+import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
 
 class ReservationFragment : Fragment() {
@@ -19,17 +24,19 @@ class ReservationFragment : Fragment() {
     companion object {
         fun newInstance() = ReservationFragment()
     }
-    private lateinit var reservationFragmentBinding: ReservationFragmentBinding
+    private lateinit var viewModelFactory: ReservationViewModelFactory
+    private lateinit var binding: ReservationFragmentBinding
     private lateinit var viewModel: ReservationViewModel
-    var itemlist = mutableListOf<ClassRoom>()
+    var itemlist = mutableListOf<ClassRoomDTO>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        //TODO:변경~~~
-        reservationFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.reservation_fragment, container, false)
-        //TODO:변경~~~
-
-        return reservationFragmentBinding.root
+        binding = DataBindingUtil.inflate(inflater, R.layout.reservation_fragment, container, false)
+        viewModelFactory = ReservationViewModelFactory(ReservationRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
@@ -42,12 +49,6 @@ class ReservationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
 
-        viewModel = ViewModelProvider(this).get(ReservationViewModel::class.java)
-
-        //TODO:xml 파일에서 viewModel 선언 후 아래처럼 하면 xml 파일에서 viewmodel 데이터, 함수 사용 가능합니다.
-        reservationFragmentBinding.viewModel = viewModel
-        //TODO:변경~~~
-
         loadItem()
         var adapter = ReservationAdapter()
         adapter.itemList = itemlist
@@ -55,20 +56,13 @@ class ReservationFragment : Fragment() {
 //        val decoration = DividerItemDecoration(activity, VERTICAL)
         val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)
 
-        reservationFragmentBinding.reservationRecycler.addItemDecoration(decoration)
-        reservationFragmentBinding.reservationRecycler.adapter = adapter
-        reservationFragmentBinding.reservationRecycler.layoutManager = LinearLayoutManager(activity)
+        binding.reservationRecycler.addItemDecoration(decoration)
+        binding.reservationRecycler.adapter = adapter
+        binding.reservationRecycler.layoutManager = LinearLayoutManager(activity)
 
     }
 
     fun loadItem(){
-        val building = listOf("IT4", "IT4", "IT4", "IT5", "IT5")
-        val roomnum = listOf("101호", "102호", "103호", "104호", "105호")
-        val num1 = listOf(5, 18, 20, 9, 20)
-        val num2 = listOf(10, 20, 30, 10, 20)
-
-        for(i in 0..4){
-            itemlist.add(ClassRoom(num1[i], roomnum[i], building[i], num1[i], num2[i]))
-        }
+        itemlist.add(ClassRoomDTO("IT4", 104, 40))
     }
 }

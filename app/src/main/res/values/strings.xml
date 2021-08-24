@@ -80,7 +80,7 @@
     <!-- reservation, confirm view-->
     <string name="show_seat_layout">배치도 보기</string>
     <string name="reservation_confirm_toolbar">좌석예약정보</string>
-    <string name="reservation_confirm_message">"예약 좌석 관리는 '설정 > 예약 내역'에서 가능합니다."</string>
+    <string name="reservation_confirm_message">"예약 좌석 관리는 '마이페이지 > 예약 내역' 에서 가능합니다."</string>
     <string name="seat_info">좌석정보</string>
     <string name="seat_status">이용상태</string>
     <string name="enter_time">입실시간</string>

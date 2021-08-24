@@ -3,11 +3,19 @@ package com.example.knucseapp.ui.reservation.seat
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.ClassSeatDTO
+import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
 import com.example.knucseapp.ui.MainActivity
+import com.example.knucseapp.ui.reservation.ReservationViewModel
+import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,16 +23,22 @@ import java.util.*
 
 class ReservationConfirmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReservationConfirmBinding
-    private lateinit var seat: Seat
+    private lateinit var viewModelFactory: ReservationViewModelFactory
+    private lateinit var viewModel: ReservationViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation_confirm)
         binding.lifecycleOwner = this
 
-        seat = intent.getSerializableExtra("seat") as Seat
-        setData()
+        initViewModel()
         setToolbar()
         setButton()
+    }
+
+    override fun onStart(){
+        super.onStart()
+        viewModel.requestFindReservation()
     }
 
     private fun setButton() {
@@ -34,6 +48,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -51,15 +66,32 @@ class ReservationConfirmActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setData() {
-        binding.reservationConfirmSeatInfo.text = "${seat.Room_number} ${seat.Seat_number}번 좌석"
-        binding.reservationConfirmSeatStatus.text = "예약 완료"
-        val cal = Calendar.getInstance()
-        cal.time = Date()
-        val df: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        binding.reservationConfirmEnterTime.text = "${df.format(cal.time)}"
+    private fun initViewModel(){
+        viewModelFactory = ReservationViewModelFactory(ReservationRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
-        cal.add(Calendar.HOUR, 6)
-        binding.reservationConfirmExitTime.text = "${df.format(cal.time)}"
+        // viewmodel observe
+        viewModel.dataLoading.observe(this){
+            if (it){
+                binding.infoLinearLayout.visibility = View.GONE
+                binding.progressBar.show()
+            }
+            else{
+                binding.infoLinearLayout.visibility = View.VISIBLE
+                binding.progressBar.hide()
+            }
+        }
+
+        viewModel.getFindReservationResponse.observe(this){
+            if (it.success){
+                binding.reservationConfirmSeatInfo.setText("${it.response.building}호관 ${it.response.roomNumber}호 ${it.response.seatNumber}번")
+                binding.reservationConfirmSeatStatus.setText("이용중")
+                binding.reservationConfirmEnterTime.setText("${it.response.startDate.substring(0,10)} ${it.response.startDate.substring(11,it.response.startDate.length)}")
+                binding.reservationConfirmExitTime.setText("${it.response.dueDate.substring(0,10)} ${it.response.dueDate.substring(11,it.response.dueDate.length)}")
+            }
+        }
+
     }
 }

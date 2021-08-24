@@ -11,35 +11,81 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.knucseapp.R
+import com.example.knucseapp.data.model.ClassRoomDTO
+import com.example.knucseapp.data.model.ClassSeatDTO
+import com.example.knucseapp.data.model.ReservationDTO
+import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationBinding
+import com.example.knucseapp.ui.reservation.ReservationViewModel
+import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class ReservationActivity : AppCompatActivity() {
 
+    private lateinit var viewModel: ReservationViewModel
+    private lateinit var viewModelFactory: ReservationViewModelFactory
     private lateinit var binding: ActivityReservationBinding
-    lateinit var roomnum: String
+    private lateinit var adapter: SeatAdapter
+    lateinit var room: ClassRoomDTO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation)
-        binding.lifecycleOwner = this
 
-        roomnum = intent.getStringExtra("roomname").toString()
-        getRoomData()
+        room = intent.getSerializableExtra("room") as ClassRoomDTO
+        initViewModel()
         setToolbar()
         setRecyclerView()
         setButton()
-
     }
 
-    private fun getRoomData(){
-        val data = roomnum.replace(" ", "")
-        val arr = data.split("-", " ")
-        println(arr)
+    override fun onStart() {
+        super.onStart()
+        viewModel.getAllSeat(room.building, room.roomNumber)
     }
+
+
+    private fun initViewModel(){
+        viewModelFactory = ReservationViewModelFactory(ReservationRepository())
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ReservationViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        viewModel.allSeatDataLoading.observe(this){
+            if(it){
+                binding.reservationProgressbar.show()
+            }
+            else {
+                binding.reservationProgressbar.hide()
+            }
+        }
+
+        viewModel.allSeatData.observe(this) {
+            adapter.setData(it)
+        }
+
+        viewModel.makeReservationResult.observe(this) {
+            if(it.success){
+                toast(it.response)
+                val intent = Intent(
+                        this@ReservationActivity,
+                        ReservationConfirmActivity::class.java
+                )
+                this@ReservationActivity.startActivity(intent)
+            }
+            else{
+                toast(it.error.message)
+            }
+        }
+    }
+
 
     private fun setButton() {
         binding.btnShowSetLayout.setOnClickListener {
@@ -52,27 +98,16 @@ class ReservationActivity : AppCompatActivity() {
     }
     private fun setRecyclerView() {
         var link = changeActivity()
-        val adapter = SeatAdapter(link)
-        adapter.itemList = setData()
+        adapter = SeatAdapter(link)
         binding.seatRecycler.adapter = adapter
         binding.seatRecycler.layoutManager = GridLayoutManager(this, 4)
-    }
-
-    private fun setData(): MutableList<Seat> {
-        var itemList = mutableListOf<Seat>()
-        for (i in 1..50) {
-            val flag = if(i%7==0) false else true
-            var seat = Seat(i, i, roomnum, flag)
-            itemList.add(seat)
-        }
-        return itemList
     }
 
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.reservationToolbarTextview.text = roomnum
+        binding.reservationToolbarTextview.text = "${room.building} - ${room.roomNumber}호"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,24 +122,17 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     inner class changeActivity{
-        fun callReservationConfirmActivity(seat: Seat) {
+        fun callReservationConfirmActivity(seat: ClassSeatDTO) {
             seat.apply {
-                if(!status){
+                if(status == "RESERVED"){
                     Toast.makeText(this@ReservationActivity, "이미 예약된 좌석입니다.", Toast.LENGTH_SHORT).show()
                 }
                 else{
                     MaterialAlertDialogBuilder(binding.root.context)
                         .setTitle("좌석 확인")
-                        .setMessage("다음 좌석을 예약하시겠습니까? \n${seat.Room_number} / ${seat.Seat_number}번 좌석\n\n※반드시 착석후 좌석을 예약해주세요.")
+                        .setMessage("다음 좌석을 예약하시겠습니까? \n${room.roomNumber} / ${seat.number}번 좌석\n\n※반드시 착석후 좌석을 예약해주세요.")
                         .setPositiveButton("예약") { dialog, whichButton ->
-                            val intent = Intent(
-                                this@ReservationActivity,
-                                ReservationConfirmActivity::class.java
-                            )
-                            intent.putExtra("seat", seat)
-                            //TODO: ViewModel을 쓴다면, position만 받아와서 viewmodel 에 해당 위치의 데이터를 사용하는 것도 좋을것 같다.
-
-                            this@ReservationActivity.startActivity(intent)
+                            viewModel.makeReservation(ReservationDTO(room.building, room.roomNumber, seat.number))
                         }
                         .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
                         }

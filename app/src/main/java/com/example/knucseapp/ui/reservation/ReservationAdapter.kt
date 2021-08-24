@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.knucseapp.data.model.ClassRoomDTO
 import com.example.knucseapp.databinding.ReservationRecyclerBinding
 import com.example.knucseapp.ui.reservation.seat.ReservationActivity
 
 class ReservationAdapter : RecyclerView.Adapter<Holder>() {
-    var itemList = mutableListOf<ClassRoom>()
+    var itemList = mutableListOf<ClassRoomDTO>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ReservationRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder(binding)
@@ -18,6 +19,11 @@ class ReservationAdapter : RecyclerView.Adapter<Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val menu = itemList.get(position)
         holder.setItem(menu)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, ReservationActivity::class.java)
+            intent.putExtra("room", menu)
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -26,16 +32,8 @@ class ReservationAdapter : RecyclerView.Adapter<Holder>() {
 }
 
 class Holder(val binding: ReservationRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
-    init {
-        binding.root.setOnClickListener{
-            val intent = Intent(it.context, ReservationActivity::class.java)
-            intent.putExtra("roomname", binding.roomNum.text)
-            intent.putExtra("sit", binding.numOfStd.text)
-            it.context.startActivity(intent)
-        }
-    }
-    fun setItem(item: ClassRoom){
-        binding.roomNum.text = "${item.Building}-${item.Room_number}"
-        binding.numOfStd.text = "(${item.reserved_num}/${item.total_num})"
+    fun setItem(item: ClassRoomDTO){
+        binding.roomNum.text = "${item.building}-${item.roomNumber}"
+        binding.numOfStd.text = "(0/${item.totalSeatNumber})"
     }
 }
