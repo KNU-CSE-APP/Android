@@ -58,6 +58,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/write_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -83,20 +84,54 @@
                 android:backgroundTint="#959595"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"/>
-
-
-            <EditText
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                android:hint="@string/writing_notice"
-                android:text="@={viewModel.writeContent}"
-                android:textSize="14sp"
-                android:inputType="textMultiLine"
-                android:singleLine="false"
-                android:background="@null"
-                android:gravity="top"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="20dp">
+                <EditText
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:hint="@string/writing_notice"
+                    android:text="@={viewModel.writeContent}"
+                    android:textSize="14sp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:background="@null"
+                    android:gravity="top"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/write_photo_recycler">
+                </EditText>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/write_photo_recycler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:background="@drawable/board_detail_textview_top_stroke">
+
+                <ImageView
+                    android:id="@+id/btn_ctv"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="#00000000"
+                    android:src="@android:drawable/ic_menu_camera" />
+            </LinearLayout>
+
         </LinearLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

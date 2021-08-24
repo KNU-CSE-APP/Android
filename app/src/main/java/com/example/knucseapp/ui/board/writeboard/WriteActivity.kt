@@ -2,34 +2,60 @@ package com.example.knucseapp.ui.board.writeboard
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.BoardForm
 import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityWriteBinding
 import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
-import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.util.toast
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import okhttp3.internal.notify
+
 
 class WriteActivity : AppCompatActivity() {
 
     private lateinit var viewModelFactory: BoardViewModelFactory
     private lateinit var viewModel: BoardViewModel
     private lateinit var binding : ActivityWriteBinding
+    private lateinit var adapter : WritePhotoAdapter
+    private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        adapter.imageurl.clear()
+        result.run {
+            if(data?.clipData!= null) {
+                val count = data!!.clipData!!.itemCount
+
+                for(i in 0 until count) {
+                    val imageUri = data!!.clipData!!.getItemAt(i).uri
+                    adapter.setUrl(imageUri)
+                }
+
+            }
+            else {
+                data?.data?.let { uri ->
+                    val imageUri : Uri? = data?.data
+                    if(imageUri != null) {
+                        adapter.setUrl(imageUri)
+                    }
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +63,8 @@ class WriteActivity : AppCompatActivity() {
         setToolbar()
         setSpinner()
         initViewModel()
+        setRecycler()
+        setButton()
     }
 
     private fun setToolbar(){
@@ -88,5 +116,24 @@ class WriteActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun setRecycler(){
+        //TODO: image setting
+        adapter = WritePhotoAdapter()
+        binding.writePhotoRecycler.adapter = adapter
+        binding.writePhotoRecycler.layoutManager = LinearLayoutManager(this).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+    }
+
+    private fun setButton() {
+        binding.btnCamera.setOnClickListener {
+            Log.d("WriteActivity", "clicked!!")
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            intent.action = Intent.ACTION_GET_CONTENT
+            getContent.launch(intent)
+        }
+    }
+
 
 }
