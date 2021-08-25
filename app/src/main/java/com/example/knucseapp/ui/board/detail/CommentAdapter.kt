@@ -128,6 +128,11 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvCommentCnt.text = "${boardItem.commentCnt}"
             if(boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
             else{ Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile) }
+
+            //TODO: image setting
+            val photoAdapter = ContentPhotoAdapter()
+            binding.contentPhotoRecycler.adapter = photoAdapter
+            binding.contentPhotoRecycler.layoutManager = LinearLayoutManager(binding.root.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
         }
     }
 

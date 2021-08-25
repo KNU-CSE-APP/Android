@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/write_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+</layout>
