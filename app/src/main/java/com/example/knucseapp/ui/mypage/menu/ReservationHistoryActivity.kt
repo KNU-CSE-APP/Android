@@ -108,6 +108,9 @@ class ReservationHistoryActivity : AppCompatActivity() {
                 binding.reservationHistoryEnterTime.setText("${it.response.startDate.substring(0,10)} ${it.response.startDate.substring(11,it.response.startDate.length)}")
                 binding.reservationHistoryExitTime.setText("${it.response.dueDate.substring(0,10)} ${it.response.dueDate.substring(11,it.response.dueDate.length)}")
                 toast("연장 ${3-it.response.extensionNum.toInt()}번 남았습니다.")
+                if(it.response.extensionNum.toInt()==3){
+                    binding.reservationExtensionButton.isEnabled = false
+                }
             }
             else{
                 toast(it.error.message)
