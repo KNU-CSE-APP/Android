@@ -26,4 +26,8 @@ class ReservationRepository {
     suspend fun searchAllClassRoom() = withContext(Dispatchers.IO) {
         ApiRequestFactory.reservationService.searchAllClassRoom()
     }
+
+    suspend fun extensionReservation() = withContext(Dispatchers.IO){
+        ApiRequestFactory.reservationService.extensionReservation()
+    }
 }

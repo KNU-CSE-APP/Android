@@ -22,4 +22,7 @@ interface ReservationService {
 
     @GET("/classRoom/searchAllClassRoom")
     suspend fun searchAllClassRoom() : ApiResult<List<FindClassRoomDTO>>
+
+    @POST("/reservation/extension")
+    suspend fun extensionReservation() : ApiResult<FindReservationDTO>
 }

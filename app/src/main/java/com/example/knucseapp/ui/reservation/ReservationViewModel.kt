@@ -33,6 +33,9 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     private val _allClassRoomData = MutableLiveData<ApiResult<List<FindClassRoomDTO>>>()
     val allClassRoomData: LiveData<ApiResult<List<FindClassRoomDTO>>> get() = _allClassRoomData
 
+    private val _getExtensionResponse : MutableLiveData<ApiResult<FindReservationDTO>> = MutableLiveData()
+    val getExtensionResponse : LiveData<ApiResult<FindReservationDTO>> get() = _getExtensionResponse
+
     fun getAllSeat(building: String, roomNum: Int){
         _allSeatDataLoading.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
@@ -71,6 +74,12 @@ class ReservationViewModel(private val repository: ReservationRepository) : View
     fun searchAllClassRoom() = viewModelScope.launch {
         repository.searchAllClassRoom()?.let {
             _allClassRoomData.postValue(it)
+        }
+    }
+
+    fun requestExtension() = viewModelScope.launch {
+        repository.extensionReservation()?.let {
+            _getExtensionResponse.postValue(it)
         }
     }
 }

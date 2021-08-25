@@ -51,6 +51,17 @@ class ReservationHistoryActivity : AppCompatActivity() {
                     }
                     .show()
             }
+            reservationExtensionButton.setOnClickListener {
+                MaterialAlertDialogBuilder(binding.root.context)
+                    .setTitle("연장 확인")
+                    .setMessage("좌석을 연장하시겠습니까?")
+                    .setPositiveButton("연장") { dialog, whichButton ->
+                        viewModel.requestExtension()
+                    }
+                    .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
+                    }
+                    .show()
+            }
         }
     }
 
@@ -71,6 +82,7 @@ class ReservationHistoryActivity : AppCompatActivity() {
             }
         }
 
+        // reservation info
         viewModel.getFindReservationResponse.observe(this){
             if (it.success){
                 binding.reservationHistroyMessageTextview.setText("현재 예약된 좌석 정보입니다.")
@@ -84,6 +96,28 @@ class ReservationHistoryActivity : AppCompatActivity() {
             }
         }
 
+        // extension
+        viewModel.getExtensionResponse.observe(this){
+            if (it.success){
+                binding.reservationHistroyMessageTextview.setText("현재 예약된 좌석 정보입니다.")
+                binding.reservationTable.visibility = VISIBLE
+                binding.reservationHistoryBtnLayout.visibility = VISIBLE
+                binding.reservationHistorySeatInfo.setText("${it.response.building}호관 ${it.response.roomNumber}호 ${it.response.seatNumber}번")
+                binding.reservationHistorySeatStatus.setText("이용중")
+                binding.reservationHistoryExtensionNum.setText(it.response.extensionNum)
+                binding.reservationHistoryEnterTime.setText("${it.response.startDate.substring(0,10)} ${it.response.startDate.substring(11,it.response.startDate.length)}")
+                binding.reservationHistoryExitTime.setText("${it.response.dueDate.substring(0,10)} ${it.response.dueDate.substring(11,it.response.dueDate.length)}")
+                toast("연장 ${3-it.response.extensionNum.toInt()}번 남았습니다.")
+                if(it.response.extensionNum.toInt()==3){
+                    binding.reservationExtensionButton.isEnabled = false
+                }
+            }
+            else{
+                toast(it.error.message)
+            }
+        }
+
+        // delete reservation
         viewModel.getDeleteSeatResponse.observe(this){
             if(it.success){
                 toast(it.response)
