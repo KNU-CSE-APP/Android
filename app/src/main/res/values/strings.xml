@@ -99,6 +99,7 @@
     <string name="mypage_delete_member">회원 탈퇴</string>
     <string name="mypage_reservation_history">예약내역</string>
     <string name="mypage_my_write">내가 쓴 글</string>
+    <string name="mypage_my_comment">내가 쓴 댓/답글</string>
     <string name="mypage_setting">환경설정</string>
     <string name="mypage_logout">로그아웃</string>
     <string name="reservation_history_toolbar">예약 내역</string>

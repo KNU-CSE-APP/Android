@@ -124,7 +124,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/mypage_my_write"
                         style = "@style/mypage_textviewstyle"
-                        android:background="@drawable/mypage_textview_total_edge"
+                        android:background="@drawable/mypage_textview_top_edge"
+                        android:clickable="true"/>
+                    <TextView
+                        android:id="@+id/btn_mypage_comment_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mypage_my_comment"
+                        style = "@style/mypage_textviewstyle"
+                        android:background="@drawable/mypage_textview_bottom_edge"
                         android:clickable="true"/>
 
                 </LinearLayout>
