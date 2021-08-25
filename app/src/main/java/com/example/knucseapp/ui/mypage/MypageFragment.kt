@@ -89,6 +89,11 @@ class MypageFragment : Fragment() {
                 it.context.startActivity(intent)
             }
 
+            btnMypageCommentHistory.setOnClickListener {
+                val intent = Intent(it.context, CommentHistoryActivity::class.java)
+                it.context.startActivity(intent)
+            }
+
             btnMypageSetting.setOnClickListener {
                 val intent = Intent(it.context, SettingActivity::class.java)
                 it.context.startActivity(intent)

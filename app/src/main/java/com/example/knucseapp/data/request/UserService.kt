@@ -43,6 +43,9 @@ interface UserService {
 
     @GET("/board/findMyBoards")
     suspend fun getMyBoards() : ApiResult<List<BoardDTO>>
+
+    @GET("/comment/getAllComments")
+    suspend fun getMyComments() : ApiResult<List<CommentDTO>>
   
     @HTTP(method = "DELETE", path = "/user/deleteMember", hasBody = true)
     suspend fun requestDeleteMember(@Body deleteForm: DeleteForm) : ApiResult<String>
