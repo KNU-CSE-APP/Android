@@ -50,8 +50,7 @@ class BoardDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        boardDetail = intent.getSerializableExtra("board") as BoardDTO
-        boardid = boardDetail.boardId
+        boardid = intent.getIntExtra("boardId", 0)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_detail)
 
         initViewModel()

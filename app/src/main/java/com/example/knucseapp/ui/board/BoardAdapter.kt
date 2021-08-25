@@ -48,7 +48,7 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(it.context, BoardDetailActivity::class.java)
-                intent.putExtra("board", boardDTO)
+                intent.putExtra("boardId", boardDTO.boardId)
                 intent.putExtra("title", title)
                 it.context.startActivity(intent)
             }
