@@ -175,11 +175,12 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             }
             viewModelScope.launch {
                 _writeResponse.value = boardRepository.write(
-                    BoardForm(
                         categoryid,
                         writeContent.get()!!,
+                        null,
+                        null,
                         writeTitle.get()!!
-                    )
+
                 )
             }
         }
@@ -197,11 +198,11 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         else {
             viewModelScope.launch {
                 _changeBoardDetailResponse.value = boardRepository.changeBoardDetail(
-                    BoardForm(
                         boardForm.category,
                         if(writeContent.get()!! == boardForm.content) "" else writeContent.get()!!,
+                        null,
+                        null,
                         if(writeTitle.get()!! == boardForm.title) "" else writeTitle.get()!!
-                    )
                 , boardId
                 )
             }

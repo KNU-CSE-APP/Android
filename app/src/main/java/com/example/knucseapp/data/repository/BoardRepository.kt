@@ -4,12 +4,13 @@ import com.example.knucseapp.data.model.*
 import com.example.knucseapp.data.request.user.ApiRequestFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 class BoardRepository {
 
-    suspend fun write(boardForm: BoardForm) = withContext(Dispatchers.IO){
-        ApiRequestFactory.boardService.write(boardForm)
+    suspend fun write(category: String, content: String, deleteUrl: List<String>?, file: List<MultipartBody.Part>?, title: String) = withContext(Dispatchers.IO){
+        ApiRequestFactory.boardService.write(category, content, deleteUrl, file, title)
     }
 
     suspend fun getBoardDetail(boardId: Int) = withContext(Dispatchers.IO) {
@@ -20,8 +21,8 @@ class BoardRepository {
         ApiRequestFactory.boardService.getAllBoard(category, page, size)
     }
 
-    suspend fun changeBoardDetail(boardForm: BoardForm, boardId: Int) = withContext(Dispatchers.IO) {
-        ApiRequestFactory.boardService.changeBoardDetail(boardForm, boardId)
+    suspend fun changeBoardDetail(category: String, content: String, deleteUrl: List<String>?, file: List<MultipartBody.Part>?, title: String, boardId: Int) = withContext(Dispatchers.IO) {
+        ApiRequestFactory.boardService.changeBoardDetail(boardId, category, content, deleteUrl, file, title)
     }
 
     suspend fun deleteBoardDetail(boardId: Int) = withContext(Dispatchers.IO) {

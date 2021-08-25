@@ -1,12 +1,17 @@
 package com.example.knucseapp.data.request
 
 import com.example.knucseapp.data.model.*
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface BoardService {
 
     @POST("/board/write")
-    suspend fun write(@Body boardForm : BoardForm) : ApiResult<BoardDTO>
+    suspend fun write(@Query("category") category: String,
+                      @Query ("content") content: String,
+                      @Query("deleteUrl") deleteUrl : List<String>?,
+                      @Query("file") file: List<MultipartBody.Part>?,
+                      @Query("title") title: String) : ApiResult<BoardDTO>
 
     @GET("/board/{boardId}")
     suspend fun getBoardDetail(@Path("boardId") boardId: Int) : ApiResult<BoardDTO>
@@ -17,7 +22,12 @@ interface BoardService {
                             @Query("size") size: Int) : ApiResult<Page>
 
     @PUT("/board/{boardId}")
-    suspend fun changeBoardDetail(@Body boardForm: BoardForm, @Path("boardId") boardId: Int) : ApiResult<String>
+    suspend fun changeBoardDetail(@Path("boardId") boardId: Int,
+                                  @Query("category") category: String,
+                                  @Query ("content") content: String,
+                                  @Query("deleteUrl") deleteUrl : List<String>?,
+                                  @Query("file") file: List<MultipartBody.Part>?,
+                                  @Query("title") title: String) : ApiResult<String>
 
     @DELETE("/board/{boardId}")
     suspend fun deleteBoardDetail(@Path("boardId") boardId : Int) : ApiResult<String>

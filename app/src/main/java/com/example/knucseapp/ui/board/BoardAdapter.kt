@@ -71,7 +71,7 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             boardDTOs.clear()
         }
         boardDTOs.addAll(items)
-        boardDTOs.add(BoardDTO(" ", -1, " ", " ", " ", -1, " ", " "))
+        boardDTOs.add(BoardDTO(" ", -1, " ", " ", " ", -1, " ", " ", listOf("")))
         notifyDataSetChanged()
     }
 
