@@ -89,4 +89,5 @@ dependencies {
 
     //image picker
     implementation 'io.github.ParkSangGwon:tedimagepicker:1.2.4'
+
 }
