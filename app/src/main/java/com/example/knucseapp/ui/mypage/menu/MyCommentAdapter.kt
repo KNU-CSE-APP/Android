@@ -23,13 +23,12 @@ class MyCommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if(holder is Holder){
             val comment = myCommentList.get(position)
             holder.setComment(comment)
-
-            // TODO : 댓글 아이템 클릭 시, boardDetail로 넘어갈 때 boardDTO없음
-            /*holder.itemView.setOnClickListener {
+            
+            holder.itemView.setOnClickListener {
                 val intent = Intent(it.context, BoardDetailActivity::class.java)
-                intent.putExtra("boardid", comment.boardId)
+                intent.putExtra("boardId", comment.boardId)
                 it.context.startActivity(intent)
-            }*/
+            }
         }
     }
 
