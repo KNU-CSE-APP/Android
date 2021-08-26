@@ -78,7 +78,7 @@ class UserInfoEditActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info_edit)
         initViewModel()
         setToolbar()
-
+        viewModel.getUserInfo()
         nickName = binding.userNicknameText.text.toString()
 
         binding.apply {
@@ -140,7 +140,6 @@ class UserInfoEditActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getUserInfo()
     }
 
     // Uri -> absolutePath
