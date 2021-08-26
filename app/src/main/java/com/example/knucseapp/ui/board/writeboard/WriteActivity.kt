@@ -116,12 +116,6 @@ class WriteActivity : AppCompatActivity() {
 
     private fun setButton() {
         binding.btnCamera.setOnClickListener {
-//            Log.d("WriteActivity", "clicked!!")
-//            val intent = Intent(Intent.ACTION_PICK)
-//            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            getContent.launch(intent)
             TedImagePicker.with(this)
                     .startMultiImage { uriList ->
                         adapter.setUrl(uriList)

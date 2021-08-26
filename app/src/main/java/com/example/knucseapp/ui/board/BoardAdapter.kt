@@ -44,17 +44,16 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is Holder) {
             val boardDTO = boardDTOs.get(position)
-            holder.setBoard(boardDTO)
+            if(boardDTO.content!=null && boardDTO.title!=null && boardDTO.category!=null) {
+                holder.setBoard(boardDTO)
 
-            holder.itemView.setOnClickListener {
-                val intent = Intent(it.context, BoardDetailActivity::class.java)
-                intent.putExtra("boardId", boardDTO.boardId)
-                intent.putExtra("title", title)
-                it.context.startActivity(intent)
+                holder.itemView.setOnClickListener {
+                    val intent = Intent(it.context, BoardDetailActivity::class.java)
+                    intent.putExtra("boardId", boardDTO.boardId)
+                    intent.putExtra("title", title)
+                    it.context.startActivity(intent)
+                }
             }
-        }
-        else{
-
         }
     }
 
