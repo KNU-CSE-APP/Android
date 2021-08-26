@@ -91,8 +91,8 @@ class UserInfoEditActivity : AppCompatActivity() {
                 }*/
                 if(nickNameChanged && imageChanged){
                     file = File(createCopyAndReturnRealPath(filePath))
-                    requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    bodyFile = MultipartBody.Part.createFormData("image",file.name,requestFile)
+                    requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    bodyFile = MultipartBody.Part.createFormData("image",file.name+"_profile.jpg",requestFile)
                     bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
                     viewmodel?.editUserInfo(bodyFile,bodyNickname)
                 }
@@ -106,8 +106,8 @@ class UserInfoEditActivity : AppCompatActivity() {
                 }
                 else if(!nickNameChanged && imageChanged){
                     file = File(createCopyAndReturnRealPath(filePath))
-                    requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    bodyFile = MultipartBody.Part.createFormData("image",file.name,requestFile)
+                    requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    bodyFile = MultipartBody.Part.createFormData("image",file.name+"_profile.jpg",requestFile)
                     viewmodel?.editUserInfo(bodyFile,null)
                 }
 
