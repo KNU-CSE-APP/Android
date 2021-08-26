@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.PhotoRecyclerBinding
 import kotlinx.android.synthetic.main.seat_image_dialog.view.*
