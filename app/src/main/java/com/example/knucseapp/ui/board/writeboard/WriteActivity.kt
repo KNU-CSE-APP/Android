@@ -117,9 +117,10 @@ class WriteActivity : AppCompatActivity() {
     private fun setButton() {
         binding.btnCamera.setOnClickListener {
             TedImagePicker.with(this)
-                    .startMultiImage { uriList ->
-                        adapter.setUrl(uriList)
-                    }
+                .max(10, "최대 10장 선택 가능합니다.")
+                .startMultiImage { uriList ->
+                    adapter.setUrl(uriList)
+                }
         }
 
         binding.addWrite.setOnClickListener {
