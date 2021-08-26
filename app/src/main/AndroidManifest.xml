@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.board.writeboard.EditWriteActivity"/>
+        <activity android:name=".ui.mypage.menu.CommentHistoryActivity"></activity>
+        <activity android:name=".ui.board.writeboard.EditWriteActivity" />
         <activity android:name=".ui.mypage.menu.WriteHistoryActivity" />
         <activity android:name=".ui.mypage.menu.DeleteMemberActivity" />
         <activity android:name=".ui.board.detail.CommentActivity" />

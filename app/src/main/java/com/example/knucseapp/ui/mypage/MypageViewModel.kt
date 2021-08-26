@@ -30,6 +30,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
 
     private val _getMyBoardResponse : MutableLiveData<ApiResult<List<BoardDTO>>> = MutableLiveData()
     val getMyBoardResponse : LiveData<ApiResult<List<BoardDTO>>> get() = _getMyBoardResponse
+
+    private val _getMyCommentResponse : MutableLiveData<ApiResult<List<CommentDTO>>> = MutableLiveData()
+    val getMyCommentResponse : LiveData<ApiResult<List<CommentDTO>>> get() = _getMyCommentResponse
   
     private val _getDeleteMemberResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getDeleteMemberResponse : LiveData<ApiResult<String>> get() = _getDeleteMemberResponse
@@ -57,6 +60,14 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
         _getChangePasswordResponse.value = authRepository.requestChangePassword(
             ChangePasswordForm(newPassword.get()!!,curPassword.get()!!)
         )
+    }
+
+    fun getMyComment(){
+        _dataLoading.postValue(true)
+        viewModelScope.launch {
+            _getMyCommentResponse.postValue(authRepository.getMyComments())
+            _dataLoading.postValue(false)
+        }
     }
 
     fun getMyBoard() {

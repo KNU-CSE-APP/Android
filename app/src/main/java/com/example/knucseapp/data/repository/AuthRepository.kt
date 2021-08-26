@@ -52,6 +52,10 @@ class AuthRepository{
         ApiRequestFactory.userService.getMyBoards()
     }
 
+    suspend fun getMyComments() = withContext(Dispatchers.IO){
+        ApiRequestFactory.userService.getMyComments()
+    }
+
     suspend fun requestDeleteMember(deleteForm: DeleteForm) = withContext(Dispatchers.IO){
         ApiRequestFactory.userService.requestDeleteMember(deleteForm)
     }
