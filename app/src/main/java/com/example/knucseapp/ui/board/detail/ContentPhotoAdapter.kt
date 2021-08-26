@@ -33,10 +33,7 @@ class ContentPhotoAdapter :RecyclerView.Adapter<ContentPhotoAdapter.Holder>() {
 
     inner class Holder(val binding: PhotoRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun setSetting(item: String){
-//            Glide.with(binding.root.context).load(item).into(binding.contentImageview)
-            Glide.with(binding.root.context).load(R.drawable.sample_image2).into(binding.contentImageview)
-//        if(boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
-//        else{ Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile) }
+            Glide.with(binding.root.context).load(item).into(binding.contentImageview)
         }
     }
 }

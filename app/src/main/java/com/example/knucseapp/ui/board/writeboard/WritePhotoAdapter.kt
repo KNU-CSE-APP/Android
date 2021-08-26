@@ -26,8 +26,10 @@ class WritePhotoAdapter : RecyclerView.Adapter<WritePhotoAdapter.Holder>() {
         return imageurl.size
     }
 
-    fun setUrl(urls: Uri){
-        imageurl.add(urls)
+    fun setUrl(urls: List<Uri>){
+        imageurl.clear()
+        imageurl.addAll(urls)
+        notifyDataSetChanged()
     }
 
     inner class Holder(val binding: PhotoWriteRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
