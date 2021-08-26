@@ -132,6 +132,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/mypage_my_comment"
                         style = "@style/mypage_textviewstyle"
+                        android:layout_marginTop="1dp"
                         android:background="@drawable/mypage_textview_bottom_edge"
                         android:clickable="true"/>
 
