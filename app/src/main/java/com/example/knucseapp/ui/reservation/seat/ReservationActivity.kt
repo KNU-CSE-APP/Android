@@ -1,12 +1,9 @@
 package com.example.knucseapp.ui.reservation.seat
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.system.Os.accept
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.ClassRoomDTO
 import com.example.knucseapp.data.model.ClassSeatDTO
 import com.example.knucseapp.data.model.FindClassRoomDTO
 import com.example.knucseapp.data.model.ReservationDTO
@@ -90,7 +86,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun setButton() {
         binding.btnShowSetLayout.setOnClickListener {
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.seat_image_dialog, null)
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.image_dialog, null)
             val mBuilder = AlertDialog.Builder(this)
                 .setView(mDialogView)
 

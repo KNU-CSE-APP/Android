@@ -29,7 +29,7 @@
                 android:id="@+id/account_iv_profile"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/sample_image2"
+                android:src="@drawable/user"
                 android:layout_centerVertical="true"/>
 
             <TextView

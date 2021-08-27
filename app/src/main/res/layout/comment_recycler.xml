@@ -24,7 +24,7 @@
                 android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/sample_image2"
+                android:src="@drawable/user"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

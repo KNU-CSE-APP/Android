@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.PhotoRecyclerBinding
-import kotlinx.android.synthetic.main.seat_image_dialog.view.*
+import kotlinx.android.synthetic.main.image_dialog.view.*
 
 class ContentPhotoAdapter :RecyclerView.Adapter<ContentPhotoAdapter.Holder>() {
 
@@ -22,7 +22,7 @@ class ContentPhotoAdapter :RecyclerView.Adapter<ContentPhotoAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val url = imageurl.get(position)
         holder.binding.contentImageview.setOnClickListener {
-            val mDialogView = LayoutInflater.from(holder.binding.root.context).inflate(R.layout.seat_image_dialog, null)
+            val mDialogView = LayoutInflater.from(holder.binding.root.context).inflate(R.layout.image_dialog, null)
             Glide.with(holder.binding.root.context).load(url).into(mDialogView.imageview)
             val mBuilder = AlertDialog.Builder(holder.binding.root.context)
                 .setView(mDialogView)
