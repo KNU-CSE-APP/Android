@@ -130,9 +130,15 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             else{ Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile) }
 
             //TODO: image setting
-            val photoAdapter = ContentPhotoAdapter()
-            binding.contentPhotoRecycler.adapter = photoAdapter
-            binding.contentPhotoRecycler.layoutManager = LinearLayoutManager(binding.root.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+            if(boardItem.images.size != null) {
+                val photoAdapter = ContentPhotoAdapter()
+                photoAdapter.setUrl(boardItem.images)
+                binding.contentPhotoRecycler.adapter = photoAdapter
+                binding.contentPhotoRecycler.layoutManager =
+                    LinearLayoutManager(binding.root.context).also {
+                        it.orientation = LinearLayoutManager.HORIZONTAL
+                    }
+            }
         }
     }
 

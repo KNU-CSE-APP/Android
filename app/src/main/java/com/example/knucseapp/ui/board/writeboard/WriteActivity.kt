@@ -4,14 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -22,8 +18,17 @@ import com.example.knucseapp.databinding.ActivityWriteBinding
 import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
-import okhttp3.internal.notify
+import gun0912.tedimagepicker.builder.TedImagePicker
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 
 
 class WriteActivity : AppCompatActivity() {
@@ -32,30 +37,6 @@ class WriteActivity : AppCompatActivity() {
     private lateinit var viewModel: BoardViewModel
     private lateinit var binding : ActivityWriteBinding
     private lateinit var adapter : WritePhotoAdapter
-    private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-        adapter.imageurl.clear()
-        result.run {
-            if(data?.clipData!= null) {
-                val count = data!!.clipData!!.itemCount
-
-                for(i in 0 until count) {
-                    val imageUri = data!!.clipData!!.getItemAt(i).uri
-                    adapter.setUrl(imageUri)
-                }
-
-            }
-            else {
-                data?.data?.let { uri ->
-                    val imageUri : Uri? = data?.data
-                    if(imageUri != null) {
-                        adapter.setUrl(imageUri)
-                    }
-                }
-            }
-        }
-
-        adapter.notifyDataSetChanged()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +96,15 @@ class WriteActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.writeLoading.observe(this) {
+            if(it){
+                binding.writeprogressbar.show()
+            }
+            else {
+                binding.writeprogressbar.hide()
+            }
+        }
+
     }
 
     private fun setRecycler(){
@@ -126,13 +116,43 @@ class WriteActivity : AppCompatActivity() {
 
     private fun setButton() {
         binding.btnCamera.setOnClickListener {
-            Log.d("WriteActivity", "clicked!!")
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            intent.action = Intent.ACTION_GET_CONTENT
-            getContent.launch(intent)
+            TedImagePicker.with(this)
+                .max(10, "최대 10장 선택 가능합니다.")
+                .startMultiImage { uriList ->
+                    adapter.setUrl(uriList)
+                }
         }
+
+        binding.addWrite.setOnClickListener {
+            var fileList = mutableListOf<MultipartBody.Part>()
+            adapter.imageurl.forEach { filePath ->
+                var file = File(createCopyAndReturnRealPath(filePath))
+                var requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                var bodyFile = MultipartBody.Part.createFormData("file[]",file.name+".jpg",requestFile)
+                fileList.add(bodyFile)
+            }
+            viewModel.write(binding.categoryTextview.text.toString(), fileList)
+        }
+    }
+
+    // Uri -> absolutePath
+    fun createCopyAndReturnRealPath(uri: Uri) :String? {
+        val context = applicationContext
+        val contentResolver = context.contentResolver ?: return null
+
+        // Create file path inside app's data dir
+        val filePath = (context.applicationInfo.dataDir + File.separator + System.currentTimeMillis())
+        val file = File(filePath)
+        try {
+            val inputStream = contentResolver.openInputStream(uri) ?: return null
+            val outputStream: OutputStream = FileOutputStream(file)
+            val buf = ByteArray(1024)
+            var len: Int
+            while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
+            outputStream.close()
+            inputStream.close()
+        } catch (e: IOException) { e.printStackTrace() }
+        return file.getAbsolutePath()
     }
 
 

@@ -11,6 +11,7 @@ import com.example.knucseapp.data.repository.BoardRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
 class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel() {
 
@@ -54,6 +55,9 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
 
     private val _writeResponse : MutableLiveData<ApiResult<BoardDTO>> = MutableLiveData()
     val writeResponse : LiveData<ApiResult<BoardDTO>> = _writeResponse
+
+    private val _writeLoading = MutableLiveData<Boolean>()
+    val writeLoading : LiveData<Boolean> get() = _writeLoading
 
     private val _deleteCommentResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val deleteCommentResponse : LiveData<ApiResult<String>> = _deleteCommentResponse
@@ -152,11 +156,8 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         _deleteCommentResponse.postValue(null)
     }
 
-    fun setDeleteBoardDetailNull() {
-        _deleteBoardDetailResponse.postValue(null)
-    }
 
-    fun write(categoryText: String) {
+    fun write(categoryText: String, file: MutableList<MultipartBody.Part>) {
         if(categoryText.equals(writeCategoryDefault))
         {
             _toastMessage.value = "카테고리는 필수사항입니다."
@@ -168,6 +169,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             _toastMessage.value = "본문을 입력해주세요"
         }
         else {
+            _writeLoading.postValue(true)
             val categoryid = when(categoryText){
                 "자유게시판" -> "FREE"
                 "QNA" -> "QNA"
@@ -175,20 +177,19 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             }
             viewModelScope.launch {
                 _writeResponse.value = boardRepository.write(
-                        categoryid,
-                        writeContent.get()!!,
+                    MultipartBody.Part.createFormData("category",categoryid),
+                    MultipartBody.Part.createFormData("content",writeContent.get()!!),
                         null,
-                        null,
-                        writeTitle.get()!!
-
+                        file,
+                    MultipartBody.Part.createFormData("title",writeTitle.get()!!)
                 )
+                _writeLoading.postValue(false)
             }
         }
     }
 
     fun changeBoardDetail(boardForm: BoardForm, boardId: Int) {
         //boardForm 이 기존의 것
-
         if(writeTitle.get().isNullOrEmpty()){
             _toastMessage.value = "제목을 입력해주세요"
         }

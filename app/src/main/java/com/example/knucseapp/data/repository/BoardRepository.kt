@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 class BoardRepository {
 
-    suspend fun write(category: String, content: String, deleteUrl: List<String>?, file: List<MultipartBody.Part>?, title: String) = withContext(Dispatchers.IO){
+    suspend fun write(category: MultipartBody.Part, content: MultipartBody.Part, deleteUrl: List<MultipartBody.Part>?, file: List<MultipartBody.Part>?, title: MultipartBody.Part) = withContext(Dispatchers.IO){
         ApiRequestFactory.boardService.write(category, content, deleteUrl, file, title)
     }
 

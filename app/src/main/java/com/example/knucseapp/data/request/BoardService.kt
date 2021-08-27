@@ -6,12 +6,13 @@ import retrofit2.http.*
 
 interface BoardService {
 
+    @Multipart
     @POST("/board/write")
-    suspend fun write(@Query("category") category: String,
-                      @Query ("content") content: String,
-                      @Query("deleteUrl") deleteUrl : List<String>?,
-                      @Query("file") file: List<MultipartBody.Part>?,
-                      @Query("title") title: String) : ApiResult<BoardDTO>
+    suspend fun write(@Part category: MultipartBody.Part,
+                      @Part content: MultipartBody.Part,
+                      @Part deleteUrl : List<MultipartBody.Part>?,
+                      @Part file: List<MultipartBody.Part>?,
+                      @Part title: MultipartBody.Part) : ApiResult<BoardDTO>
 
     @GET("/board/{boardId}")
     suspend fun getBoardDetail(@Path("boardId") boardId: Int) : ApiResult<BoardDTO>
