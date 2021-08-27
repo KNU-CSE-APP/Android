@@ -72,7 +72,7 @@ class CommentActivity : AppCompatActivity() {
             binding.tvAuthor.text = it.author
             binding.tvComment.text = it.content
             binding.tvDate.text = it.time
-            if(it.profileImage == null) Glide.with(this).load(R.drawable.user).into(binding.accountIvProfile)
+            if(it.profileImage == null) Glide.with(this).load(R.drawable.img_user).into(binding.accountIvProfile)
             else{ Glide.with(binding.root.context).load(it.profileImage).into(binding.accountIvProfile) }
             adapter.setData(it.replyList)
         }

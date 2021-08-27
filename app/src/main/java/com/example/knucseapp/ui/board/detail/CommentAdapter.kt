@@ -1,7 +1,6 @@
 package com.example.knucseapp.ui.board.detail
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.*
@@ -14,9 +13,6 @@ import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.BoardDetailRecyclerBinding
 import com.example.knucseapp.databinding.CommentRecyclerBinding
-import com.example.knucseapp.databinding.ReplyRecyclerBinding
-import com.example.knucseapp.ui.reservation.seat.ReservationActivity
-import com.example.knucseapp.ui.reservation.seat.ReservationConfirmActivity
 import com.example.knucseapp.ui.util.MyApplication
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -126,7 +122,8 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvTitle.text = boardItem.title
             binding.tvContent.text = boardItem.content
             binding.tvCommentCnt.text = "${boardItem.commentCnt}"
-            if(boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+            binding.tvPhotoCnt.text = "${boardItem.images.size}"
+            if(boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
             else{ Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile) }
 
             //TODO: image setting
@@ -148,7 +145,7 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvComment.text = comment.content
             binding.tvDate.text = comment.time
 
-            if(comment.profileImage == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+            if(comment.profileImage == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
             else{ Glide.with(binding.root.context).load(comment.profileImage).into(binding.accountIvProfile) }
 
             if(comment.replyList!=null) {

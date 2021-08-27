@@ -186,7 +186,7 @@ class UserInfoEditActivity : AppCompatActivity() {
         viewModel.getUserInfoResponse.observe(this){
             if (it.success)
             {
-                if (it.response.imagePath == null){ Glide.with(this).load(R.drawable.profile_default_image).into(binding.accountIvProfile) }
+                if (it.response.imagePath == null){ Glide.with(this).load(R.drawable.img_profile_default_image).into(binding.accountIvProfile) }
                 else{ Glide.with(this).load(it.response.imagePath).into(binding.accountIvProfile) }
                 binding.userEmailText.setText(it.response.email)
                 binding.userNameText.setText(it.response.username)
@@ -230,7 +230,7 @@ class UserInfoEditActivity : AppCompatActivity() {
             builder.dismiss()
         }
         tv_removeProfile.setOnClickListener {
-            Glide.with(this).load(R.drawable.profile_default_image).into(binding.accountIvProfile)
+            Glide.with(this).load(R.drawable.img_profile_default_image).into(binding.accountIvProfile)
             viewModel.deleteProfileImage()
             builder.dismiss()
         }

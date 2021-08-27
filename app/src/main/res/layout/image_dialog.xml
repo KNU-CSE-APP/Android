@@ -11,7 +11,7 @@
         android:layout_height="400dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/seat"
+        android:src="@drawable/img_seat_example"
         android:foregroundGravity="center"
         android:background="@android:color/white"/>
 

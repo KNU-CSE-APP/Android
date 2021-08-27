@@ -18,7 +18,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/user"
+                android:src="@drawable/img_user"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/setting_dot_gray"
+                app:srcCompat="@drawable/img_setting_dot"
                 android:clickable="true"
                 android:visibility="gone"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -110,15 +110,40 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_content"/>
 
             <ImageView
-                android:id="@+id/imgComment"
-                android:layout_width="15dp"
+                android:id="@+id/imgPhoto"
+                android:scaleType="fitXY"
+                android:layout_width="13dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/content_photo_recycler"
-                app:srcCompat="@drawable/ic_outline_insert_comment" />
+                app:srcCompat="@drawable/img_picture" />
+
+            <TextView
+                android:id="@+id/tvPhotoCnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
+                android:text="0"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgPhoto"
+                app:layout_constraintTop_toBottomOf="@+id/content_photo_recycler" />
+
+            <ImageView
+                android:id="@+id/imgComment"
+                android:scaleType="fitXY"
+                android:layout_width="13dp"
+                android:layout_height="12dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPhotoCnt"
+                app:layout_constraintTop_toBottomOf="@+id/content_photo_recycler"
+                app:srcCompat="@drawable/img_chat" />
 
             <TextView
                 android:id="@+id/tvCommentCnt"
@@ -127,6 +152,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="8dp"
                 android:text="0"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgComment"
                 app:layout_constraintTop_toBottomOf="@+id/content_photo_recycler" />

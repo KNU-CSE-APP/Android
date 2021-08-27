@@ -1,7 +1,6 @@
 package com.example.knucseapp.ui.board.freeboard
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -102,7 +101,8 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             binding.tvContent.text = item.content
             binding.tvDate.text = item.time
             binding.tvCommentCnt.text = item.commentCnt.toString()
-            if(item.profileImg == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+            binding.tvPhotoCnt.text = "${item.images.size}"
+            if(item.profileImg == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
             else{ Glide.with(binding.root.context).load(item.profileImg).into(binding.accountIvProfile) }
 
             if(item.category.equals("FREE")){

@@ -58,7 +58,7 @@ class ReplyHolder(val binding : ReplyRecyclerBinding) : RecyclerView.ViewHolder(
         binding.tvAuthor.text = reply.author
         binding.tvComment.text = reply.content
         binding.tvDate.text = reply.time
-        if(reply.profileImage == null) Glide.with(binding.root.context).load(R.drawable.user).into(binding.accountIvProfile)
+        if(reply.profileImage == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
         else{ Glide.with(binding.root.context).load(reply.profileImage).into(binding.accountIvProfile) }
     }
 }

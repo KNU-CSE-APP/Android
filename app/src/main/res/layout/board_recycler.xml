@@ -29,7 +29,7 @@
                 android:id="@+id/account_iv_profile"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/user"
+                android:src="@drawable/img_user"
                 android:layout_centerVertical="true"/>
 
             <TextView
@@ -89,16 +89,43 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <ImageView
-            android:id="@+id/imgComment"
-            android:layout_width="15dp"
+            android:id="@+id/imgPhoto"
+            android:scaleType="fitXY"
+            android:layout_width="13dp"
             android:layout_height="15dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvPhotoCnt"
             app:layout_constraintTop_toBottomOf="@+id/tvContent"
-            app:srcCompat="@drawable/ic_outline_insert_comment" />
+            app:srcCompat="@drawable/img_picture" />
+
+        <TextView
+            android:id="@+id/tvPhotoCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="12sp"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imgComment"
+            app:layout_constraintTop_toBottomOf="@+id/tvContent" />
+
+        <ImageView
+            android:id="@+id/imgComment"
+            android:scaleType="fitXY"
+            android:layout_width="13dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvCommentCnt"
+            app:layout_constraintTop_toBottomOf="@+id/tvContent"
+            app:srcCompat="@drawable/img_chat" />
 
         <TextView
             android:id="@+id/tvCommentCnt"
