@@ -80,7 +80,7 @@
             android:layout_marginEnd="20dp"
             android:ellipsize="end"
             android:ems="22"
-            android:maxLines="3"
+            android:maxLines="1"
             android:text="@string/content"
             android:textColor="@color/black"
             android:textSize="13sp"
