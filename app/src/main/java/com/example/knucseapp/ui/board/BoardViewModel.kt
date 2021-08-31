@@ -173,7 +173,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             val categoryid = when(categoryText){
                 "자유게시판" -> "FREE"
                 "QNA" -> "QNA"
-                else -> ""
+                else -> "ADMIN"
             }
             viewModelScope.launch {
                 _writeResponse.value = boardRepository.write(
