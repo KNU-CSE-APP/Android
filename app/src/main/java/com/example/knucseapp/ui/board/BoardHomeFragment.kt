@@ -96,7 +96,7 @@ class BoardHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
 
-        fragmentList = listOf(BoardFragment(0), BoardFragment(1), NoticeBoardFragment())
+        fragmentList = listOf(BoardFragment(0), BoardFragment(1), BoardFragment(2))
         adapter = FragmentAdapter(requireActivity())
         adapter.fragmentList = fragmentList
         binding.viewPager.adapter = adapter

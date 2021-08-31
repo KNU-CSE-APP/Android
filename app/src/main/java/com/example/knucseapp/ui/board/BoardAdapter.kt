@@ -108,8 +108,11 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             if(item.category.equals("FREE")){
                 binding.tvTag.text = "#자유게시판"
             }
-            else {
+            else if(item.category.equals("QNA")) {
                 binding.tvTag.text = "#QNA"
+            }
+            else {
+                binding.tvTag.text = "#학생회공지"
             }
         }
     }

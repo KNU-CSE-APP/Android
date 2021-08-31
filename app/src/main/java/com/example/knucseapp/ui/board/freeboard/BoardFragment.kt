@@ -30,7 +30,8 @@ class BoardFragment(boardType: Int) : Fragment() {
 
     private val boardCategory = when(boardType) {
         0 -> "FREE"
-        else -> "QNA"
+        1 -> "QNA"
+        else -> "ADMIN"
     }
 
     private lateinit var viewModelFactory: BoardViewModelFactory
@@ -91,7 +92,8 @@ class BoardFragment(boardType: Int) : Fragment() {
     fun setRecyclerView() {
         var boardname = when(boardCategory){
             "FREE" -> "자유게시판"
-            else -> "QNA"
+            "QNA" -> "QNA"
+            else -> "학생회공지"
         }
         adapter = BoardAdapter(boardname)
 
