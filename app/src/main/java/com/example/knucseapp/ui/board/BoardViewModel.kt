@@ -188,7 +188,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         }
     }
 
-    fun changeBoardDetail(boardForm: BoardForm, boardId: Int) {
+    fun changeBoardDetail(boardDTO: BoardDTO, file: MutableList<MultipartBody.Part>, delete: MutableList<MultipartBody.Part>) {
         //boardForm 이 기존의 것
         if(writeTitle.get().isNullOrEmpty()){
             _toastMessage.value = "제목을 입력해주세요"
@@ -199,12 +199,12 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         else {
             viewModelScope.launch {
                 _changeBoardDetailResponse.value = boardRepository.changeBoardDetail(
-                        boardForm.category,
-                        if(writeContent.get()!! == boardForm.content) "" else writeContent.get()!!,
-                        null,
-                        null,
-                        if(writeTitle.get()!! == boardForm.title) "" else writeTitle.get()!!
-                , boardId
+                        MultipartBody.Part.createFormData("category",boardDTO.category),
+                        if(writeContent.get()!! == boardDTO.content) MultipartBody.Part.createFormData("content","") else MultipartBody.Part.createFormData("content",writeContent.get()!!)!!,
+                        delete,
+                        file,
+                        if(writeTitle.get()!! == boardDTO.title) MultipartBody.Part.createFormData("title","") else MultipartBody.Part.createFormData("title",writeTitle.get()!!),
+                        boardDTO.boardId,
                 )
             }
         }

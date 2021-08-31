@@ -29,6 +29,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.net.URI
 
 
 class WriteActivity : AppCompatActivity() {
@@ -126,6 +127,7 @@ class WriteActivity : AppCompatActivity() {
         binding.addWrite.setOnClickListener {
             var fileList = mutableListOf<MultipartBody.Part>()
             adapter.imageurl.forEach { filePath ->
+                filePath as Uri
                 var file = File(createCopyAndReturnRealPath(filePath))
                 var requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 var bodyFile = MultipartBody.Part.createFormData("file[]",file.name+".jpg",requestFile)
