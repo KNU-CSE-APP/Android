@@ -23,7 +23,7 @@ class WritePhotoAdapter : RecyclerView.Adapter<WritePhotoAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val url = imageurl.get(position)
-        holder.itemView.setOnClickListener {
+        holder.binding.cancelBtn.setOnClickListener {
             MaterialAlertDialogBuilder(holder.binding.root.context)
                     .setTitle("삭제 확인")
                     .setMessage("이미지를 삭제하시겠습니까?")
