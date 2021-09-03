@@ -22,13 +22,14 @@ interface BoardService {
                             @Query("page") page: Int,
                             @Query("size") size: Int) : ApiResult<Page>
 
+    @Multipart
     @PUT("/board/{boardId}")
     suspend fun changeBoardDetail(@Path("boardId") boardId: Int,
-                                  @Query("category") category: String,
-                                  @Query ("content") content: String,
-                                  @Query("deleteUrl") deleteUrl : List<String>?,
-                                  @Query("file") file: List<MultipartBody.Part>?,
-                                  @Query("title") title: String) : ApiResult<String>
+                                  @Part category: MultipartBody.Part,
+                                  @Part content: MultipartBody.Part,
+                                  @Part deleteUrl : List<MultipartBody.Part>?,
+                                  @Part file: List<MultipartBody.Part>?,
+                                  @Part title: MultipartBody.Part)  : ApiResult<String>
 
     @DELETE("/board/{boardId}")
     suspend fun deleteBoardDetail(@Path("boardId") boardId : Int) : ApiResult<String>

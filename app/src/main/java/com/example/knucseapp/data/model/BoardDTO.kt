@@ -11,5 +11,5 @@ data class BoardDTO(
     val commentCnt: Int,
     val title: String,
     val profileImg: String,
-    val images: List<String>
+    val images: MutableList<String>
 ) : Serializable

@@ -115,18 +115,19 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/btn_camera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:background="@drawable/board_detail_textview_top_stroke">
 
                 <ImageView
-                    android:id="@+id/btn_ctv"
+                    android:id="@+id/btn_camera"
+                    android:layout_margin="5dp"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:backgroundTint="#00000000"
-                    android:src="@android:drawable/ic_menu_camera" />
+                    android:src="@drawable/img_profile_camera" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -6,14 +6,23 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:padding="5dp">
         <ImageView
             android:id="@+id/write_imageview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:paddingEnd="10dp"/>
+
+        <ImageView
+            android:id="@+id/cancel_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignEnd="@id/write_imageview"
+            android:src="@drawable/img_cancel"
+            android:clickable="true"/>
 
     </RelativeLayout>
 </layout>

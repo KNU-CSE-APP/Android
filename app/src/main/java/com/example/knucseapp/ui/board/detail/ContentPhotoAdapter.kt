@@ -44,7 +44,7 @@ class ContentPhotoAdapter :RecyclerView.Adapter<ContentPhotoAdapter.Holder>() {
 
     inner class Holder(val binding: PhotoRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun setSetting(item: String){
-            Glide.with(binding.root.context).load(item).into(binding.contentImageview)
+            Glide.with(binding.root.context).load(item).override(500,500).into(binding.contentImageview)
         }
     }
 }
