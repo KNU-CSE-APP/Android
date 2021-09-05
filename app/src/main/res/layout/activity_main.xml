@@ -6,58 +6,89 @@
     <data>
 
     </data>
-    <RelativeLayout
-
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        android:animateLayoutChanges="true">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/connected_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/knu_red"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            tools:ignore="MissingConstraints" >
+            android:layout_height="match_parent"
+            tools:context=".ui.MainActivity">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/knu_red"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                tools:ignore="MissingConstraints" >
+                <TextView
+                    android:id="@+id/main_toolbar_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="메뉴"
+                    style="@style/toolbar_textstyle"/>
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:id="@+id/toolbar_division"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                android:layout_below="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></LinearLayout>
+            <FrameLayout
+                android:id="@+id/main_content"
+                android:layout_below="@+id/toolbar_division"
+                android:layout_above="@+id/nav_division"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
+            <LinearLayout
+                android:id="@+id/nav_division"
+                android:background="@color/colorDivision"
+                android:orientation="horizontal"
+                android:layout_above="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></LinearLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelVisibilityMode="labeled"
+                android:background="@color/white"
+                android:layout_alignParentBottom="true"
+                app:menu="@menu/bottom_nav_item">
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/disconnected_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:gravity="center">
             <TextView
-                android:id="@+id/main_toolbar_textview"
+                android:id="@+id/tv_disconnected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="메뉴"
-                style="@style/toolbar_textstyle"/>
-        </androidx.appcompat.widget.Toolbar>
+                android:text="@string/disconnected"
+                android:textSize="24sp"
+                android:layout_gravity="center"/>
 
-        <LinearLayout
-            android:id="@+id/toolbar_division"
-            android:background="@color/colorDivision"
-            android:orientation="horizontal"
-            android:layout_below="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"></LinearLayout>
-        <FrameLayout
-            android:id="@+id/main_content"
-            android:layout_below="@+id/toolbar_division"
-            android:layout_above="@+id/nav_division"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
-        <LinearLayout
-            android:id="@+id/nav_division"
-            android:background="@color/colorDivision"
-            android:orientation="horizontal"
-            android:layout_above="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"></LinearLayout>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:labelVisibilityMode="labeled"
-            android:background="@color/white"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_nav_item">
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_disconnected2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disconnected2"
+                android:textSize="24sp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

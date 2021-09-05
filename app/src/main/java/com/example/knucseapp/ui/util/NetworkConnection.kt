@@ -10,7 +10,7 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.LiveData
 
-object NetworkConnection: LiveData<Boolean>()
+class NetworkConnection(private val context: Context): LiveData<Boolean>()
 {
     private var connectivityManager: ConnectivityManager = MyApplication.instance.context()
         .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -33,7 +33,7 @@ object NetworkConnection: LiveData<Boolean>()
             }
             else ->
             {
-                MyApplication.instance.context().registerReceiver(
+                context.registerReceiver(
                     networkReceiver,
                     IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
                 )
@@ -55,7 +55,7 @@ object NetworkConnection: LiveData<Boolean>()
 
         } else
         {
-            MyApplication.instance.context().unregisterReceiver(networkReceiver)
+            context.unregisterReceiver(networkReceiver)
         }
     }
 
