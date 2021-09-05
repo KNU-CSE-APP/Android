@@ -3,19 +3,18 @@ package com.example.knucseapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivitySignInBinding
-import com.example.knucseapp.ui.auth.AuthListener
-import com.example.knucseapp.ui.auth.AuthViewModel
-import com.example.knucseapp.ui.auth.AuthViewModelFactory
-import com.example.knucseapp.ui.auth.MySharedPreferences
+import com.example.knucseapp.ui.auth.*
+import com.example.knucseapp.ui.util.BaseActivity
 import com.example.knucseapp.ui.util.MyApplication
 import com.example.knucseapp.ui.util.toast
 
-class SignInActivity : AppCompatActivity(),AuthListener {
+class SignInActivity : BaseActivity(),AuthListener {
 
     private lateinit var binding: ActivitySignInBinding
     lateinit var viewModel : AuthViewModel
@@ -26,7 +25,6 @@ class SignInActivity : AppCompatActivity(),AuthListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
         initViewModel()
-        viewModel.getSharedPreference()
 
         binding.btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
@@ -37,6 +35,12 @@ class SignInActivity : AppCompatActivity(),AuthListener {
             val intent = Intent(this, PasswordActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("networkStatus","onResume")
+        viewModel.getSharedPreference()
     }
 
     private fun initViewModel(){
@@ -59,7 +63,6 @@ class SignInActivity : AppCompatActivity(),AuthListener {
                 toast(it.error.message)
                 viewModel.removeEditText()
             }
-
         }
     }
 
@@ -72,10 +75,14 @@ class SignInActivity : AppCompatActivity(),AuthListener {
     }
 
     override fun onFailure(message: String, type: Int) {
-        toast(message)
         when(type){
-            0 -> binding.emailText.requestFocus()
-            1 -> binding.pwText.requestFocus()
+            0 -> {
+                binding.emailText.requestFocus()
+            }
+            1 -> {
+                binding.pwText.requestFocus()
+            }
         }
+        toast(message)
     }
 }

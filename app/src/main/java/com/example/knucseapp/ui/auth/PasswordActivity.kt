@@ -14,11 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityPasswordBinding
+import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
+import com.example.knucseapp.ui.util.BaseActivity
 import com.example.knucseapp.ui.util.toast
 
-class PasswordActivity : AppCompatActivity() {
+class PasswordActivity : BaseActivity(),AuthListener {
 
     private lateinit var binding: ActivityPasswordBinding
     lateinit var viewModel : AuthViewModel
@@ -36,6 +38,7 @@ class PasswordActivity : AppCompatActivity() {
         viewModelFactory = AuthViewModelFactory(AuthRepository())
         viewModel = ViewModelProvider(this,viewModelFactory).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
+        viewModel.authPasswordListener = this
         binding.lifecycleOwner = this
 
         // 비밀번호 찾기 이메일 인증번호 전송
@@ -106,7 +109,11 @@ class PasswordActivity : AppCompatActivity() {
     }
 
     private fun setNewPasswordView() {
-        AlertDialog.Builder(this)
+        binding.emailverifyNoticeTextview.text = "이메일 인증 완료"
+        binding.layoutCheckPassword.visibility = VISIBLE
+        binding.layoutPassword.visibility = VISIBLE
+        binding.btnChangePw.visibility = VISIBLE
+        /*AlertDialog.Builder(this)
             .setTitle("인증 완료")
             .setMessage("인증이 완료되었습니다.")
             .setPositiveButton("OK"){ _, _ ->
@@ -115,7 +122,7 @@ class PasswordActivity : AppCompatActivity() {
                 binding.layoutPassword.visibility = VISIBLE
                 binding.btnChangePw.visibility = VISIBLE
                 emailViewState()
-            }.show()
+            }.show()*/
     }
 
     private fun textWatcher() {
@@ -155,5 +162,14 @@ class PasswordActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onStarted() { }
+
+    override fun onSuccess() { }
+
+    override fun onFailure(message: String, type: Int) {
+        Log.d("networkStatus","hi")
+        toast(message)
     }
 }

@@ -9,10 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.*
 import com.example.knucseapp.data.repository.AuthRepository
+import com.example.knucseapp.ui.util.BaseActivity
 import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
 
     // signUp field
     var signUpEmail = ObservableField<String>()
@@ -40,82 +43,126 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     //auth listener
     var authSignUpListener: AuthListener? = null
     var authSignInListener: AuthListener? = null
+    var authPasswordListener: AuthListener? = null
+    var networkErrorString = "네트워크 연결을 확인해 주세요."
+
+    var networkConnected = false
 
     // 회원 가입 인증번호 요청
     private val _getResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getResponse : LiveData<ApiResult<String>> get() = _getResponse
     fun getVerifyCode() = viewModelScope.launch {
-        _getResponse.value = authRepository.requestVerifyCode(signUpEmail.get()!!+"@knu.ac.kr")
+        if(NetworkStatus.status){
+            _getResponse.value = authRepository.requestVerifyCode(signUpEmail.get()!!+"@knu.ac.kr")
+        }else{
+            authSignUpListener?.onFailure(networkErrorString,99)
+        }
     }
 
     // 회원가입 인증번호 검증
     private val _verifyPostResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val verifyPostResponse : LiveData<ApiResult<String>> get() = _verifyPostResponse
     fun postVerify() = viewModelScope.launch {
-        _verifyPostResponse.value = authRepository.requestVerify(
-            VerifyEmailDTO(signUpEmail.get()!!+"@knu.ac.kr",permissionCode.get()!!))
+        if(NetworkStatus.status){
+            _verifyPostResponse.value = authRepository.requestVerify(
+                VerifyEmailDTO(signUpEmail.get()!!+"@knu.ac.kr",permissionCode.get()!!))
+        }
+        else{
+            authSignUpListener?.onFailure(networkErrorString,99)
+        }
+
     }
 
     // 비밀번호 찾기 인증번호 요청
     private val _getFindPasswordCodeResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getFindPasswordResponse : LiveData<ApiResult<String>> get() = _getFindPasswordCodeResponse
     fun getFindPasswordCode() = viewModelScope.launch {
-        _getFindPasswordCodeResponse.value = authRepository.requestFindPasswordCode(findEmail.get()!!+"@knu.ac.kr")
+        Log.d("networkStatus","in getFindPasswordCode")
+        if(NetworkStatus.status){
+            _getFindPasswordCodeResponse.value = authRepository.requestFindPasswordCode(findEmail.get()!!+"@knu.ac.kr")
+        }
+        else{
+            Log.d("networkStatus","in else logic")
+            authPasswordListener?.onFailure(networkErrorString,99)
+        }
     }
     
     // 비밀번호 찾기 인증번호 검증
     private val _getVerifyPasswordCode : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getVerifyPasswordCode : LiveData<ApiResult<String>> get() = _getVerifyPasswordCode
     fun getPostVerifyPassword() = viewModelScope.launch {
-        _getVerifyPasswordCode.value = authRepository.requestVerifyPassword(VerifyEmailDTO(
-            findEmail.get()!!+"@knu.ac.kr",findPermissionCode.get()!!
-        ))
+        if(NetworkStatus.status){
+            _getVerifyPasswordCode.value = authRepository.requestVerifyPassword(VerifyEmailDTO(
+                findEmail.get()!!+"@knu.ac.kr",findPermissionCode.get()!!
+            ))
+        }else{
+            authPasswordListener?.onFailure(networkErrorString,99)
+        }
+
     }
 
     // 비밀번호 찾기 검증 후 비밀번호 변경
     private val _changeValidatedPasswordResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val changeValidatedPasswordResponse : LiveData<ApiResult<String>> get() = _changeValidatedPasswordResponse
     fun postChangeValidatedPassword() = viewModelScope.launch {
-        _changeValidatedPasswordResponse.value = authRepository.requestChangeValidatedPassword(
-            ValidatedPasswordForm(
-                findEmail.get()!!+ "@knu.ac.kr",
-            changePassword.get()!!,findPasswordResponseCode)
-        )
-        Log.d("permissionCode",findPasswordResponseCode)
+        if(NetworkStatus.status){
+            _changeValidatedPasswordResponse.value = authRepository.requestChangeValidatedPassword(
+                ValidatedPasswordForm(
+                    findEmail.get()!!+ "@knu.ac.kr",
+                    changePassword.get()!!,findPasswordResponseCode)
+            )
+            Log.d("permissionCode",findPasswordResponseCode)
+        }else{
+            authPasswordListener?.onFailure(networkErrorString,99)
+        }
+
     }
 
     // 회원 가입
     private val _signUpResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val signUpResponse : LiveData<ApiResult<String>> get() = _signUpResponse
     fun postSignUP() = viewModelScope.launch {
-        var gender = when(genderRadio.get()){
-            R.id.gender_radiobutton_male -> "MALE"
-            else -> "FEMALE"
+        if(NetworkStatus.status){
+            var gender = when(genderRadio.get()){
+                R.id.gender_radiobutton_male -> "MALE"
+                else -> "FEMALE"
+            }
+            var major = when(majorRadio.get()){
+                R.id.major_radiobutton_advanced -> "ADVANCED"
+                else ->"GLOBAL"
+            }
+            _signUpResponse.value = authRepository.requestSignUp(
+                SignUpForm(signUpEmail.get()!!+"@knu.ac.kr",gender,major,nickname.get()!!,signUpPassword.get()!!,signUpResponseCode,studentId.get()!!,username.get()!!)
+            )
         }
-        var major = when(majorRadio.get()){
-            R.id.major_radiobutton_advanced -> "ADVANCED"
-            else ->"GLOBAL"
+        else{
+            authSignUpListener?.onFailure(networkErrorString,99)
         }
-        _signUpResponse.value = authRepository.requestSignUp(
-            SignUpForm(signUpEmail.get()!!+"@knu.ac.kr",gender,major,nickname.get()!!,signUpPassword.get()!!,signUpResponseCode,studentId.get()!!,username.get()!!)
-        )
     }
 
     // 로그인
     private val _signInResponse : MutableLiveData<ApiResult<LoginSuccessDTO>> = MutableLiveData()
     val signInResponse : LiveData<ApiResult<LoginSuccessDTO>> = _signInResponse
     fun postSignIn() = viewModelScope.launch {
-        if(isSelected.get()!!){
-            MyApplication.prefs.setUserId(signInEmail.get()!!)
-            MyApplication.prefs.setUserPass(signInPassword.get()!!)
+        Log.d("networkStatus","in postSignIN")
+        if(NetworkStatus.status){
+            if(isSelected.get()!!){
+                MyApplication.prefs.setUserId(signInEmail.get()!!)
+                MyApplication.prefs.setUserPass(signInPassword.get()!!)
+            }
+            _signInResponse.value = authRepository.requestSignIn(
+                SignInForm(signInEmail.get()!!+"@knu.ac.kr",signInPassword.get()!!)
+            )
         }
-        _signInResponse.value = authRepository.requestSignIn(
-            SignInForm(signInEmail.get()!!+"@knu.ac.kr",signInPassword.get()!!)
-        )
+        else{
+            Log.d("networkStatus","in viewmodel " + NetworkStatus.status.toString())
+            authSignInListener?.onFailure("네트워크 연결을 확인해 주세요.",99)
+        }
     }
 
-    // 회원 가입 필드 확인
+    // 로그인 필드 확인
     fun checkSignInFeild(){
+        Log.d("networkStatus","in checkSignInFeild")
         if(signInEmail.get().isNullOrEmpty()){
             authSignInListener?.onFailure("이메일을 입력해주세요",0)
             return
@@ -128,7 +175,31 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         postSignIn()
     }
 
-    // 로그인 필드 확인
+    fun checkFindPasswordFeild(){
+        if(findEmail.get().isNullOrEmpty()){
+            authPasswordListener?.onFailure("이메일을 입력해주세요",0)
+            return
+        }
+        getFindPasswordCode()
+    }
+
+    fun checkFindPasswordPermissionCode(){
+        if(findPermissionCode.get().isNullOrEmpty()){
+            authPasswordListener?.onFailure("인증번호를 입력해주세요",1)
+            return
+        }
+        getPostVerifyPassword()
+    }
+
+    fun checkChangePasswordFeild(){
+        if(changePassword.get().isNullOrEmpty()){
+            authPasswordListener?.onFailure("비밀번호를 입력해주세요",2)
+            return
+        }
+        postChangeValidatedPassword()
+    }
+
+    // 회원가입 필드 확인
     fun checkSignUpFeild(){
         if(signUpPassword.get().isNullOrEmpty()){
             authSignUpListener?.onFailure("비밀번호를 입력해주세요",1)
@@ -167,16 +238,14 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     }
 
     fun getSharedPreference(){
-        Log.d("prefs",MyApplication.prefs.getUserId())
-        Log.d("prefs",MyApplication.prefs.getUserPass())
         if(!MyApplication.prefs.getUserId()!!.equals("") && !MyApplication.prefs.getUserPass()!!.equals("")) {
-            Log.d("prefs","in if ")
             signInEmail.set(MyApplication.prefs.getUserId()!!)
             signInPassword.set(MyApplication.prefs.getUserPass()!!)
+            Log.d("networkStatus","in getSharedPreference")
             checkSignInFeild()
         }
         else
             return
     }
-    
+
 }

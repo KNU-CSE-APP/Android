@@ -14,9 +14,10 @@ import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
 import com.example.knucseapp.data.repository.AuthRepository
+import com.example.knucseapp.ui.util.BaseActivity
 import com.example.knucseapp.ui.util.toast
 
-class SignUpActivity : AppCompatActivity(), AuthListener {
+class SignUpActivity : BaseActivity(), AuthListener {
 
 
     private lateinit var binding: ActivitySignUpBinding
@@ -225,7 +226,6 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
     }
 
     override fun onFailure(message: String, type : Int) {
-        toast(message)
         when(type){
             1 -> binding.pwText.requestFocus()
             2 -> binding.ckpwText.requestFocus()
@@ -235,5 +235,6 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
             6 -> binding.majorRadioGroup.requestFocus()
             7 -> binding.genderRadioGroup.requestFocus()
         }
+        toast(message)
     }
 }
