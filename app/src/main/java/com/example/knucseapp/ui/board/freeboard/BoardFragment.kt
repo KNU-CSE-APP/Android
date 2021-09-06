@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,6 +20,9 @@ import com.example.knucseapp.databinding.BoardFragmentBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 
 
 class BoardFragment(boardType: Int) : Fragment() {
@@ -42,7 +46,6 @@ class BoardFragment(boardType: Int) : Fragment() {
     private var pages = 0
     private var isNext = false
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +56,6 @@ class BoardFragment(boardType: Int) : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         swipeRefreshLayout = binding.swipe
-
         return binding.root
     }
     private val backPressedDispatcher = object : OnBackPressedCallback(true) {
@@ -64,11 +66,25 @@ class BoardFragment(boardType: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
-        setRecyclerView()
         setviewModel()
-        initData()
+        setRecyclerView()
+        val connection = NetworkConnection(MyApplication.instance.context())
+        connection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected)
+            {
+                binding.swipe.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                initData()
+            }
+            else
+            {
+                binding.swipe.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
     }
-
 
     fun initData() {
         pages = 0
@@ -78,6 +94,7 @@ class BoardFragment(boardType: Int) : Fragment() {
     fun loadMoreData() {
         viewModel.getAllBoard(boardCategory, getPage(), size)
     }
+
     fun setviewModel() {
         viewModel.readByPageResponse.observe(viewLifecycleOwner) {
             if(it.success) {
@@ -115,7 +132,10 @@ class BoardFragment(boardType: Int) : Fragment() {
                     Log.d(TAG, "end! : ${isNext}")
                     if (hasNextPage()) {
                         adapter.deleteLoading()
-                        loadMoreData()
+                        if(NetworkStatus.status)
+                            loadMoreData()
+                        else
+                            Toast.makeText(activity, "네트워크 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show()
                     } else {
                         if (adapter.deleteLoading()) adapter.notifyDataSetChanged()
                     }
@@ -124,10 +144,13 @@ class BoardFragment(boardType: Int) : Fragment() {
         })
 
         swipeRefreshLayout.setOnRefreshListener {
-            initData()
-            swipeRefreshLayout.isRefreshing = false
+            if(NetworkStatus.status){
+                initData()
+                swipeRefreshLayout.isRefreshing = false
+            }
+            else
+                Toast.makeText(activity, "네트워크 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun getPage() = pages++
@@ -137,8 +160,10 @@ class BoardFragment(boardType: Int) : Fragment() {
     fun refresh() {
         if(::binding.isInitialized) {
             binding.boardRecycler.layoutManager?.scrollToPosition(0)
-            initData()
+            if(NetworkStatus.status)
+                initData()
+            else
+                Toast.makeText(activity, "네트워크 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

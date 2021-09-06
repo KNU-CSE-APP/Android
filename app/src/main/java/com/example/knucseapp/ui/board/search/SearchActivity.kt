@@ -14,6 +14,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivitySearchBinding
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
+import com.example.knucseapp.ui.util.toast
 
 class SearchActivity : AppCompatActivity() {
 
@@ -26,6 +29,19 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
         binding.lifecycleOwner = this
+
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                NetworkStatus.status = true
+            }
+            else
+            {
+                NetworkStatus.status = false
+            }
+        }
+
         setStatusBarColor() //status bar 흰색으로 변경
         setFragment()
         setButton()
@@ -41,10 +57,14 @@ class SearchActivity : AppCompatActivity() {
         binding.searchTextview.setOnEditorActionListener { textView, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                goSearchResult(binding.searchTextview.text.toString())
-                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(binding.searchTextview.windowToken, 0)
-                handled = true
+                if(NetworkStatus.status){
+                    goSearchResult(binding.searchTextview.text.toString())
+                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(binding.searchTextview.windowToken, 0)
+                    handled = true
+                }
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
             }
             handled
         }

@@ -1,14 +1,9 @@
 package com.example.knucseapp.ui.board.writeboard
 
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.knucseapp.R
-import com.example.knucseapp.data.model.ReservationDTO
 import com.example.knucseapp.databinding.PhotoWriteRecyclerBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 

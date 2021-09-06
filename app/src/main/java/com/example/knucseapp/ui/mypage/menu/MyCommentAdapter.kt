@@ -10,7 +10,7 @@ import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.MyCommentRecyclerBinding
 import com.example.knucseapp.ui.board.detail.BoardDetailActivity
 
-class MyCommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyCommentAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var myCommentList = mutableListOf<CommentDTO>()
 
@@ -27,6 +27,7 @@ class MyCommentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.itemView.setOnClickListener {
                 val intent = Intent(it.context, BoardDetailActivity::class.java)
                 intent.putExtra("boardId", comment.boardId)
+                intent.putExtra("title",title)
                 it.context.startActivity(intent)
             }
         }

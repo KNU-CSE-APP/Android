@@ -57,7 +57,7 @@ class CommentHistoryActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView(){
-        adapter = MyCommentAdapter()
+        adapter = MyCommentAdapter("내가 쓴 댓/답글")
         binding.mycommentRecycler.adapter = adapter
         binding.mycommentRecycler.layoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)

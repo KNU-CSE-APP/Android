@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
@@ -21,6 +22,8 @@ import com.example.knucseapp.databinding.ActivityWriteBinding
 import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.example.knucseapp.ui.util.toast
 import gun0912.tedimagepicker.builder.TedImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -43,11 +46,41 @@ class EditWriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_write)
         boardDTO = intent.getSerializableExtra("board") as BoardDTO
+
         initViewModel()
         setToolbar()
         setBoard()
         setButton()
         setRecycler()
+
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                setBoardContent()
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
+    }
+
+    fun setBoardContent(){
+        binding.editWriteToolbarTextview.text = when(boardDTO.category){
+            "FREE" -> "자유게시판"
+            else -> "QNA"
+        }
+
+        viewModel.writeTitle.set(boardDTO.title)
+        viewModel.writeContent.set(boardDTO.content)
+        adapter.setUrl(boardDTO.images)
+
     }
 
     fun setBoard(){
@@ -56,7 +89,7 @@ class EditWriteActivity : AppCompatActivity() {
     }
 
     private fun setToolbar(){
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.editWriteToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.editWriteToolbarTextview.text = when(boardDTO.category){
@@ -100,29 +133,33 @@ class EditWriteActivity : AppCompatActivity() {
 
     private fun setButton(){
         binding.editWrite.setOnClickListener {
-            var fileList = mutableListOf<MultipartBody.Part>() //추가된 이미지
-            adapter.imageurl.forEach { filePath ->
-                if(filePath is Uri) {
-                    var file = File(createCopyAndReturnRealPath(filePath))
-                    var requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                    var bodyFile = MultipartBody.Part.createFormData("file[]", file.name + ".jpg", requestFile)
-                    fileList.add(bodyFile)
-                }
-                else {
-                    filePath as String
-                    if(filePath in boardDTO.images){
-                        boardDTO.images.remove(filePath)
+            if(NetworkStatus.status){
+                var fileList = mutableListOf<MultipartBody.Part>() //추가된 이미지
+                adapter.imageurl.forEach { filePath ->
+                    if(filePath is Uri) {
+                        var file = File(createCopyAndReturnRealPath(filePath))
+                        var requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                        var bodyFile = MultipartBody.Part.createFormData("file[]", file.name + ".jpg", requestFile)
+                        fileList.add(bodyFile)
+                    }
+                    else {
+                        filePath as String
+                        if(filePath in boardDTO.images){
+                            boardDTO.images.remove(filePath)
+                        }
                     }
                 }
-            }
 
-            var deleteList = mutableListOf<MultipartBody.Part>()
-            boardDTO.images.forEach {
-                var bodyFile = MultipartBody.Part.createFormData("deleteUrl[]", it)
-                deleteList.add(bodyFile)
-            }
+                var deleteList = mutableListOf<MultipartBody.Part>()
+                boardDTO.images.forEach {
+                    var bodyFile = MultipartBody.Part.createFormData("deleteUrl[]", it)
+                    deleteList.add(bodyFile)
+                }
 
-            viewModel.changeBoardDetail(boardDTO, fileList, deleteList)
+                viewModel.changeBoardDetail(boardDTO, fileList, deleteList)
+            }
+            else
+                toast("네트워크 연결을 확인해 주세요.")
         }
 
         binding.btnCamera.setOnClickListener {

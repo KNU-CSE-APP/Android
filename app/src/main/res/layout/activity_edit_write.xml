@@ -12,20 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.board.writeboard.EditWriteActivity">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/knu_red"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            tools:ignore="MissingConstraints" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/reservation_toolbar_textview"
-                style="@style/toolbar_textstyle"/>
-        </androidx.appcompat.widget.Toolbar>
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/edit_write_toolbar"
@@ -55,13 +41,14 @@
         </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
+            android:id="@+id/connected_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/edit_write_toolbar">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -128,6 +115,31 @@
                     android:backgroundTint="#00000000"
                     android:src="@drawable/img_profile_camera" />
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/disconnected_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_disconnected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disconnected"
+                android:textSize="24sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_disconnected2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disconnected2"
+                android:textSize="24sp"
+                android:layout_gravity="center" />
         </LinearLayout>
 
 

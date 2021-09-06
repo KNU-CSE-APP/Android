@@ -16,11 +16,8 @@ import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.SearchResultFragmentBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
-import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.board.freeboard.*
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 
 
 class SearchResultFragment : Fragment() {
@@ -52,8 +49,28 @@ class SearchResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setRecyclerView()
         setviewModel()
+        setRecyclerView()
+
+        val connection = NetworkConnection(MyApplication.instance.context())
+        connection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected)
+            {
+                binding.searchRecycler.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                val keyword = arguments?.getString("keyword") //검색한 단어 !!
+                val category = arguments?.getInt("category") //선택한 카테고리 목록!!
+                viewModel.findBoard(category!!, keyword!!)
+            }
+            else
+            {
+                binding.searchRecycler.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
+
     }
 
     fun setRecyclerView() {
@@ -65,7 +82,6 @@ class SearchResultFragment : Fragment() {
         binding.searchRecycler.adapter = boardAdapter
         binding.searchRecycler.layoutManager = LinearLayoutManager(activity)
         viewModel.findBoard(category!!, keyword!!)
-
     }
 
     fun setviewModel() {
