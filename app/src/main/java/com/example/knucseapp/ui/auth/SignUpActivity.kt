@@ -14,6 +14,8 @@ import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
 import com.example.knucseapp.data.repository.AuthRepository
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 
 class SignUpActivity : AppCompatActivity(), AuthListener {
@@ -39,6 +41,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         binding.lifecycleOwner = this
 
         viewModel.getResponse.observe(this){
+            viewModel.setSignInLoadingFalse()
             toast(it.response)
             binding.btnEmailConfirm.isEnabled = true
             binding.emailverifyText.isEnabled=true
@@ -46,6 +49,7 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         }
 
         viewModel.verifyPostResponse.observe(this){
+            viewModel.setSignInLoadingFalse()
             if(it.success){
                 toast("인증 성공! \n이어서 회원 가입을 진행해주세요.")
                 viewModel.signUpResponseCode = it.response
@@ -55,11 +59,21 @@ class SignUpActivity : AppCompatActivity(), AuthListener {
         }
 
         viewModel.signUpResponse.observe(this) {
+            viewModel.setSignInLoadingFalse()
             if (it.success) {
                 toast("회원 가입 완료! \n가입한 정보로 로그인해주세요.")
                 finish()
             } else {
                 toast(it.error.message)
+            }
+        }
+
+        viewModel.signUpLoading.observe(this) {
+            if(it){
+                binding.signupProgressBar.show()
+            }
+            else {
+                binding.signupProgressBar.hide()
             }
         }
 

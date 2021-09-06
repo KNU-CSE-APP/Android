@@ -45,6 +45,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _getResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getResponse : LiveData<ApiResult<String>> get() = _getResponse
     fun getVerifyCode() = viewModelScope.launch {
+        _signUpLoading.postValue(true)
         _getResponse.value = authRepository.requestVerifyCode(signUpEmail.get()!!+"@knu.ac.kr")
     }
 
@@ -52,6 +53,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _verifyPostResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val verifyPostResponse : LiveData<ApiResult<String>> get() = _verifyPostResponse
     fun postVerify() = viewModelScope.launch {
+        _signUpLoading.postValue(true)
         _verifyPostResponse.value = authRepository.requestVerify(
             VerifyEmailDTO(signUpEmail.get()!!+"@knu.ac.kr",permissionCode.get()!!))
     }
@@ -59,7 +61,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     // 비밀번호 찾기 인증번호 요청
     private val _getFindPasswordCodeResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getFindPasswordResponse : LiveData<ApiResult<String>> get() = _getFindPasswordCodeResponse
+
+    private val _pwLoading = MutableLiveData<Boolean>() //비밀번호 찾기 인증번호 요청, 인증번호 검증, 찾기 완료시 사용
+    val pwLoading: LiveData<Boolean> get() = _pwLoading
+
     fun getFindPasswordCode() = viewModelScope.launch {
+        _pwLoading.postValue(true)
         _getFindPasswordCodeResponse.value = authRepository.requestFindPasswordCode(findEmail.get()!!+"@knu.ac.kr")
     }
     
@@ -67,6 +74,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _getVerifyPasswordCode : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getVerifyPasswordCode : LiveData<ApiResult<String>> get() = _getVerifyPasswordCode
     fun getPostVerifyPassword() = viewModelScope.launch {
+        _pwLoading.postValue(true)
         _getVerifyPasswordCode.value = authRepository.requestVerifyPassword(VerifyEmailDTO(
             findEmail.get()!!+"@knu.ac.kr",findPermissionCode.get()!!
         ))
@@ -76,6 +84,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _changeValidatedPasswordResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val changeValidatedPasswordResponse : LiveData<ApiResult<String>> get() = _changeValidatedPasswordResponse
     fun postChangeValidatedPassword() = viewModelScope.launch {
+        _pwLoading.postValue(true)
         _changeValidatedPasswordResponse.value = authRepository.requestChangeValidatedPassword(
             ValidatedPasswordForm(
                 findEmail.get()!!+ "@knu.ac.kr",
@@ -87,7 +96,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     // 회원 가입
     private val _signUpResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val signUpResponse : LiveData<ApiResult<String>> get() = _signUpResponse
+
+    private val _signUpLoading = MutableLiveData<Boolean>()
+    val signUpLoading: LiveData<Boolean> get() = _signUpLoading //회원가입, 회원 가입 인증번호 요청, 회원 가입 인증번호 확인 시 사용
+
     fun postSignUP() = viewModelScope.launch {
+        _signUpLoading.postValue(true)
         var gender = when(genderRadio.get()){
             R.id.gender_radiobutton_male -> "MALE"
             else -> "FEMALE"
@@ -183,6 +197,14 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
         else
             return
+    }
+
+    fun setSignInLoadingFalse(){
+        _signUpLoading.postValue(false)
+    }
+
+    fun setPwLoadingFalse(){
+        _pwLoading.postValue(false)
     }
     
 }
