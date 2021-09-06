@@ -3,23 +3,21 @@ package com.example.knucseapp.ui.mypage.menu
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
-import com.example.knucseapp.databinding.ActivityPasswordEditBinding
 import com.example.knucseapp.databinding.ActivityWriteHistoryBinding
 import com.example.knucseapp.ui.board.freeboard.BoardAdapter
-import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.example.knucseapp.ui.util.toast
 
 class WriteHistoryActivity : AppCompatActivity() {
@@ -32,10 +30,31 @@ class WriteHistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_write_history)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.boardRecycler.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                Log.d("myboard","in observe")
+                initData()
+            }
+            else
+            {
+                binding.boardRecycler.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         initViewModel()
         setToolbar()
         setRecyclerView()
-        initData()
+//        if(NetworkStatus.status){
+//            Log.d("myboard","in oncreate")
+//            initData()
+//        }
+
     }
 
     private fun initViewModel(){
