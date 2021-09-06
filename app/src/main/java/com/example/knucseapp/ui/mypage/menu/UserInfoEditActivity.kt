@@ -20,10 +20,7 @@ import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityUserInfoEditBinding
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
-import com.example.knucseapp.ui.util.MyApplication
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -78,7 +75,26 @@ class UserInfoEditActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_info_edit)
         initViewModel()
         setToolbar()
-        viewModel.getUserInfo()
+
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.contentContraintlayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                viewModel.getUserInfo()
+            }
+            else
+            {
+                binding.contentContraintlayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
+
+        if(NetworkStatus.status)
+            viewModel.getUserInfo()
         nickName = binding.userNicknameText.text.toString()
 
         binding.apply {
@@ -89,27 +105,31 @@ class UserInfoEditActivity : AppCompatActivity() {
                     2 -> {}
                     else -> {}
                 }*/
-                if(nickNameChanged && imageChanged){
-                    file = File(createCopyAndReturnRealPath(filePath))
-                    requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                    bodyFile = MultipartBody.Part.createFormData("image",file.name+"_profile.jpg",requestFile)
-                    bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
-                    viewmodel?.editUserInfo(bodyFile,bodyNickname)
-                }
-                else if (nickNameChanged && !imageChanged){
-                    if(binding.userNicknameEdit.text.toString().isNotEmpty()){
+                if(NetworkStatus.status){
+                    if(nickNameChanged && imageChanged){
+                        file = File(createCopyAndReturnRealPath(filePath))
+                        requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                        bodyFile = MultipartBody.Part.createFormData("image",file.name+"_profile.jpg",requestFile)
                         bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
-                        viewmodel?.editUserInfo(null,bodyNickname)
+                        viewmodel?.editUserInfo(bodyFile,bodyNickname)
                     }
-                    else toast("닉네임을 입력해주세요.")
+                    else if (nickNameChanged && !imageChanged){
+                        if(binding.userNicknameEdit.text.toString().isNotEmpty()){
+                            bodyNickname  = MultipartBody.Part.createFormData("nickName",binding.userNicknameEdit.text.toString())
+                            viewmodel?.editUserInfo(null,bodyNickname)
+                        }
+                        else toast("닉네임을 입력해주세요.")
 
+                    }
+                    else if(!nickNameChanged && imageChanged){
+                        file = File(createCopyAndReturnRealPath(filePath))
+                        requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                        bodyFile = MultipartBody.Part.createFormData("image",file.name+"_profile.jpg",requestFile)
+                        viewmodel?.editUserInfo(bodyFile,null)
+                    }
                 }
-                else if(!nickNameChanged && imageChanged){
-                    file = File(createCopyAndReturnRealPath(filePath))
-                    requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                    bodyFile = MultipartBody.Part.createFormData("image",file.name+"_profile.jpg",requestFile)
-                    viewmodel?.editUserInfo(bodyFile,null)
-                }
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
 
             }
             accountIvProfile.setOnClickListener { showDialog() }
@@ -231,7 +251,10 @@ class UserInfoEditActivity : AppCompatActivity() {
         }
         tv_removeProfile.setOnClickListener {
             Glide.with(this).load(R.drawable.img_profile_default_image).into(binding.accountIvProfile)
-            viewModel.deleteProfileImage()
+            if(NetworkStatus.status)
+                viewModel.deleteProfileImage()
+            else
+                toast("네트워크 연결을 확인해 주세요.")
             builder.dismiss()
         }
         builder.setView(dialogView)

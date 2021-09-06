@@ -16,9 +16,7 @@ import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityPasswordEditBinding
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 
 class PasswordEditActivity : AppCompatActivity() {
 
@@ -32,6 +30,21 @@ class PasswordEditActivity : AppCompatActivity() {
         initViewModel()
         setToolbar()
         textWatcher()
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
     }
 
     private fun initViewModel(){

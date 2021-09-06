@@ -8,12 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.MypageFragmentBinding
 import com.example.knucseapp.ui.SignInActivity
 import com.example.knucseapp.ui.mypage.menu.*
 import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.example.knucseapp.ui.util.toast
 
@@ -34,6 +38,21 @@ class MypageFragment : Fragment() {
         viewModelFactory = MypageViewModelFactory(AuthRepository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(MypageViewModel::class.java)
         binding.viewmodel = viewModel
+        val connection = NetworkConnection(MyApplication.instance.context())
+        connection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         return binding.root
     }
 
@@ -110,7 +129,10 @@ class MypageFragment : Fragment() {
                 .setTitle("로그아웃")
                 .setMessage("로그아웃하시겠습니까?")
                 .setPositiveButton("확인") { _, _ ->
-                    viewModel.logout()
+                    if(NetworkStatus.status)
+                        viewModel.logout()
+                    else
+                        Toast.makeText(activity, "네트워크 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("취소") { _, _ -> // 취소시 처리 로직
                 }
