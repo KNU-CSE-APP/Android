@@ -104,7 +104,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     // 로그인
     private val _signInResponse : MutableLiveData<ApiResult<LoginSuccessDTO>> = MutableLiveData()
     val signInResponse : LiveData<ApiResult<LoginSuccessDTO>> = _signInResponse
+
+    private val _signInLoading = MutableLiveData<Boolean>()
+    val signInLoading: LiveData<Boolean> get() = _signInLoading
+
     fun postSignIn() = viewModelScope.launch {
+        _signInLoading.postValue(true)
         if(isSelected.get()!!){
             MyApplication.prefs.setUserId(signInEmail.get()!!)
             MyApplication.prefs.setUserPass(signInPassword.get()!!)
@@ -112,6 +117,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         _signInResponse.value = authRepository.requestSignIn(
             SignInForm(signInEmail.get()!!+"@knu.ac.kr",signInPassword.get()!!)
         )
+        _signInLoading.postValue(false)
     }
 
     // 회원 가입 필드 확인
