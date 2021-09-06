@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.os.Message
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.View.OnTouchListener
+import android.view.View.*
 import android.webkit.*
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -20,8 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.NoticeFragmentBinding
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.*
 
 
 class NoticeFragment : Fragment(){
@@ -32,8 +31,6 @@ class NoticeFragment : Fragment(){
 
     private lateinit var viewModel: NoticeViewModel
     private lateinit var noticeFragmentBinding : NoticeFragmentBinding
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         noticeFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.notice_fragment, container, false)
@@ -52,8 +49,20 @@ class NoticeFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(NoticeViewModel::class.java)
-
-        setWebView()
+        val connection = NetworkConnection(MyApplication.instance.context())
+        connection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected)
+            {
+                NetworkStatus.status = true
+                noticeFragmentBinding.webview.visibility = VISIBLE
+                setWebView()
+            }
+            else
+            {
+                noticeFragmentBinding.webview.visibility = GONE
+                NetworkStatus.status = false
+            }
+        }
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
     }
 
