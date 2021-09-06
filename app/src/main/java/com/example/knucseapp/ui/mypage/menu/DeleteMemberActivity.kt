@@ -13,6 +13,8 @@ import com.example.knucseapp.ui.SignInActivity
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
 import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -38,6 +40,7 @@ class DeleteMemberActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.getDeleteMemberResponse.observe(this){
+            viewModel.setDataLoadingFalse()
             if (it.success){
                 toast(it.response)
                 MyApplication.prefs.clear()
@@ -47,6 +50,15 @@ class DeleteMemberActivity : AppCompatActivity() {
             }
             else{
                 toast(it.error.message)
+            }
+        }
+
+        viewModel.dataLoading.observe(this) {
+            if(it) {
+                binding.deleteMemberProgressBar.show()
+            }
+            else {
+                binding.deleteMemberProgressBar.hide()
             }
         }
     }

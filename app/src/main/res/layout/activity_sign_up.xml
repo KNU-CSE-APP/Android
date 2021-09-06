@@ -156,8 +156,15 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <TextView
+                        android:id="@+id/signup_notice_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/verify_notice"
+                        android:layout_marginBottom="20dp"/>
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
