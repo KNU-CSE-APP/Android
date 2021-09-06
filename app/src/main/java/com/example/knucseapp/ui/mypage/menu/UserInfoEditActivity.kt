@@ -93,8 +93,8 @@ class UserInfoEditActivity : AppCompatActivity() {
             }
         }
 
-        if(NetworkStatus.status)
-            viewModel.getUserInfo()
+//        if(NetworkStatus.status)
+//            viewModel.getUserInfo()
         nickName = binding.userNicknameText.text.toString()
 
         binding.apply {
