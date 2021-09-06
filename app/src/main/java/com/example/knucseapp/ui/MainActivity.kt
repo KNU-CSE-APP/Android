@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
-        val connection = NetworkConnection(applicationContext)
+        /*val connection = NetworkConnection(applicationContext)
         connection.observe(this) { isConnected ->
             if (isConnected)
             {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 binding.connectedLayout.visibility = GONE
                 binding.disconnectedLayout.visibility = VISIBLE
             }
-        }
+        }*/
 
         setToolbar()
         binding.bottomNavigation.apply {

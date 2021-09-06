@@ -14,8 +14,7 @@ import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
 import com.example.knucseapp.ui.MainActivity
 import com.example.knucseapp.ui.reservation.ReservationViewModel
 import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,7 +37,24 @@ class ReservationConfirmActivity : AppCompatActivity() {
 
     override fun onStart(){
         super.onStart()
-        viewModel.requestFindReservation()
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.infoLinearLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                viewModel.requestFindReservation()
+            }
+            else
+            {
+                binding.infoLinearLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
+//        if(NetworkStatus.status)
+//            viewModel.requestFindReservation()
     }
 
     private fun setButton() {

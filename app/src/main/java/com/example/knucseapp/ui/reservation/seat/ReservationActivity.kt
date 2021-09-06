@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +19,7 @@ import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationBinding
 import com.example.knucseapp.ui.reservation.ReservationViewModel
 import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
@@ -35,8 +34,8 @@ class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation)
-
         room = intent.getSerializableExtra("room") as FindClassRoomDTO
+
         initViewModel()
         setToolbar()
         setRecyclerView()
@@ -45,7 +44,24 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getAllSeat(room.building, room.roomNumber)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                viewModel.getAllSeat(room.building, room.roomNumber)
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
+//        if(NetworkStatus.status)
+//            viewModel.getAllSeat(room.building, room.roomNumber)
     }
 
 
@@ -129,7 +145,10 @@ class ReservationActivity : AppCompatActivity() {
                         .setTitle("좌석 확인")
                         .setMessage("다음 좌석을 예약하시겠습니까? \n${room.roomNumber} / ${seat.number}번 좌석\n\n※반드시 착석후 좌석을 예약해주세요.")
                         .setPositiveButton("예약") { dialog, whichButton ->
-                            viewModel.makeReservation(ReservationDTO(room.building, room.roomNumber, seat.number))
+                            if(NetworkStatus.status)
+                                viewModel.makeReservation(ReservationDTO(room.building, room.roomNumber, seat.number))
+                            else
+                                toast("네트워크 연결을 확인해 주세요.")
                         }
                         .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
                         }
