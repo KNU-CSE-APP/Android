@@ -2,7 +2,6 @@ package com.example.knucseapp.ui.mypage.menu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
@@ -10,15 +9,11 @@ import android.view.View.VISIBLE
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.ReservationDTO
 import com.example.knucseapp.data.repository.ReservationRepository
-import com.example.knucseapp.databinding.ActivityMainBinding
 import com.example.knucseapp.databinding.ActivityReservationHistoryBinding
 import com.example.knucseapp.ui.reservation.ReservationViewModel
 import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -32,8 +27,25 @@ class ReservationHistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reservation_history)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = VISIBLE
+                binding.disconnectedLayout.visibility = GONE
+                NetworkStatus.status = true
+                viewModel.requestFindReservation()
+            }
+            else
+            {
+                binding.connectedLayout.visibility = GONE
+                binding.disconnectedLayout.visibility = VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         initViewModel()
-        viewModel.requestFindReservation()
+        if(NetworkStatus.status)
+            viewModel.requestFindReservation()
         setBtnListener()
         setToolbar()
     }
@@ -45,7 +57,10 @@ class ReservationHistoryActivity : AppCompatActivity() {
                     .setTitle("반납 확인")
                     .setMessage("좌석을 반납하시겠습니까?")
                     .setPositiveButton("반납") { dialog, whichButton ->
-                        viewModel.requestDeleteSeat()
+                        if(NetworkStatus.status)
+                            viewModel.requestDeleteSeat()
+                        else
+                            toast("네트워크 연결을 확인해 주세요.")
                     }
                     .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
                     }
@@ -56,7 +71,10 @@ class ReservationHistoryActivity : AppCompatActivity() {
                     .setTitle("연장 확인")
                     .setMessage("좌석을 연장하시겠습니까?")
                     .setPositiveButton("연장") { dialog, whichButton ->
-                        viewModel.requestExtension()
+                        if(NetworkStatus.status)
+                            viewModel.requestExtension()
+                        else
+                            toast("네트워크 연결을 확인해 주세요.")
                     }
                     .setNegativeButton("취소") { dialog, whichButton -> // 취소시 처리 로직
                     }
@@ -73,11 +91,11 @@ class ReservationHistoryActivity : AppCompatActivity() {
 
         viewModel.dataLoading.observe(this){
             if (it){
-                binding.linearLayout2.visibility = GONE
+                binding.connectedLayout.visibility = GONE
                 binding.progressBar.show()
             }
             else{
-                binding.linearLayout2.visibility = VISIBLE
+                binding.connectedLayout.visibility = VISIBLE
                 binding.progressBar.hide()
             }
         }
