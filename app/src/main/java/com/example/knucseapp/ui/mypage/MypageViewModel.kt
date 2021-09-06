@@ -79,6 +79,7 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
     }
 
     fun deleteMember() = viewModelScope.launch {
+        _dataLoading.postValue(true)
         _getDeleteMemberResponse.value = authRepository.requestDeleteMember(DeleteForm(curPassword.get()!!))
     }
 
@@ -88,5 +89,9 @@ class MypageViewModel(private val authRepository: AuthRepository) : ViewModel() 
 
     fun logout() = viewModelScope.launch {
         _getLogoutResponse.value = authRepository.requestLogout()
+    }
+
+    fun setDataLoadingFalse() {
+        _dataLoading.postValue(false)
     }
 }

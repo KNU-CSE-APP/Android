@@ -62,8 +62,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _deleteCommentResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val deleteCommentResponse : LiveData<ApiResult<String>> = _deleteCommentResponse
 
-    private val _readByPageResponse : MutableLiveData<ApiResult<Page>> = MutableLiveData()
-    val readByPageResponse : LiveData<ApiResult<Page>> = _readByPageResponse
+
 
     private val _toastMessage : MutableLiveData<String> = MutableLiveData()
     val toastMessage : LiveData<String> = _toastMessage
@@ -75,8 +74,19 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         writeCategory.set(writeCategoryDefault)
     }
 
+    //모든 게시글 가져오기
+    private val _readByPageResponse : MutableLiveData<ApiResult<Page>> = MutableLiveData()
+    val readByPageResponse : LiveData<ApiResult<Page>> = _readByPageResponse
+
+    private val _readByPageLoading : MutableLiveData<Boolean> = MutableLiveData()
+    val readByPageLoading : LiveData<Boolean> = _readByPageLoading
     fun getAllBoard(category: String, page: Int, size: Int) = viewModelScope.launch {
+        if(page == 0) _readByPageLoading.postValue(true)
         _readByPageResponse.value = boardRepository.getAllBoard(category, page, size)
+    }
+
+    fun setReadByPageLoadingFalse(page: Int) {
+        if(page == 1) _readByPageLoading.postValue(false)
     }
 
     fun getBoardDetailData(boardId: Int) {

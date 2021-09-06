@@ -16,6 +16,8 @@ import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityPasswordBinding
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 
 class PasswordActivity : AppCompatActivity() {
@@ -40,6 +42,7 @@ class PasswordActivity : AppCompatActivity() {
 
         // 비밀번호 찾기 이메일 인증번호 전송
         viewModel.getFindPasswordResponse.observe(this){
+            viewModel.setPwLoadingFalse()
             if (it.success){
                 toast(it.response)
                 setConfirmView()
@@ -49,6 +52,7 @@ class PasswordActivity : AppCompatActivity() {
 
         // 인증번호 검증
         viewModel.getVerifyPasswordCode.observe(this){
+            viewModel.setPwLoadingFalse()
             if (it.success){
                 toast("인증 성공")
                 viewModel.findPasswordResponseCode = it.response
@@ -61,11 +65,21 @@ class PasswordActivity : AppCompatActivity() {
 
         // 새로운 비밀번호 변경
         viewModel.changeValidatedPasswordResponse.observe(this){
+            viewModel.setPwLoadingFalse()
             if(it.success){
                 toast(it.response)
                 finish()
             }
             else toast(it.error.message)
+        }
+
+        viewModel.pwLoading.observe(this) {
+            if(it) {
+                binding.pwProgressBar.show()
+            }
+            else{
+                binding.pwProgressBar.hide()
+            }
         }
     }
 

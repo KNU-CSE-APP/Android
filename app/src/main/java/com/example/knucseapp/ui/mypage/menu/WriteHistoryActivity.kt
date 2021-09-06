@@ -20,6 +20,8 @@ import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 
 class WriteHistoryActivity : AppCompatActivity() {
@@ -49,6 +51,15 @@ class WriteHistoryActivity : AppCompatActivity() {
                 adapter.myboardItem(it.response)
             }
             else {toast(it.error.message)}
+        }
+
+        viewModel.dataLoading.observe(this) {
+            if(it) {
+                binding.writeHistroyProgressBar.show()
+            }
+            else {
+                binding.writeHistroyProgressBar.hide()
+            }
         }
     }
     private fun initData() {
