@@ -31,12 +31,6 @@ class ReservationConfirmActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         initViewModel()
-        setToolbar()
-        setButton()
-    }
-
-    override fun onStart(){
-        super.onStart()
         val connection = NetworkConnection(applicationContext)
         connection.observe(this) { isConnected ->
             if (isConnected)
@@ -53,6 +47,14 @@ class ReservationConfirmActivity : AppCompatActivity() {
                 NetworkStatus.status = false
             }
         }
+
+        setToolbar()
+        setButton()
+    }
+
+    override fun onStart(){
+        super.onStart()
+
 //        if(NetworkStatus.status)
 //            viewModel.requestFindReservation()
     }
@@ -68,10 +70,10 @@ class ReservationConfirmActivity : AppCompatActivity() {
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
             android.R.id.home -> {
@@ -80,7 +82,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     private fun initViewModel(){
         viewModelFactory = ReservationViewModelFactory(ReservationRepository())

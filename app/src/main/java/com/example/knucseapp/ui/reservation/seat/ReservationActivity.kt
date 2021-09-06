@@ -37,13 +37,6 @@ class ReservationActivity : AppCompatActivity() {
         room = intent.getSerializableExtra("room") as FindClassRoomDTO
 
         initViewModel()
-        setToolbar()
-        setRecyclerView()
-        setButton()
-    }
-
-    override fun onStart() {
-        super.onStart()
         val connection = NetworkConnection(applicationContext)
         connection.observe(this) { isConnected ->
             if (isConnected)
@@ -60,6 +53,13 @@ class ReservationActivity : AppCompatActivity() {
                 NetworkStatus.status = false
             }
         }
+        setToolbar()
+        setRecyclerView()
+        setButton()
+    }
+
+    override fun onStart() {
+        super.onStart()
 //        if(NetworkStatus.status)
 //            viewModel.getAllSeat(room.building, room.roomNumber)
     }

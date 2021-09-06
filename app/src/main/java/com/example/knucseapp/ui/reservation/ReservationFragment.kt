@@ -83,8 +83,8 @@ class ReservationFragment : Fragment() {
     }
 
     private fun setviewModel() {
-        if(NetworkStatus.status)
-            viewModel.searchAllClassRoom()
+//        if(NetworkStatus.status)
+//            viewModel.searchAllClassRoom()
         viewModel.allClassRoomData.observe(viewLifecycleOwner) {
             if(it.success){
                 adapter.setData(it.response)
