@@ -46,8 +46,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     var authPasswordListener: AuthListener? = null
     var networkErrorString = "네트워크 연결을 확인해 주세요."
 
-    var networkConnected = false
-
     // 회원 가입 인증번호 요청
     private val _getResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getResponse : LiveData<ApiResult<String>> get() = _getResponse

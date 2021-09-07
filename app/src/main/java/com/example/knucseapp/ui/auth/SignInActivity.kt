@@ -10,13 +10,9 @@ import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivitySignInBinding
 import com.example.knucseapp.ui.auth.*
-import com.example.knucseapp.ui.util.BaseActivity
-import com.example.knucseapp.ui.util.MyApplication
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 
-class SignInActivity : BaseActivity(),AuthListener {
+class SignInActivity : AppCompatActivity(),AuthListener {
 
     private lateinit var binding: ActivitySignInBinding
     lateinit var viewModel : AuthViewModel
@@ -27,7 +23,13 @@ class SignInActivity : BaseActivity(),AuthListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in)
 
         initViewModel()
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this){ isConnected ->
+            if (isConnected) NetworkStatus.status = true
+            else NetworkStatus.status = false
+        }
 
+        Log.d("networkStatus",NetworkStatus.status.toString())
         binding.btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -76,13 +78,8 @@ class SignInActivity : BaseActivity(),AuthListener {
         }
     }
 
-    override fun onStarted() {
-
-    }
-
-    override fun onSuccess() {
-
-    }
+    override fun onStarted() {}
+    override fun onSuccess() {}
 
     override fun onFailure(message: String, type: Int) {
         when(type){

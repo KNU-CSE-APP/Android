@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
@@ -14,13 +13,9 @@ import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
 import com.example.knucseapp.data.repository.AuthRepository
-import com.example.knucseapp.ui.util.BaseActivity
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 
-class SignUpActivity : BaseActivity(), AuthListener {
-
+class SignUpActivity : AppCompatActivity(), AuthListener {
 
     private lateinit var binding: ActivitySignUpBinding
     lateinit var viewModel : AuthViewModel
@@ -29,6 +24,11 @@ class SignUpActivity : BaseActivity(), AuthListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this){ isConnected ->
+            if (isConnected) NetworkStatus.status = true
+            else NetworkStatus.status = false
+        }
         initViewModel()
         setToolbar()
         textWatcher()
@@ -70,14 +70,9 @@ class SignUpActivity : BaseActivity(), AuthListener {
         }
 
         viewModel.signUpLoading.observe(this) {
-            if(it){
-                binding.signupProgressBar.show()
-            }
-            else {
-                binding.signupProgressBar.hide()
-            }
+            if(it) binding.signupProgressBar.show()
+            else binding.signupProgressBar.hide()
         }
-
     }
 
     private fun setButtonState(){
@@ -102,23 +97,17 @@ class SignUpActivity : BaseActivity(), AuthListener {
                 return true
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
     private fun textWatcher() {
 
         val sentence1 = "필수입력 항목 입니다."
-
         binding.apply {
             //이메일
             emailText.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(binding.emailText.text!!.isEmpty()){
                         binding.emailLayout.error = sentence1
@@ -127,17 +116,12 @@ class SignUpActivity : BaseActivity(), AuthListener {
                         binding.emailLayout.error = null
                     }
                 }
-
             })
 
             //비밀번호
             pwText.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(binding.pwText.text!!.isEmpty()){
                         binding.pwLayout.error = sentence1
@@ -150,12 +134,8 @@ class SignUpActivity : BaseActivity(), AuthListener {
 
             //비번 재확인
             ckpwText.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(binding.ckpwText.text!!.isEmpty()){
                         binding.ckpwLayout.error = sentence1
@@ -167,17 +147,12 @@ class SignUpActivity : BaseActivity(), AuthListener {
                         binding.ckpwLayout.error = null
                     }
                 }
-
             })
 
             //학번
             stdIdText.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(binding.stdIdText.text!!.isEmpty()){
                         binding.stdIdLayout.error = sentence1
@@ -186,19 +161,12 @@ class SignUpActivity : BaseActivity(), AuthListener {
                         binding.stdIdLayout.error = null
                     }
                 }
-
             })
 
             //이름
             nameText.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(binding.nameText.text!!.isEmpty()){
                         binding.nameLayout.error = sentence1
@@ -211,12 +179,8 @@ class SignUpActivity : BaseActivity(), AuthListener {
 
             //닉네임
             nicknameText.addTextChangedListener(object : TextWatcher{
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
                     if(binding.nicknameText.text!!.isEmpty()){
                         binding.nicknameLayout.error = sentence1
@@ -224,21 +188,13 @@ class SignUpActivity : BaseActivity(), AuthListener {
                     else{
                         binding.nicknameLayout.error = null
                     }
-
                 }
-
             })
         }
     }
 
-    override fun onStarted() {
-
-    }
-
-    override fun onSuccess() {
-
-    }
-
+    override fun onStarted() {}
+    override fun onSuccess() {}
     override fun onFailure(message: String, type : Int) {
         when(type){
             1 -> binding.pwText.requestFocus()

@@ -20,6 +20,10 @@ class NetworkConnection(private val context: Context): LiveData<Boolean>()
     {
         super.onActive()
         updateConnection()
+        if(connectivityManager.activeNetwork!=null)
+            NetworkStatus.status = true
+        else
+            NetworkStatus.status = false
         when
         {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ->

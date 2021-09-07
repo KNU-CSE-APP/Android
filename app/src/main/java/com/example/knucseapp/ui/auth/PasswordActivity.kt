@@ -1,6 +1,5 @@
 package com.example.knucseapp.ui
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -8,7 +7,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View.VISIBLE
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
@@ -17,13 +15,9 @@ import com.example.knucseapp.databinding.ActivityPasswordBinding
 import com.example.knucseapp.ui.auth.AuthListener
 import com.example.knucseapp.ui.auth.AuthViewModel
 import com.example.knucseapp.ui.auth.AuthViewModelFactory
-import com.example.knucseapp.ui.util.BaseActivity
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.*
 
-import com.example.knucseapp.ui.util.toast
-
-class PasswordActivity : BaseActivity(),AuthListener {
+class PasswordActivity : AppCompatActivity(),AuthListener {
 
     private lateinit var binding: ActivityPasswordBinding
     lateinit var viewModel : AuthViewModel
@@ -32,6 +26,12 @@ class PasswordActivity : BaseActivity(),AuthListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_password)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this){ isConnected ->
+            if (isConnected) NetworkStatus.status = true
+            else NetworkStatus.status = false
+        }
+
         initViewModel()
         setToolbar()
         textWatcher()
@@ -143,9 +143,7 @@ class PasswordActivity : BaseActivity(),AuthListener {
     private fun textWatcher() {
 
         val sentence1 = "필수입력 항목 입니다."
-
         binding.apply {
-
             //비밀번호
             pwText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -180,9 +178,7 @@ class PasswordActivity : BaseActivity(),AuthListener {
     }
 
     override fun onStarted() { }
-
     override fun onSuccess() { }
-
     override fun onFailure(message: String, type: Int) {
         Log.d("networkStatus","hi")
         toast(message)
