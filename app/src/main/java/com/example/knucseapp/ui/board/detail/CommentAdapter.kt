@@ -127,10 +127,16 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
             binding.tvContent.text = boardItem.content
             binding.tvCommentCnt.text = "${boardItem.commentCnt}"
             binding.tvPhotoCnt.text = "${boardItem.images.size}"
-            if(boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
-            else{ Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile) }
+            if(boardItem.category.equals("ADMIN")){
+                Glide.with(binding.root.context).load(R.drawable.img_csmark).into(binding.accountIvProfile)
+            }
+            else {
+                if (boardItem.profileImg == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
+                else {
+                    Glide.with(binding.root.context).load(boardItem.profileImg).into(binding.accountIvProfile)
+                }
+            }
 
-            //TODO: image setting
             if(boardItem.images.size != null) {
                 val photoAdapter = ContentPhotoAdapter()
                 photoAdapter.setUrl(boardItem.images)

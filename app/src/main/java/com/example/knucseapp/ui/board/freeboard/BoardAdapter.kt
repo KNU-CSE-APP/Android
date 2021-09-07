@@ -102,8 +102,16 @@ class BoardAdapter(val title: String): RecyclerView.Adapter<RecyclerView.ViewHol
             binding.tvDate.text = item.time
             binding.tvCommentCnt.text = item.commentCnt.toString()
             binding.tvPhotoCnt.text = "${item.images.size}"
-            if(item.profileImg == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
-            else{ Glide.with(binding.root.context).load(item.profileImg).into(binding.accountIvProfile) }
+
+            if(item.category.equals("ADMIN")) {
+                Glide.with(binding.root.context).load(R.drawable.img_csmark).into(binding.accountIvProfile)
+            }
+            else {
+                if (item.profileImg == null) Glide.with(binding.root.context).load(R.drawable.img_user).into(binding.accountIvProfile)
+                else {
+                    Glide.with(binding.root.context).load(item.profileImg).into(binding.accountIvProfile)
+                }
+            }
 
             if(item.category.equals("FREE")){
                 binding.tvTag.text = "#자유게시판"

@@ -154,9 +154,14 @@ class BoardHomeFragment : Fragment() {
                     binding.viewPager.setCurrentItem(0)
                     frag.refresh()
                 }
-                else {
-                    binding.viewPager.setCurrentItem(1)
+                else if(intent.getStringExtra("category") == "QNA") {
                     val frag = adapter.getItem(1) as BoardFragment
+                    binding.viewPager.setCurrentItem(1)
+                    frag.refresh()
+                }
+                else {
+                    val frag = adapter.getItem(2) as BoardFragment
+                    binding.viewPager.setCurrentItem(2)
                     frag.refresh()
                 }
             }
