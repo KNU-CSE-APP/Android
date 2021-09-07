@@ -1,6 +1,5 @@
 package com.example.knucseapp.ui.mypage.menu
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,9 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.ChangePasswordForm
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.ActivityPasswordEditBinding
 import com.example.knucseapp.ui.mypage.MypageViewModel

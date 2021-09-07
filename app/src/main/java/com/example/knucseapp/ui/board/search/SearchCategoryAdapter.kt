@@ -1,12 +1,9 @@
 package com.example.knucseapp.ui.board.search
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.knucseapp.databinding.SearchCategoryRecyclerBinding
-import okhttp3.internal.notify
 
 class SearchCategoryAdapter : RecyclerView.Adapter<SearchCategoryAdapter.Holder>() {
     var category_list = listOf("내용", "제목", "작성자")

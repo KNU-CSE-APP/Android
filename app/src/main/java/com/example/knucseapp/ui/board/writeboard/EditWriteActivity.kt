@@ -1,25 +1,17 @@
 package com.example.knucseapp.ui.board.writeboard
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.BoardDTO
-import com.example.knucseapp.data.model.BoardForm
 import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityEditWriteBinding
-import com.example.knucseapp.databinding.ActivityWriteBinding
-import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.util.NetworkConnection

@@ -1,19 +1,8 @@
 package com.example.knucseapp.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import com.example.knucseapp.R
 import com.example.knucseapp.databinding.ActivityMainBinding
@@ -21,7 +10,6 @@ import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.mypage.MypageFragment
 import com.example.knucseapp.ui.notice.NoticeFragment
 import com.example.knucseapp.ui.reservation.ReservationFragment
-import com.example.knucseapp.ui.util.NetworkConnection
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,20 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-
-        /*val connection = NetworkConnection(applicationContext)
-        connection.observe(this) { isConnected ->
-            if (isConnected)
-            {
-                binding.connectedLayout.visibility = VISIBLE
-                binding.disconnectedLayout.visibility = GONE
-            }
-            else
-            {
-                binding.connectedLayout.visibility = GONE
-                binding.disconnectedLayout.visibility = VISIBLE
-            }
-        }*/
 
         setToolbar()
         binding.bottomNavigation.apply {

@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.example.knucseapp.R
 import com.example.knucseapp.data.repository.AuthRepository
 import com.example.knucseapp.databinding.MypageFragmentBinding
 import com.example.knucseapp.ui.SignInActivity
@@ -20,9 +18,7 @@ import com.example.knucseapp.ui.util.NetworkConnection
 import com.example.knucseapp.ui.util.NetworkStatus
 import com.example.knucseapp.ui.util.hide
 import com.example.knucseapp.ui.util.show
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.example.knucseapp.ui.util.toast
 
 class MypageFragment : Fragment() {
 

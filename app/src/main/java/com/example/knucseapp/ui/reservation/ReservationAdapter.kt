@@ -3,13 +3,10 @@ package com.example.knucseapp.ui.reservation
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.knucseapp.data.model.ClassRoomDTO
 import com.example.knucseapp.data.model.FindClassRoomDTO
 import com.example.knucseapp.databinding.ReservationRecyclerBinding
 import com.example.knucseapp.ui.reservation.seat.ReservationActivity
-import okhttp3.internal.notify
 
 class ReservationAdapter : RecyclerView.Adapter<Holder>() {
     var itemList = mutableListOf<FindClassRoomDTO>()

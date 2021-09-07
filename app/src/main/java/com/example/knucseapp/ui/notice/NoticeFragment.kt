@@ -1,7 +1,6 @@
 package com.example.knucseapp.ui.notice
 
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.http.SslError
@@ -9,11 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Message
 import android.view.*
-import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.View.*
 import android.webkit.*
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment

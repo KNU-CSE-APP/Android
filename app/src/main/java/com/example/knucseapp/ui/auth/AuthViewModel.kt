@@ -9,9 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.knucseapp.R
 import com.example.knucseapp.data.model.*
 import com.example.knucseapp.data.repository.AuthRepository
-import com.example.knucseapp.ui.util.BaseActivity
 import com.example.knucseapp.ui.util.MyApplication
-import com.example.knucseapp.ui.util.NetworkConnection
 import com.example.knucseapp.ui.util.NetworkStatus
 import kotlinx.coroutines.launch
 

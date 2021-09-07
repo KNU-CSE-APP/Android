@@ -1,8 +1,5 @@
 package com.example.knucseapp.ui.board.detail
 
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Rect
@@ -12,9 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -28,8 +23,6 @@ import com.example.knucseapp.databinding.ActivityBoardDetailBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.board.writeboard.EditWriteActivity
-import com.example.knucseapp.ui.mypage.menu.UserInfoEditActivity
-import com.example.knucseapp.ui.reservation.seat.ReservationConfirmActivity
 import com.example.knucseapp.ui.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.comment_recycler.*

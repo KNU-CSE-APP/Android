@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.knucseapp.data.model.BoardDTO
 import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.MyCommentRecyclerBinding
 import com.example.knucseapp.ui.board.detail.BoardDetailActivity

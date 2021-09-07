@@ -14,12 +14,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.ClassRoomDTO
-import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ReservationFragmentBinding
-import com.example.knucseapp.ui.board.BoardViewModel
-import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.util.MyApplication
 import com.example.knucseapp.ui.util.NetworkConnection

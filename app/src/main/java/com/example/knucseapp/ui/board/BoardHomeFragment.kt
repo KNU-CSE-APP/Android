@@ -4,14 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +18,6 @@ import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.BoardHomeFragmentBinding
 import com.example.knucseapp.ui.MainActivity
 import com.example.knucseapp.ui.board.freeboard.BoardFragment
-import com.example.knucseapp.ui.board.noticeboard.NoticeBoardFragment
 import com.example.knucseapp.ui.board.search.SearchActivity
 import com.example.knucseapp.ui.board.writeboard.WriteActivity
 import com.example.knucseapp.ui.util.MyApplication

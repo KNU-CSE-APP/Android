@@ -2,21 +2,17 @@ package com.example.knucseapp.ui.reservation.seat
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
-import com.example.knucseapp.data.model.ClassSeatDTO
 import com.example.knucseapp.data.repository.ReservationRepository
 import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
 import com.example.knucseapp.ui.MainActivity
 import com.example.knucseapp.ui.reservation.ReservationViewModel
 import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
 import com.example.knucseapp.ui.util.*
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 
