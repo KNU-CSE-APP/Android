@@ -44,22 +44,11 @@ class EditWriteActivity : AppCompatActivity() {
         setBoard()
         setButton()
         setRecycler()
+        setBoardContent()
 
         val connection = NetworkConnection(applicationContext)
         connection.observe(this) { isConnected ->
-            if (isConnected)
-            {
-                binding.connectedLayout.visibility = View.VISIBLE
-                binding.disconnectedLayout.visibility = View.GONE
-                NetworkStatus.status = true
-                setBoardContent()
-            }
-            else
-            {
-                binding.connectedLayout.visibility = View.GONE
-                binding.disconnectedLayout.visibility = View.VISIBLE
-                NetworkStatus.status = false
-            }
+            if(!isConnected) finish()
         }
     }
 
