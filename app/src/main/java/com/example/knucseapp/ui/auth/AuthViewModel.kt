@@ -53,6 +53,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     val getResponse : LiveData<ApiResult<String>> get() = _getResponse
     fun getVerifyCode() = viewModelScope.launch {
         if(NetworkStatus.status){
+            _signUpLoading.postValue(true)
             _getResponse.value = authRepository.requestVerifyCode(signUpEmail.get()!!+"@knu.ac.kr")
         }else{
             authSignUpListener?.onFailure(networkErrorString,99)
@@ -64,21 +65,26 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     val verifyPostResponse : LiveData<ApiResult<String>> get() = _verifyPostResponse
     fun postVerify() = viewModelScope.launch {
         if(NetworkStatus.status){
+            _signUpLoading.postValue(true)
             _verifyPostResponse.value = authRepository.requestVerify(
                 VerifyEmailDTO(signUpEmail.get()!!+"@knu.ac.kr",permissionCode.get()!!))
         }
         else{
             authSignUpListener?.onFailure(networkErrorString,99)
         }
-
     }
 
     // 비밀번호 찾기 인증번호 요청
     private val _getFindPasswordCodeResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val getFindPasswordResponse : LiveData<ApiResult<String>> get() = _getFindPasswordCodeResponse
+
+    private val _pwLoading = MutableLiveData<Boolean>() //비밀번호 찾기 인증번호 요청, 인증번호 검증, 찾기 완료시 사용
+    val pwLoading: LiveData<Boolean> get() = _pwLoading
+
     fun getFindPasswordCode() = viewModelScope.launch {
         Log.d("networkStatus","in getFindPasswordCode")
         if(NetworkStatus.status){
+            _pwLoading.postValue(true)
             _getFindPasswordCodeResponse.value = authRepository.requestFindPasswordCode(findEmail.get()!!+"@knu.ac.kr")
         }
         else{
@@ -92,6 +98,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     val getVerifyPasswordCode : LiveData<ApiResult<String>> get() = _getVerifyPasswordCode
     fun getPostVerifyPassword() = viewModelScope.launch {
         if(NetworkStatus.status){
+            _pwLoading.postValue(true)
             _getVerifyPasswordCode.value = authRepository.requestVerifyPassword(VerifyEmailDTO(
                 findEmail.get()!!+"@knu.ac.kr",findPermissionCode.get()!!
             ))
@@ -106,6 +113,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     val changeValidatedPasswordResponse : LiveData<ApiResult<String>> get() = _changeValidatedPasswordResponse
     fun postChangeValidatedPassword() = viewModelScope.launch {
         if(NetworkStatus.status){
+            _pwLoading.postValue(true)
             _changeValidatedPasswordResponse.value = authRepository.requestChangeValidatedPassword(
                 ValidatedPasswordForm(
                     findEmail.get()!!+ "@knu.ac.kr",
@@ -121,8 +129,13 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     // 회원 가입
     private val _signUpResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
     val signUpResponse : LiveData<ApiResult<String>> get() = _signUpResponse
+
+    private val _signUpLoading = MutableLiveData<Boolean>()
+    val signUpLoading: LiveData<Boolean> get() = _signUpLoading //회원가입, 회원 가입 인증번호 요청, 회원 가입 인증번호 확인 시 사용
+
     fun postSignUP() = viewModelScope.launch {
         if(NetworkStatus.status){
+            _signUpLoading.postValue(true)
             var gender = when(genderRadio.get()){
                 R.id.gender_radiobutton_male -> "MALE"
                 else -> "FEMALE"
@@ -134,6 +147,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
             _signUpResponse.value = authRepository.requestSignUp(
                 SignUpForm(signUpEmail.get()!!+"@knu.ac.kr",gender,major,nickname.get()!!,signUpPassword.get()!!,signUpResponseCode,studentId.get()!!,username.get()!!)
             )
+
         }
         else{
             authSignUpListener?.onFailure(networkErrorString,99)
@@ -143,9 +157,14 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
     // 로그인
     private val _signInResponse : MutableLiveData<ApiResult<LoginSuccessDTO>> = MutableLiveData()
     val signInResponse : LiveData<ApiResult<LoginSuccessDTO>> = _signInResponse
+
+    private val _signInLoading = MutableLiveData<Boolean>()
+    val signInLoading: LiveData<Boolean> get() = _signInLoading
+
     fun postSignIn() = viewModelScope.launch {
         Log.d("networkStatus","in postSignIN")
         if(NetworkStatus.status){
+            _signInLoading.postValue(true)
             if(isSelected.get()!!){
                 MyApplication.prefs.setUserId(signInEmail.get()!!)
                 MyApplication.prefs.setUserPass(signInPassword.get()!!)
@@ -153,11 +172,13 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
             _signInResponse.value = authRepository.requestSignIn(
                 SignInForm(signInEmail.get()!!+"@knu.ac.kr",signInPassword.get()!!)
             )
+            _signInLoading.postValue(false)
         }
         else{
             Log.d("networkStatus","in viewmodel " + NetworkStatus.status.toString())
             authSignInListener?.onFailure("네트워크 연결을 확인해 주세요.",99)
         }
+      
     }
 
     // 로그인 필드 확인
@@ -248,4 +269,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel(){
             return
     }
 
+    fun setSignInLoadingFalse(){
+        _signUpLoading.postValue(false)
+    }
+
+    fun setPwLoadingFalse(){
+        _pwLoading.postValue(false)
+    }
+    
 }

@@ -18,6 +18,9 @@ import com.example.knucseapp.ui.mypage.menu.*
 import com.example.knucseapp.ui.util.MyApplication
 import com.example.knucseapp.ui.util.NetworkConnection
 import com.example.knucseapp.ui.util.NetworkStatus
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.example.knucseapp.ui.util.toast
 
@@ -76,6 +79,7 @@ class MypageFragment : Fragment() {
                 MyApplication.prefs.clear()
                 val intent = Intent(binding.root.context, SignInActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                binding.mypageProgressBar.hide()
                 binding.root.context?.startActivity(intent)
             }
         }
@@ -129,8 +133,10 @@ class MypageFragment : Fragment() {
                 .setTitle("로그아웃")
                 .setMessage("로그아웃하시겠습니까?")
                 .setPositiveButton("확인") { _, _ ->
-                    if(NetworkStatus.status)
+                    if(NetworkStatus.status){
+                        binding.mypageProgressBar.show()
                         viewModel.logout()
+                    }
                     else
                         Toast.makeText(activity, "네트워크 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show()
                 }

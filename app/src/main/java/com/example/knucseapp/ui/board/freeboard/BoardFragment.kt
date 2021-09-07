@@ -23,6 +23,9 @@ import com.example.knucseapp.ui.util.DividerItemDecoration
 import com.example.knucseapp.ui.util.MyApplication
 import com.example.knucseapp.ui.util.NetworkConnection
 import com.example.knucseapp.ui.util.NetworkStatus
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
+
 
 
 class BoardFragment(boardType: Int) : Fragment() {
@@ -97,11 +100,21 @@ class BoardFragment(boardType: Int) : Fragment() {
 
     fun setviewModel() {
         viewModel.readByPageResponse.observe(viewLifecycleOwner) {
+            viewModel.setReadByPageLoadingFalse(pages)
             if(it.success) {
                 it.response.let { page ->
                     isNext = !page.last
                     adapter.addItem(page.content, pages)
                 }
+            }
+        }
+
+        viewModel.readByPageLoading.observe(viewLifecycleOwner) {
+            if(it) {
+                binding.boardProgressBar.show()
+            }
+            else {
+                binding.boardProgressBar.hide()
             }
         }
     }

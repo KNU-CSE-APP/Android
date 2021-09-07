@@ -85,7 +85,6 @@
                 android:text="@string/mypage_delete_member"
                 android:textColor="@color/button_text_color"
                 android:stateListAnimator="@null"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -112,6 +111,17 @@
                 android:textSize="24sp"
                 android:layout_gravity="center" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/deleteMemberProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

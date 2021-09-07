@@ -12,6 +12,8 @@ import com.example.knucseapp.databinding.ActivitySignInBinding
 import com.example.knucseapp.ui.auth.*
 import com.example.knucseapp.ui.util.BaseActivity
 import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.hide
+import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
 
 class SignInActivity : BaseActivity(),AuthListener {
@@ -55,6 +57,7 @@ class SignInActivity : BaseActivity(),AuthListener {
             if(it.success){
                 toast(it.response.userId.toString() + "nickname : " + it.response.nickname)
                 MyApplication.prefs.setUserNickname(it.response.nickname)
+                binding.signinProgressBar.hide()
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -62,6 +65,13 @@ class SignInActivity : BaseActivity(),AuthListener {
             else{
                 toast(it.error.message)
                 viewModel.removeEditText()
+                binding.signinProgressBar.hide()
+            }
+        }
+
+        viewModel.signInLoading.observe(this) {
+            if(it){
+                binding.signinProgressBar.show()
             }
         }
     }

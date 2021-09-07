@@ -33,6 +33,7 @@
     <string name="verify_hint">인증번호를 입력하세요</string>
     <string name="complete_signup">가입완료</string>
     <string name="auto_login">&#160;&#160;&#160;&#160;자동로그인</string>
+    <string name="verify_notice">※ 인증번호 이메일이 확인되지 않는 경우 스팸 메일함을 확인해주세요.</string>
 
     <!-- user_info edit   -->
     <string-array name="user_info_edit_menu">
