@@ -57,7 +57,6 @@ class SignInActivity : AppCompatActivity(),AuthListener {
 
         viewModel.signInResponse.observe(this){
             if(it.success){
-                toast(it.response.userId.toString() + "nickname : " + it.response.nickname)
                 MyApplication.prefs.setUserNickname(it.response.nickname)
                 binding.signinProgressBar.hide()
                 val intent = Intent(this,MainActivity::class.java)
