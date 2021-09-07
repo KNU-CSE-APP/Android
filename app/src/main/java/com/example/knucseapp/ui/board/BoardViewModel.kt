@@ -23,52 +23,11 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
     private val _freeBoardPage = MutableLiveData<Int>()
     val freeBoardPage : LiveData<Int> get() = _freeBoardPage
 
-    private val _boardData = MutableLiveData<List<BoardDTO>>()
-    val data: LiveData<List<BoardDTO>> get() = _boardData
-
-    private val _findBoardData = MutableLiveData<ApiResult<List<BoardDTO>>>()
-    val findBoardData: LiveData<ApiResult<List<BoardDTO>>> get() = _findBoardData
-
-    private val _findBoardDataLoading = MutableLiveData<Boolean>()
-    val findBoardDataLoading: LiveData<Boolean> get() = _findBoardDataLoading
-
-    private val _boardDetailData = MutableLiveData<ApiResult<BoardDTO>>()
-    val boardDetailData: LiveData<ApiResult<BoardDTO>> get() = _boardDetailData
-
-    private val _deleteBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
-    val deleteBoardDetailResponse : LiveData<ApiResult<String>> = _deleteBoardDetailResponse
-
-    private val _allCommentData = MutableLiveData<List<CommentDTO>>()
-    val allCommentData: LiveData<List<CommentDTO>> get() = _allCommentData
-
-    private val _allCommentDataLoading = MutableLiveData<Boolean>()
-    val allCommentDataLoading: LiveData<Boolean> get() = _allCommentDataLoading
-
-    private val _commentData = MutableLiveData<CommentDTO>()
-    val commentData: LiveData<CommentDTO> get() = _commentData
-
-    private val _commentDataLoading = MutableLiveData<Boolean>()
-    val commentDataLoading: LiveData<Boolean> get() = _commentDataLoading
-
-    private val _writeCommentResponse : MutableLiveData<ApiResult<CommentDTO>> = MutableLiveData()
-    val writeCommentResponse : LiveData<ApiResult<CommentDTO>> = _writeCommentResponse
-
-    private val _writeResponse : MutableLiveData<ApiResult<BoardDTO>> = MutableLiveData()
-    val writeResponse : LiveData<ApiResult<BoardDTO>> = _writeResponse
-
-    private val _writeLoading = MutableLiveData<Boolean>()
-    val writeLoading : LiveData<Boolean> get() = _writeLoading
-
-    private val _deleteCommentResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
-    val deleteCommentResponse : LiveData<ApiResult<String>> = _deleteCommentResponse
-
-
+    private val _boardData = MutableLiveData<ApiResult<List<BoardDTO>>>()
+    val data: LiveData<ApiResult<List<BoardDTO>>> get() = _boardData
 
     private val _toastMessage : MutableLiveData<String> = MutableLiveData()
     val toastMessage : LiveData<String> = _toastMessage
-
-    private val _changeBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
-    val changeBoardDetailResponse : LiveData<ApiResult<String>> = _changeBoardDetailResponse
 
     init {
         writeCategory.set(writeCategoryDefault)
@@ -89,12 +48,23 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         if(page == 1) _readByPageLoading.postValue(false)
     }
 
+    //게시글 정보 불러오기
+    private val _boardDetailData = MutableLiveData<ApiResult<BoardDTO>>()
+    val boardDetailData: LiveData<ApiResult<BoardDTO>> get() = _boardDetailData
+
     fun getBoardDetailData(boardId: Int) {
         _allCommentDataLoading.postValue(true)
         CoroutineScope(Dispatchers.IO).launch {
             _boardDetailData.postValue(boardRepository.getBoardDetail(boardId))
         }
     }
+
+    //검색
+    private val _findBoardData = MutableLiveData<ApiResult<List<BoardDTO>>>()
+    val findBoardData: LiveData<ApiResult<List<BoardDTO>>> get() = _findBoardData
+
+    private val _findBoardDataLoading = MutableLiveData<Boolean>()
+    val findBoardDataLoading: LiveData<Boolean> get() = _findBoardDataLoading
 
     fun findBoard(category: Int, searchKey: String) = viewModelScope.launch {
         _findBoardDataLoading.postValue(true)
@@ -109,11 +79,24 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             _findBoardDataLoading.postValue(false)
         }
     }
+
+    //게시글 삭제
+    private val _deleteBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val deleteBoardDetailResponse : LiveData<ApiResult<String>> = _deleteBoardDetailResponse
+
     fun deleteBoardDetail(boardId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             _deleteBoardDetailResponse.postValue(boardRepository.deleteBoardDetail(boardId))
         }
     }
+
+    //댓글 불러오기
+    private val _allCommentData = MutableLiveData<List<CommentDTO>>()
+    val allCommentData: LiveData<List<CommentDTO>> get() = _allCommentData
+
+    private val _allCommentDataLoading = MutableLiveData<Boolean>()
+    val allCommentDataLoading: LiveData<Boolean> get() = _allCommentDataLoading
+
     fun getAllComment(boardId: Int){
         CoroutineScope(Dispatchers.IO).launch {
             boardRepository.findCommentsByBoardId(boardId)?.let {
@@ -124,6 +107,10 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             }
         }
     }
+
+    //댓글 & 대댓글 쓰기
+    private val _writeCommentResponse : MutableLiveData<ApiResult<CommentDTO>> = MutableLiveData()
+    val writeCommentResponse : LiveData<ApiResult<CommentDTO>> = _writeCommentResponse
 
     fun writeComment(commentForm: CommentForm) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -136,6 +123,13 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             _writeCommentResponse.postValue(boardRepository.commentReplyWrite(replyForm))
         }
     }
+
+    //댓글의 대댓글
+    private val _commentData = MutableLiveData<CommentDTO>()
+    val commentData: LiveData<CommentDTO> get() = _commentData
+
+    private val _commentDataLoading = MutableLiveData<Boolean>()
+    val commentDataLoading: LiveData<Boolean> get() = _commentDataLoading
 
     fun getCommentReply(commentId: Int) {
         //comment 에 해당하는 정보를 가져옴
@@ -152,6 +146,10 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
 
     }
 
+    //댓글 삭제
+    private val _deleteCommentResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val deleteCommentResponse : LiveData<ApiResult<String>> = _deleteCommentResponse
+
     fun deleteComment(commentId: Int) {
         CoroutineScope(Dispatchers.IO).launch() {
             launch {
@@ -166,6 +164,12 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
         _deleteCommentResponse.postValue(null)
     }
 
+    //게시글 쓰기
+    private val _writeResponse : MutableLiveData<ApiResult<BoardDTO>> = MutableLiveData()
+    val writeResponse : LiveData<ApiResult<BoardDTO>> = _writeResponse
+
+    private val _writeLoading = MutableLiveData<Boolean>()
+    val writeLoading : LiveData<Boolean> get() = _writeLoading
 
     fun write(categoryText: String, file: MutableList<MultipartBody.Part>) {
         if(categoryText.equals(writeCategoryDefault))
@@ -197,6 +201,10 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
             }
         }
     }
+
+    //게시글 수정
+    private val _changeBoardDetailResponse : MutableLiveData<ApiResult<String>> = MutableLiveData()
+    val changeBoardDetailResponse : LiveData<ApiResult<String>> = _changeBoardDetailResponse
 
     fun changeBoardDetail(boardDTO: BoardDTO, file: MutableList<MultipartBody.Part>, delete: MutableList<MultipartBody.Part>) {
         //boardForm 이 기존의 것
