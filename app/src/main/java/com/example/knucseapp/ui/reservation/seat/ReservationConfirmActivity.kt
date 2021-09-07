@@ -14,8 +14,7 @@ import com.example.knucseapp.databinding.ActivityReservationConfirmBinding
 import com.example.knucseapp.ui.MainActivity
 import com.example.knucseapp.ui.reservation.ReservationViewModel
 import com.example.knucseapp.ui.reservation.ReservationViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
+import com.example.knucseapp.ui.util.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,13 +31,32 @@ class ReservationConfirmActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         initViewModel()
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.infoLinearLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                viewModel.requestFindReservation()
+            }
+            else
+            {
+                binding.infoLinearLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
+
         setToolbar()
         setButton()
     }
 
     override fun onStart(){
         super.onStart()
-        viewModel.requestFindReservation()
+
+//        if(NetworkStatus.status)
+//            viewModel.requestFindReservation()
     }
 
     private fun setButton() {
@@ -52,10 +70,10 @@ class ReservationConfirmActivity : AppCompatActivity() {
     private fun setToolbar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
             android.R.id.home -> {
@@ -64,7 +82,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 
     private fun initViewModel(){
         viewModelFactory = ReservationViewModelFactory(ReservationRepository())

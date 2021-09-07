@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,9 +19,7 @@ import com.example.knucseapp.databinding.ActivityWriteBinding
 import com.example.knucseapp.ui.board.BoardHomeFragment
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 import gun0912.tedimagepicker.builder.TedImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -47,6 +46,7 @@ class WriteActivity : AppCompatActivity() {
         initViewModel()
         setRecycler()
         setButton()
+
     }
 
     private fun setToolbar(){
@@ -125,15 +125,19 @@ class WriteActivity : AppCompatActivity() {
         }
 
         binding.addWrite.setOnClickListener {
-            var fileList = mutableListOf<MultipartBody.Part>()
-            adapter.imageurl.forEach { filePath ->
-                filePath as Uri
-                var file = File(createCopyAndReturnRealPath(filePath))
-                var requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                var bodyFile = MultipartBody.Part.createFormData("file[]",file.name+".jpg",requestFile)
-                fileList.add(bodyFile)
+            if(NetworkStatus.status){
+                var fileList = mutableListOf<MultipartBody.Part>()
+                adapter.imageurl.forEach { filePath ->
+                    filePath as Uri
+                    var file = File(createCopyAndReturnRealPath(filePath))
+                    var requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    var bodyFile = MultipartBody.Part.createFormData("file[]",file.name+".jpg",requestFile)
+                    fileList.add(bodyFile)
+                }
+                viewModel.write(binding.categoryTextview.text.toString(), fileList)
             }
-            viewModel.write(binding.categoryTextview.text.toString(), fileList)
+            else
+                toast("네트워크 연결을 확인해 주세요.")
         }
     }
 

@@ -3,7 +3,9 @@ package com.example.knucseapp.ui.mypage.menu
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.databinding.DataBindingUtil
@@ -16,6 +18,8 @@ import com.example.knucseapp.ui.board.detail.CommentAdapter
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.example.knucseapp.ui.util.toast
 import kotlinx.android.synthetic.main.activity_comment_history.*
 
@@ -30,14 +34,30 @@ class CommentHistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_comment_history)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.mycommentRecycler.visibility = VISIBLE
+                binding.disconnectedLayout.visibility = GONE
+                NetworkStatus.status = true
+                initData()
+            }
+            else
+            {
+                binding.mycommentRecycler.visibility = GONE
+                binding.disconnectedLayout.visibility = VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         setToolbar()
         initViewModel()
         setRecyclerView()
-        initData()
+//        initData()
     }
 
     private fun setRecyclerView(){
-        adapter = MyCommentAdapter()
+        adapter = MyCommentAdapter("내가 쓴 댓/답글")
         binding.mycommentRecycler.adapter = adapter
         binding.mycommentRecycler.layoutManager = LinearLayoutManager(this)
         val decoration = DividerItemDecoration(1f, 1f, Color.LTGRAY)

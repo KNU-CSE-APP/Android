@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.knucseapp.R
@@ -13,6 +14,8 @@ import com.example.knucseapp.ui.SignInActivity
 import com.example.knucseapp.ui.mypage.MypageViewModel
 import com.example.knucseapp.ui.mypage.MypageViewModelFactory
 import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.example.knucseapp.ui.util.hide
 import com.example.knucseapp.ui.util.show
 import com.example.knucseapp.ui.util.toast
@@ -28,6 +31,21 @@ class DeleteMemberActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_delete_member)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         binding.btnDeleteMember.setOnClickListener { showDialog() }
         initViewModel()
         setToolbar()
@@ -68,7 +86,10 @@ class DeleteMemberActivity : AppCompatActivity() {
             .setTitle("회원 탈퇴")
             .setMessage("정말로 탈퇴 하시겠습니까?")
             .setPositiveButton("확인") { _, _ ->
-                viewModel.deleteMember()
+                if(NetworkStatus.status)
+                    viewModel.deleteMember()
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
             }
             .setNegativeButton("취소") { _, _ -> // 취소시 처리 로직
             }

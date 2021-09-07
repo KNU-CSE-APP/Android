@@ -20,10 +20,7 @@ import com.example.knucseapp.data.repository.BoardRepository
 import com.example.knucseapp.databinding.ActivityCommentBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
-import com.example.knucseapp.ui.util.hide
-import com.example.knucseapp.ui.util.hideKeyboard
-import com.example.knucseapp.ui.util.show
-import com.example.knucseapp.ui.util.toast
+import com.example.knucseapp.ui.util.*
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.comment_recycler.*
 
@@ -50,6 +47,23 @@ class CommentActivity : AppCompatActivity() {
         setToolbar()
         setRecyclerView()
         setButton()
+
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                viewModel.getCommentReply(commentId)
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
     }
 
     private fun initViewModel() {
@@ -78,14 +92,19 @@ class CommentActivity : AppCompatActivity() {
         }
 
         viewModel.writeCommentResponse.observe(this){
-            viewModel.getCommentReply(commentId)
-            binding.replyTextview.text = null
-            hideKeyboard(binding.replyTextview)
-            toast("댓글 작성이 완료되었습니다.")
+            if(NetworkStatus.status){
+                viewModel.getCommentReply(commentId)
+                binding.replyTextview.text = null
+                hideKeyboard(binding.replyTextview)
+                toast("댓글 작성이 완료되었습니다.")
+            }
+            else
+                toast("네트워크 연결을 확인해 주세요.")
+
         }
 
         viewModel.deleteCommentResponse.observe(this) {
-            if(it!=null) {
+            if(it!=null && NetworkStatus.status) {
                 toast("${it.response}")
                 viewModel.getCommentReply(commentId)
             }
@@ -103,7 +122,7 @@ class CommentActivity : AppCompatActivity() {
         val link = reply()
         adapter = ReplyAdapter(link)
         binding.commentRecycler.adapter = adapter
-        viewModel.getCommentReply(commentId)
+//        viewModel.getCommentReply(commentId)
 //        viewModel.getAllComment(boardId)
         binding.commentRecycler.layoutManager = LinearLayoutManager(this)
 //        binding.commentRecycler.isNestedScrollingEnabled()
@@ -118,7 +137,10 @@ class CommentActivity : AppCompatActivity() {
                 toast("댓글 내용을 입력해주세요.")
             }
             else {
-                viewModel.writeReply(ReplyForm(boardId, commentId, binding.replyTextview.text.toString()))
+                if(NetworkStatus.status)
+                    viewModel.writeReply(ReplyForm(boardId, commentId, binding.replyTextview.text.toString()))
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
             }
         }
 
@@ -142,7 +164,10 @@ class CommentActivity : AppCompatActivity() {
                 when(item.itemId){
                     R.id.menu_delete -> {
                         Log.d(TAG, "delete ${Id}")
-                        viewModel.deleteComment(Id)
+                        if(NetworkStatus.status)
+                            viewModel.deleteComment(Id)
+                        else
+                            toast("네트워크 연결을 확인해 주세요.")
                         true
                     }
                     else -> {

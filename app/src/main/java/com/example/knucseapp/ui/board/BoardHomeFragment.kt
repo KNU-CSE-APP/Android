@@ -24,6 +24,9 @@ import com.example.knucseapp.ui.board.freeboard.BoardFragment
 import com.example.knucseapp.ui.board.noticeboard.NoticeBoardFragment
 import com.example.knucseapp.ui.board.search.SearchActivity
 import com.example.knucseapp.ui.board.writeboard.WriteActivity
+import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -51,6 +54,21 @@ class BoardHomeFragment : Fragment() {
         setHasOptionsMenu(true)
         toolBarTextView = mainActivity.getToolbarTextView()
         binding = DataBindingUtil.inflate(inflater, R.layout.board_home_fragment, container, false)
+        val connection = NetworkConnection(MyApplication.instance.context())
+        connection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         viewModelFactory = BoardViewModelFactory(BoardRepository())
         viewModel = ViewModelProvider(this, viewModelFactory).get(BoardViewModel::class.java)
         binding.viewModel = viewModel

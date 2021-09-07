@@ -108,5 +108,11 @@
     <string name="reservation_return">좌석 반납</string>
     <string name="reservation_extension">예약 연장</string>
     <string name="reservation_extension_num">연장 횟수</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="disconnected">네트워크에 연결되지 않았습니다.</string>
+    <string name="disconnected2">연결 시도 후 잠시만 기다려 주세요.</string>
+    <string name="refresh">새로고침</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.*
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,6 +15,7 @@ import com.example.knucseapp.data.model.CommentDTO
 import com.example.knucseapp.databinding.BoardDetailRecyclerBinding
 import com.example.knucseapp.databinding.CommentRecyclerBinding
 import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkStatus
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -82,10 +84,12 @@ class CommentAdapter(var link: BoardDetailActivity.reply): RecyclerView.Adapter<
                             .setMessage("대댓글을 작성하시겠습니까?")
                             .setPositiveButton("확인") { dialog, whichButton ->
 //                                link.makeReply(comment.boardId, comment.commentId)
-                                val intent = Intent(it.context, CommentActivity::class.java)
-                                intent.putExtra("commentId", comment.commentId)
-                                intent.putExtra("boardId", comment.boardId)
-                                it.context.startActivity(intent)
+                                if(NetworkStatus.status){
+                                    val intent = Intent(it.context, CommentActivity::class.java)
+                                    intent.putExtra("commentId", comment.commentId)
+                                    intent.putExtra("boardId", comment.boardId)
+                                    it.context.startActivity(intent)
+                                }
                             }
                             .setNegativeButton("취소") { dialog, whichButton ->
                             }

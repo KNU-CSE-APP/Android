@@ -61,7 +61,22 @@ class BoardDetailActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getBoardDetailData(boardid)
+        val connection = NetworkConnection(applicationContext)
+        connection.observe(this) { isConnected ->
+            if (isConnected)
+            {
+                binding.connectedLayout.visibility = View.VISIBLE
+                binding.disconnectedLayout.visibility = View.GONE
+                NetworkStatus.status = true
+                viewModel.getBoardDetailData(boardid)
+            }
+            else
+            {
+                binding.connectedLayout.visibility = View.GONE
+                binding.disconnectedLayout.visibility = View.VISIBLE
+                NetworkStatus.status = false
+            }
+        }
     }
 
     private fun initViewModel(){
@@ -83,7 +98,10 @@ class BoardDetailActivity : AppCompatActivity() {
         viewModel.boardDetailData.observe(this) {
             if(it.success) {
                 boardDetail = it.response
-                viewModel.getAllComment(boardid)
+                if(NetworkStatus.status)
+                    viewModel.getAllComment(boardid)
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
             }
             else {
                 AlertDialog.Builder(this)
@@ -111,7 +129,10 @@ class BoardDetailActivity : AppCompatActivity() {
         viewModel.deleteCommentResponse.observe(this) {
             if(it!=null) {
                 toast("${it.response}")
-                viewModel.getBoardDetailData(boardid)
+                if(NetworkStatus.status)
+                    viewModel.getBoardDetailData(boardid)
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
             }
         }
 
@@ -138,10 +159,12 @@ class BoardDetailActivity : AppCompatActivity() {
                 toast("댓글 내용을 입력해주세요.")
             }
             else {
-                viewModel.writeComment(CommentForm(boardDetail.boardId, content))
+                if(NetworkStatus.status)
+                    viewModel.writeComment(CommentForm(boardDetail.boardId, content))
+                else
+                    toast("네트워크 연결을 확인해 주세요.")
             }
         }
-
     }
 
     //현재 focus 가 아닌 곳 클릭시 키보드 내려감
@@ -192,10 +215,16 @@ class BoardDetailActivity : AppCompatActivity() {
                 R.id.menu_delete -> {
                     if(popupType == comment_type) {
                         Log.d(TAG,"comment Type : ${popupType}")
-                        viewModel.deleteComment(Id)
+                        if(NetworkStatus.status)
+                            viewModel.deleteComment(Id)
+                        else
+                            toast("네트워크 연결을 확인해 주세요.")
                     }
                     else {
-                        viewModel.deleteBoardDetail(Id)
+                        if(NetworkStatus.status)
+                            viewModel.deleteBoardDetail(Id)
+                        else
+                            toast("네트워크 연결을 확인해 주세요.")
                     }
                     true
                 }

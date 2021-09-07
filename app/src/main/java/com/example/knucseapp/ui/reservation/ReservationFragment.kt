@@ -7,6 +7,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
@@ -19,6 +21,9 @@ import com.example.knucseapp.databinding.ReservationFragmentBinding
 import com.example.knucseapp.ui.board.BoardViewModel
 import com.example.knucseapp.ui.board.BoardViewModelFactory
 import com.example.knucseapp.ui.util.DividerItemDecoration
+import com.example.knucseapp.ui.util.MyApplication
+import com.example.knucseapp.ui.util.NetworkConnection
+import com.example.knucseapp.ui.util.NetworkStatus
 
 class ReservationFragment : Fragment() {
 
@@ -50,6 +55,22 @@ class ReservationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(backPressedDispatcher)
         setviewModel()
+        val connection = NetworkConnection(MyApplication.instance.context())
+        connection.observe(viewLifecycleOwner) { isConnected ->
+            if (isConnected)
+            {
+                binding.reservationRecycler.visibility = VISIBLE
+                binding.disconnectedLayout.visibility = GONE
+                NetworkStatus.status = true
+                viewModel.searchAllClassRoom()
+            }
+            else
+            {
+                binding.reservationRecycler.visibility = GONE
+                binding.disconnectedLayout.visibility = VISIBLE
+                NetworkStatus.status = false
+            }
+        }
         setRecycler()
     }
 
@@ -62,7 +83,8 @@ class ReservationFragment : Fragment() {
     }
 
     private fun setviewModel() {
-        viewModel.searchAllClassRoom()
+//        if(NetworkStatus.status)
+//            viewModel.searchAllClassRoom()
         viewModel.allClassRoomData.observe(viewLifecycleOwner) {
             if(it.success){
                 adapter.setData(it.response)

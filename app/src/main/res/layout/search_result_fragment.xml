@@ -38,5 +38,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/disconnected_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_disconnected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disconnected"
+                android:textSize="24sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_disconnected2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/disconnected2"
+                android:textSize="24sp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
