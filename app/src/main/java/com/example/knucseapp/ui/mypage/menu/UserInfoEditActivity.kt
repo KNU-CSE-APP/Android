@@ -82,13 +82,16 @@ class UserInfoEditActivity : AppCompatActivity() {
             {
                 binding.contentContraintlayout.visibility = View.VISIBLE
                 binding.disconnectedLayout.visibility = View.GONE
+                binding.btnOk.visibility = View.VISIBLE
                 NetworkStatus.status = true
-                viewModel.getUserInfo()
+                if(!imageChanged)
+                    viewModel.getUserInfo()
             }
             else
             {
                 binding.contentContraintlayout.visibility = View.GONE
                 binding.disconnectedLayout.visibility = View.VISIBLE
+                binding.btnOk.visibility = View.GONE
                 NetworkStatus.status = false
             }
         }
