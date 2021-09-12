@@ -39,6 +39,7 @@ class BoardViewModel(private val boardRepository: BoardRepository) : ViewModel()
 
     private val _readByPageLoading : MutableLiveData<Boolean> = MutableLiveData()
     val readByPageLoading : LiveData<Boolean> = _readByPageLoading
+
     fun getAllBoard(category: String, page: Int, size: Int) = viewModelScope.launch {
         if(page == 0) _readByPageLoading.postValue(true)
         _readByPageResponse.value = boardRepository.getAllBoard(category, page, size)

@@ -100,6 +100,7 @@ class BoardFragment(boardType: Int) : Fragment() {
 
     fun setviewModel() {
         viewModel.readByPageResponse.observe(viewLifecycleOwner) {
+            Log.d("BoardFragment", "ReadyByPageResponse call")
             viewModel.setReadByPageLoadingFalse(pages)
             if(it.success) {
                 it.response.let { page ->
@@ -111,9 +112,11 @@ class BoardFragment(boardType: Int) : Fragment() {
 
         viewModel.readByPageLoading.observe(viewLifecycleOwner) {
             if(it) {
+                Log.d("BoardFragment", "readByPageLoading call")
                 binding.boardProgressBar.show()
             }
             else {
+                Log.d("BoardFragment", "readByPageLoading Hide call")
                 binding.boardProgressBar.hide()
             }
         }
@@ -150,7 +153,11 @@ class BoardFragment(boardType: Int) : Fragment() {
                         else
                             Toast.makeText(activity, "네트워크 연결을 확인해 주세요.", Toast.LENGTH_SHORT).show()
                     } else {
-                        if (adapter.deleteLoading()) adapter.notifyDataSetChanged()
+                        if (adapter.deleteLoading()) {
+                            binding.boardRecycler.post { run() { adapter.notifyDataSetChanged(); } };
+//
+//                            adapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }

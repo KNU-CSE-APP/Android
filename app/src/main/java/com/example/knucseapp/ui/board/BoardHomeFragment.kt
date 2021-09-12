@@ -159,7 +159,7 @@ class BoardHomeFragment : Fragment() {
                     binding.viewPager.setCurrentItem(1)
                     frag.refresh()
                 }
-                else {
+                else if(intent.getStringExtra("category") == "ADMIN"){
                     val frag = adapter.getItem(2) as BoardFragment
                     binding.viewPager.setCurrentItem(2)
                     frag.refresh()
