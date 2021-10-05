@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest android:targetSandboxVersion="1"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.knucseapp">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -18,14 +19,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.mypage.menu.CommentHistoryActivity"></activity>
-        <activity android:name=".ui.board.writeboard.EditWriteActivity" />
-        <activity android:name=".ui.mypage.menu.WriteHistoryActivity" />
-        <activity android:name=".ui.mypage.menu.DeleteMemberActivity" />
-        <activity android:name=".ui.board.detail.CommentActivity" />
+        <activity
+            android:name=".ui.mypage.menu.CommentHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.board.writeboard.EditWriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mypage.menu.WriteHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.mypage.menu.DeleteMemberActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.board.detail.CommentActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:theme="@style/Base.Theme.AppCompat"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.mypage.menu.PasswordEditActivity"
             android:screenOrientation="portrait" />
