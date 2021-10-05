@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="180dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/login_textview_background_shape"
@@ -199,7 +199,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:visibility="gone"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
