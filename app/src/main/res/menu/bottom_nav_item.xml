@@ -3,17 +3,21 @@
     <item
         android:id="@+id/action_notice"
         android:enabled="true"
-        android:title="@string/Notice"/>
+        android:title="@string/Notice"
+        android:icon="@drawable/icon_megaphone"/>
     <item
         android:id="@+id/action_reservation"
         android:enabled="true"
-        android:title="@string/Reservation"/>
+        android:title="@string/Reservation"
+        android:icon="@drawable/icon_calendar"/>
     <item
         android:id="@+id/action_board"
         android:enabled="true"
-        android:title="@string/Board"/>
+        android:title="@string/Board"
+        android:icon="@drawable/icon_newspaper"/>
     <item
         android:id="@+id/action_mypage"
         android:enabled="true"
-        android:title="@string/Mypage"/>
+        android:title="@string/Mypage"
+        android:icon="@drawable/icon_setting"/>
 </menu>
