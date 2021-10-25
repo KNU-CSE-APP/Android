@@ -30,8 +30,8 @@ Knu Seat Reservation Application
 ## Development Environment
 - Android Studio 4.1
 
-### Application
-## Application Version
+## Application
+### Application Version
 - minSdkVersion : 23
 - targetSdkVersion : 30
 
